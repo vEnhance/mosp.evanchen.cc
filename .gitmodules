@@ -1,0 +1,3 @@
+[submodule "ancient/mosp-web"]
+	path = ancient/mosp-web
+	url = https://github.com/vEnhance/mosp-web
