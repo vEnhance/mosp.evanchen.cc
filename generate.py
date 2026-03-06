@@ -179,6 +179,18 @@ if ANCIENT_STATIC_2021.exists():
             dest_js = dest / sub / name
             dest_js.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(compiled, dest_js)
+
+    # Create -sm aliases for images that are referenced with a -sm suffix
+    # but only exist at full size (the Django site had separate scaled copies).
+    for original, alias in [
+        ("map.png", "map-sm.png"),
+        ("ch0map.png", "ch0map-sm.png"),
+        ("meeting.png", "meeting-sm.png"),
+    ]:
+        src_img = dest / original
+        dst_img = dest / alias
+        if src_img.exists() and not dst_img.exists():
+            shutil.copy2(src_img, dst_img)
 else:
     print("  Warning: ancient/mosp-web/data2021/static not found — skipping puzzle assets")
 
