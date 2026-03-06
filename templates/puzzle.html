@@ -4,13 +4,14 @@
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set unlockable = unlockables_by_pk.get(puzzle.unlockable_pk) %}
 {% set courage_bounty = unlockable.courage_bounty if unlockable else 0 %}
+{% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
 
 {% block title %}{{ puzzle.name }}{% endblock %}
 
 {% block extra_head %}{{ files.puzzle_head | safe }}{% endblock %}
 
 {% block back_nav %}
-<a class="emoji-link" href="{% if parent_round %}../../chapter/{{ parent_round.slug | urlencode }}/index.html{% else %}../../index.html{% endif %}">&#x1F199;</a>
+<a class="emoji-link" href="{{ unlock_url if unlock_url else ('../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html') }}">&#x1F5FA;&#xFE0F;</a>
 {% endblock %}
 
 {% block southeast %}
@@ -19,6 +20,12 @@
 
 {% block content %}
 <h1>{{ puzzle.name }}</h1>
+
+<div class="text-sm puzzle-nav-links">
+  {% if parent_round %}<a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull; {% endif %}
+  {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull; {% endif %}
+  <a href="{{ solution_url }}">View solution</a>
+</div>
 
 {% if files.flavor_text %}
 <div class="flavor-text">{{ files.flavor_text | md }}</div>
@@ -32,27 +39,23 @@ const MOSP_SLUG = {{ puzzle.slug | tojson }};
 const MOSP_BOUNTY = {{ courage_bounty | tojson }};
 </script>
 
-{% if files.puzzle_head %}
 <div id="puzzlehead">
-  {# puzzle_head HTML/JS is already injected via extra_head; this div is for layout #}
-</div>
-{% endif %}
-
-<div id="answerchecker">
-  <input id="answer" type="text" placeholder="ENTER ANSWER" autocomplete="off" spellcheck="false" />
-  <br />
-  <button id="check-btn">Check answer</button>
-  <div class="icons">
-    <span class="icon-placeholder">&#x1F914;</span>
-    <span class="icon" id="thinking">&#x1F914;</span>
-    <span class="icon" id="wrong">&#x274C;</span>
-    <span class="icon" id="correct">&#x2705;</span>
+  <div id="answerchecker">
+    <div class="icons">
+      <span class="icon-placeholder">&#x274C;</span>
+      <span class="icon" id="thinking">&#x1F914;</span>
+      <span class="icon" id="wrong">&#x274C;</span>
+      <span class="icon" id="correct">&#x2705;</span>
+      <span class="icon-placeholder">&#x274C;</span>
+    </div>
+    <p><input id="answer" type="text" placeholder="ENTER ANSWER" autocomplete="off" spellcheck="false" /></p>
+    <div class="percentholder">
+      <span id="percent"></span>
+    </div>
+    <div class="prizeholder">
+      <a id="prize" class="emoji-link noshadow" href="{{ solution_url }}">&#x1F511;</a>
+    </div>
   </div>
-  <div id="percent"></div>
-</div>
-
-<div class="prizeholder">
-  <a id="prize" class="emoji-link noshadow" href="{{ solution_url }}">&#x1F511;</a>
 </div>
 
 <script>
@@ -79,7 +82,7 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
     const normalized = normalize(input.value.trim());
     if (!normalized) return;
     input.disabled = true;
-    btn.disabled   = true;
+    if (btn) btn.disabled = true;
     showIcon("thinking");
     if (pct) pct.style.visibility = "visible";
 
@@ -91,10 +94,8 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
         document.body.classList.add("solved");
         if (prize) { prize.style.display = "block"; prize.href = MOSP_SOLUTION_URL; }
         if (pct) pct.style.visibility = "hidden";
-        // Grant courage and mark solved
         if (window.MOSP_markSolved)  MOSP_markSolved(MOSP_SLUG);
         if (window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
-        // Refresh courage display
         const cv = document.getElementById("courage_value");
         if (cv && window.MOSP_getCourage) cv.textContent = String(MOSP_getCourage());
         return;
@@ -103,9 +104,9 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
       for (const partial of MOSP_PARTIAL) {
         if (partial.hash === h) {
           showIcon("wrong");
-          if (pct) { pct.textContent = "🤔 " + partial.message; pct.style.visibility = "visible"; }
+          if (pct) { pct.textContent = "\uD83E\uDD14 " + partial.message; pct.style.visibility = "visible"; }
           input.disabled = false;
-          btn.disabled   = false;
+          if (btn) btn.disabled = false;
           return;
         }
       }
@@ -114,15 +115,16 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
     showIcon("wrong");
     if (pct) { pct.textContent = ""; pct.style.visibility = "hidden"; }
     input.disabled = false;
-    btn.disabled   = false;
+    if (btn) btn.disabled = false;
   }
 
-  btn.addEventListener("click", check);
   input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
+  const b = document.getElementById("check-btn");
+  if (b) b.addEventListener("click", check);
 })();
 </script>
 
-<div id="puzzle-content">
+<div id="puzzlecontent">
   {% if files.content %}
   {{ files.content | md }}
   {% else %}

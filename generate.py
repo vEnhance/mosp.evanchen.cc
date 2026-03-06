@@ -220,7 +220,25 @@ for round_ in site["rounds"]:
         ),
     )
 
-# 6. Puzzle pages
+# 6. Unlock / story intro pages
+print("\nGenerating unlock pages...")
+for u in site["unlockables"]:
+    # Find puzzle and round for this unlockable
+    puzz = puzzles.get(u["puzzle_pk"]) if u.get("puzzle_pk") else None
+    dest_round = rounds.get(u["round_pk"]) if u.get("round_pk") else None
+    # parent_pk is a Round pk
+    parent_round = rounds.get(u["parent_pk"]) if u.get("parent_pk") else None
+    write(
+        OUT / "unlock" / u["slug"] / "index.html",
+        env.get_template("unlockable.html").render(
+            unlockable=u,
+            puzzle=puzz,
+            dest_round=dest_round,
+            parent_round=parent_round,
+        ),
+    )
+
+# 7. Puzzle pages
 print("\nGenerating puzzle pages...")
 for puzzle in site["puzzles"]:
     write(
@@ -234,7 +252,7 @@ for puzzle in site["puzzles"]:
         ),
     )
 
-# 7. Solution pages
+# 8. Solution pages
 print("\nGenerating solution pages...")
 for puzzle in site["puzzles"]:
     write(

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% set root = "../../" %}
+
+{% if unlockable.puzzle_pk %}
+  {% set dest_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+{% elif unlockable.round_pk %}
+  {% set dest_url = "../../chapter/" ~ (dest_round.slug | urlencode) ~ "/index.html" %}
+{% else %}
+  {% set dest_url = "../../index.html" %}
+{% endif %}
+
+{% if parent_round %}
+  {% set back_url = "../../chapter/" ~ (parent_round.slug | urlencode) ~ "/index.html" %}
+{% else %}
+  {% set back_url = "../../index.html" %}
+{% endif %}
+
+{% block title %}{{ unlockable.name }}{% endblock %}
+
+{% block back_nav %}
+<a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>
+{% endblock %}
+
+{% block content %}
+<h1>{{ unlockable.icon }} {{ unlockable.name }}</h1>
+
+{% if unlockable.intro_story_text %}
+<div class="story-text">{{ unlockable.intro_story_text | md }}</div>
+{% endif %}
+
+<div class="door-link">
+  <a class="emoji-link door" href="{{ dest_url }}">&#x1F6AA;</a>
+</div>
+{% endblock %}

@@ -31,7 +31,7 @@
     <tr class="puzzle-row" data-unlockable="{{ u | tojson }}">
       <td class="col-location">{{ u.icon }} {{ u.name }}</td>
       <td class="col-title">
-        <a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
+        <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
       </td>
       <td class="col-answer"
           data-answer="{{ puzzle.answer }}"

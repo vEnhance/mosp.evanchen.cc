@@ -412,6 +412,34 @@ div.codehilite code { font-weight: normal; color: #007755; }
 .codehilite .gi { color: #00a000; }
 .codehilite .gd { color: #a00000; }
 
+/* ── Unlock / story intro pages ── */
+.story-text {
+  max-width: 40rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.story-text p { margin-bottom: 1rem; }
+.story-text img { max-width: 100%; display: block; margin: 1rem auto; }
+
+.door-link {
+  text-align: center;
+  margin: 2rem 0;
+}
+a.door {
+  font-size: 5rem;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+a.door:hover { transform: scale(1.15); text-shadow: 0 0 20px #00cca7; }
+
+/* puzzle-nav-links (breadcrumb line under puzzle title) */
+.puzzle-nav-links {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+.puzzle-nav-links a { color: #7eb8f7; }
+
 /* ── Responsiveness ── */
 @media (max-width: 600px) {
   .puzzle-table .col-answer { display: none; }
