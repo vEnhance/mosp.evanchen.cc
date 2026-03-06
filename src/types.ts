@@ -26,12 +26,26 @@ export interface PartialAnswer {
   message: string;
 }
 
+/**
+ * Metadata stored in site.json for a puzzle's solution.
+ * Long-form text lives in data/puzzles/{slug}/*.md instead.
+ */
 export interface Solution {
-  solution_text: string; // markdown
-  author_notes: string; // markdown
-  post_solve_story: string; // markdown
   post_solve_image_path: string;
   post_solve_image_alt: string;
+}
+
+/**
+ * Long-form content loaded from data/puzzles/{slug}/ at build time.
+ * Each field is the file's text, or "" if the file is absent.
+ */
+export interface PuzzleFiles {
+  content: string;       // content.md
+  flavor_text: string;   // flavor.md
+  puzzle_head: string;   // head.html
+  solution_text: string; // solution.md
+  author_notes: string;  // author-notes.md
+  post_solve_story: string; // story.md
 }
 
 export interface Puzzle {
@@ -39,9 +53,6 @@ export interface Puzzle {
   name: string;
   slug: string;
   is_meta: boolean;
-  flavor_text: string; // markdown
-  content: string; // markdown or HTML
-  puzzle_head: string; // raw HTML for extra scripts/styles
   answer: string; // canonical answer display string
   hashes: string[]; // SHA-256 hashes of correct answers
   partial_answers: PartialAnswer[];

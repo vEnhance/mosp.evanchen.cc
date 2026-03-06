@@ -1,11 +1,12 @@
 /** Solution page template. */
 
-import { Puzzle, Round, Hunt } from "../types";
+import { Puzzle, PuzzleFiles, Round, Hunt } from "../types";
 import { layout, escapeHtml } from "./layout";
 import { renderMarkdown } from "../markdown";
 
 export function renderSolution(
   puzzle: Puzzle,
+  files: PuzzleFiles,
   parentRound: Round | null,
   hunt: Hunt | null
 ): string {
@@ -16,32 +17,25 @@ export function renderSolution(
       ? `<a href="../../chapter/${encodeURIComponent(parentRound.slug)}/index.html">&larr; ${escapeHtml(parentRound.name)}</a>`
       : `<a href="../../index.html">&larr; Home</a>`;
 
-  const sol = puzzle.solution;
+  const storyHtml = files.post_solve_story
+    ? `<div class="post-solve-story">${renderMarkdown(files.post_solve_story)}</div><hr />`
+    : "";
 
-  let solutionBody: string;
-  if (!sol) {
-    solutionBody = `<p><em>Solution stub &mdash; to be written.</em></p>`;
-  } else {
-    const storyHtml = sol.post_solve_story
-      ? `<div class="post-solve-story">${renderMarkdown(sol.post_solve_story)}</div><hr />`
-      : "";
+  const solutionTextHtml = files.solution_text
+    ? renderMarkdown(files.solution_text)
+    : `<p><em>Solution text stub &mdash; to be written.</em></p>`;
 
-    const solutionTextHtml = sol.solution_text
-      ? renderMarkdown(sol.solution_text)
-      : `<p><em>Solution text stub &mdash; to be written.</em></p>`;
+  const authorNotesHtml = files.author_notes
+    ? `<div class="author-notes"><h2>Author Notes</h2>${renderMarkdown(files.author_notes)}</div>`
+    : "";
 
-    const authorNotesHtml = sol.author_notes
-      ? `<div class="author-notes"><h2>Author Notes</h2>${renderMarkdown(sol.author_notes)}</div>`
-      : "";
-
-    solutionBody = `
-      ${storyHtml}
-      <div class="solution-text">
-        <h2>Solution</h2>
-        ${solutionTextHtml}
-      </div>
-      ${authorNotesHtml}`;
-  }
+  const solutionBody = `
+    ${storyHtml}
+    <div class="solution-text">
+      <h2>Solution</h2>
+      ${solutionTextHtml}
+    </div>
+    ${authorNotesHtml}`;
 
   return layout({
     title: `Solution: ${puzzle.name}`,
@@ -56,3 +50,4 @@ export function renderSolution(
       ${solutionBody}`,
   });
 }
+

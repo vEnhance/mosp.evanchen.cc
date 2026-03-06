@@ -1,6 +1,6 @@
 /** Puzzle page template. */
 
-import { Puzzle, Round, Hunt } from "../types";
+import { Puzzle, PuzzleFiles, Round, Hunt } from "../types";
 import { layout, escapeHtml } from "./layout";
 import { renderMarkdown } from "../markdown";
 
@@ -68,15 +68,16 @@ const GRADER_SCRIPT = `
 
 export function renderPuzzle(
   puzzle: Puzzle,
+  files: PuzzleFiles,
   parentRound: Round | null,
   hunt: Hunt | null
 ): string {
-  const flavorHtml = puzzle.flavor_text
-    ? `<div class="flavor-text">${renderMarkdown(puzzle.flavor_text)}</div>`
+  const flavorHtml = files.flavor_text
+    ? `<div class="flavor-text">${renderMarkdown(files.flavor_text)}</div>`
     : "";
 
-  const contentHtml = puzzle.content
-    ? renderMarkdown(puzzle.content)
+  const contentHtml = files.content
+    ? renderMarkdown(files.content)
     : `<p><em>Puzzle content stub &mdash; to be filled in.</em></p>`;
 
   const backLink =
@@ -113,7 +114,7 @@ const MOSP_SOLUTION_URL = ${JSON.stringify(solutionUrl)};
     title: puzzle.name,
     rootPrefix: "../../",
     backNav: backLink,
-    extraHead: puzzle.puzzle_head || undefined,
+    extraHead: files.puzzle_head || undefined,
     content: `
       <h1>${escapeHtml(puzzle.name)}</h1>
       ${flavorHtml}

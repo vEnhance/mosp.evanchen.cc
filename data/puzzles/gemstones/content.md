@@ -1,0 +1,1 @@
+[Download puzzle](https://cdn.discordapp.com/attachments/849399389004890162/983526105002684446/Gemstones_puzzle_rev_1.pdf)

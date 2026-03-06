@@ -14,7 +14,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { SiteData, Hunt, Round, Puzzle, Unlockable } from "./types";
+import { SiteData, Hunt, Round, Puzzle, Unlockable, PuzzleFiles } from "./types";
 import { renderIndex } from "./templates/index";
 import { renderVol } from "./templates/vol";
 import { renderChapter } from "./templates/chapter";
@@ -64,13 +64,23 @@ const unlockablesByPk = new Map<number, Unlockable>(
   siteData.unlockables.map((u) => [u.pk, u])
 );
 
-// Index: round slug → round
-const roundsBySlug = new Map<string, Round>(siteData.rounds.map((r) => [r.slug, r]));
+/** Read a file from data/puzzles/{slug}/{filename}, returning "" if absent. */
+function readPuzzleFile(slug: string, filename: string): string {
+  const p = path.join(ROOT, "data", "puzzles", slug, filename);
+  return fs.existsSync(p) ? fs.readFileSync(p, "utf8") : "";
+}
 
-// Index: puzzle slug → puzzle
-const puzzlesBySlug = new Map<string, Puzzle>(
-  siteData.puzzles.map((p) => [p.slug, p])
-);
+/** Load all long-form content files for a puzzle. */
+function loadPuzzleFiles(slug: string): PuzzleFiles {
+  return {
+    content:          readPuzzleFile(slug, "content.md"),
+    flavor_text:      readPuzzleFile(slug, "flavor.md"),
+    puzzle_head:      readPuzzleFile(slug, "head.html"),
+    solution_text:    readPuzzleFile(slug, "solution.md"),
+    author_notes:     readPuzzleFile(slug, "author-notes.md"),
+    post_solve_story: readPuzzleFile(slug, "story.md"),
+  };
+}
 
 /** For a round, find the hunt that owns the associated unlockable. */
 function huntForRound(round: Round): Hunt | null {
@@ -143,7 +153,8 @@ console.log("\nGenerating puzzle pages...");
 for (const puzzle of siteData.puzzles) {
   const parentRound = parentRoundForPuzzle(puzzle);
   const hunt = huntForPuzzle(puzzle);
-  const html = renderPuzzle(puzzle, parentRound, hunt);
+  const files = loadPuzzleFiles(puzzle.slug);
+  const html = renderPuzzle(puzzle, files, parentRound, hunt);
   writeFile(path.join(OUT, "puzzle", puzzle.slug, "index.html"), html);
 }
 
@@ -152,7 +163,8 @@ console.log("\nGenerating solution pages...");
 for (const puzzle of siteData.puzzles) {
   const parentRound = parentRoundForPuzzle(puzzle);
   const hunt = huntForPuzzle(puzzle);
-  const html = renderSolution(puzzle, parentRound, hunt);
+  const files = loadPuzzleFiles(puzzle.slug);
+  const html = renderSolution(puzzle, files, parentRound, hunt);
   writeFile(path.join(OUT, "solution", puzzle.slug, "index.html"), html);
 }
 
