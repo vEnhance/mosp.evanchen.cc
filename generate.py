@@ -16,6 +16,8 @@ Writes:
 
 import json
 import shutil
+import subprocess
+import sys
 import urllib.parse
 from pathlib import Path
 
@@ -27,6 +29,7 @@ ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 OUT = ROOT / "out"
 ANCIENT_STATIC = ROOT / "ancient/mosp-web/data2021/static"
+TSC_OUT = ROOT / ".tsc-out"
 
 # ---------------------------------------------------------------------------
 # Markdown + Jinja2 setup
@@ -121,6 +124,22 @@ def write(path: Path, content: str) -> None:
 
 print(f"Generating static site into: {OUT}\n")
 
+# 0. Compile puzzle TypeScript (set.ts, zoom.ts) → .tsc-out/
+print("Compiling puzzle TypeScript...")
+if not (ROOT / "node_modules").exists():
+    print("  Running npm install first...")
+    subprocess.run(["npm", "install"], cwd=ROOT, check=True)
+result = subprocess.run(
+    ["npx", "tsc", "--project", str(ROOT / "tsconfig.puzzles.json")],
+    cwd=ROOT,
+    capture_output=True,
+    text=True,
+)
+if result.returncode != 0:
+    print(f"  Warning: tsc failed — puzzle JS will be skipped:\n{result.stderr}", file=sys.stderr)
+else:
+    print("  OK")
+
 # 1. Static assets from our repo
 print("Copying static assets...")
 if (ROOT / "static").exists():
@@ -151,6 +170,15 @@ if ANCIENT_STATIC_2021.exists():
                 shutil.copy2(real, target)
 
     copy_tree_resolved(ANCIENT_STATIC_2021, dest)
+
+    # Overlay compiled JS (set.js, zoom.js) from .tsc-out/ if available,
+    # overwriting any broken symlinks that copy_tree_resolved skipped.
+    for name, sub in [("set.js", "set"), ("zoom.js", "zoom")]:
+        compiled = TSC_OUT / name
+        if compiled.exists():
+            dest_js = dest / sub / name
+            dest_js.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(compiled, dest_js)
 else:
     print("  Warning: ancient/mosp-web/data2021/static not found — skipping puzzle assets")
 

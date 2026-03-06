@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "AMD",
+    "rootDir": "ancient/mosp-web/data2021/src",
+    "outDir": ".tsc-out/",
+    "moduleResolution": "node",
+    "strict": false,
+    "skipLibCheck": true
+  },
+  "files": [
+    "ancient/mosp-web/data2021/src/set.ts",
+    "ancient/mosp-web/data2021/src/zoom.ts"
+  ]
+}

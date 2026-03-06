@@ -86,12 +86,6 @@ span.navitem {
 }
 #courage:hover #courage-tooltip { display: block; }
 
-/* ── Inner content — max-w-2xl centered ── */
-.inner {
-  max-width: 42rem;
-  margin: 0 auto;
-}
-
 /* ── Footer ── */
 #footer {
   margin-top: 0.5rem;
@@ -260,15 +254,8 @@ div.strong-emph em {
 }
 #show-all-btn:hover { background: #eee; }
 
-/* Spoiler answer: blur until hover */
-.spoiler-answer {
-  filter: blur(4px);
-  transition: filter 0.2s;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-}
-.spoiler-answer:hover { filter: none; text-shadow: none; }
+/* Answer hidden until puzzle is solved (revealed by unlock.js) */
+.answer-hidden { color: #aaa; }
 
 /* ── Flavor text ── */
 .flavor-text {

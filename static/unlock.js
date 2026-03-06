@@ -6,6 +6,7 @@
  *
  * Puzzles earn courage_bounty points when solved.
  * Chapter 2 puzzles unlock once enough courage is accumulated.
+ * Answers in the chapter table are only revealed for solved puzzles.
  */
 (function () {
   "use strict";
@@ -52,19 +53,26 @@
 
   /**
    * Determine whether an unlockable should be visible.
-   * @param {Object} u - unlockable object with:
-   *   force_visibility {boolean|null}, unlock_courage_threshold {number},
-   *   unlock_needs_slug {string|null}
+   * @param {Object} u - unlockable with force_visibility, unlock_courage_threshold, unlock_needs_slug
    */
   window.MOSP_isVisible = function (u) {
     if (u.force_visibility === true)  return true;
     if (u.force_visibility === false) return false;
-    // null → check courage + needs
     const p = getProgress();
     if (p.courage < u.unlock_courage_threshold) return false;
     if (u.unlock_needs_slug && !p.solved.has(u.unlock_needs_slug)) return false;
     return true;
   };
+
+  /** Reveal the answer cell for a solved puzzle row. */
+  function revealAnswer(cell) {
+    const answer = cell.getAttribute("data-answer");
+    const solutionUrl = cell.getAttribute("data-solution");
+    if (!answer) return;
+    cell.innerHTML = solutionUrl
+      ? '<a class="noshadow" href="' + solutionUrl + '">' + answer + '</a>'
+      : answer;
+  }
 
   /** Update the courage display in the nav. */
   function refreshCourageDisplay() {
@@ -72,21 +80,28 @@
     if (el) el.textContent = String(getProgress().courage);
   }
 
-  // Run on DOM ready
   document.addEventListener("DOMContentLoaded", function () {
     refreshCourageDisplay();
 
-    // Apply unlock visibility to any puzzle rows on chapter pages
     const rows = document.querySelectorAll("[data-unlockable]");
     if (rows.length === 0) return;
 
+    const progress = getProgress();
     let anyLocked = false;
+
     rows.forEach(function (row) {
       const u = JSON.parse(row.getAttribute("data-unlockable"));
+
+      // Reveal answer if this puzzle has been solved
+      const answerCell = row.querySelector("[data-slug]");
+      if (answerCell && progress.solved.has(answerCell.getAttribute("data-slug"))) {
+        revealAnswer(answerCell);
+      }
+
+      // Apply lock styling for courage-gated puzzles
       if (!MOSP_isVisible(u)) {
         row.classList.add("locked");
         anyLocked = true;
-        // Annotate with lock message
         const cell = row.querySelector(".col-title");
         if (cell) {
           const msg = document.createElement("span");
@@ -99,7 +114,7 @@
       }
     });
 
-    // Show "reveal all" button if anything is locked
+    // "Show all" escape hatch when some puzzles are locked
     if (anyLocked) {
       const btn = document.getElementById("show-all-btn");
       if (btn) {

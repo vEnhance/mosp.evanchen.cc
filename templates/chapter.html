@@ -33,8 +33,11 @@
       <td class="col-title">
         <a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
       </td>
-      <td class="col-answer">
-        <a class="spoiler-answer noshadow" href="../../solution/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.answer }}</a>
+      <td class="col-answer"
+          data-answer="{{ puzzle.answer }}"
+          data-solution="../../solution/{{ puzzle.slug | urlencode }}/index.html"
+          data-slug="{{ puzzle.slug }}">
+        <span class="answer-hidden">—</span>
       </td>
     </tr>
     {% elif u.story_only %}
