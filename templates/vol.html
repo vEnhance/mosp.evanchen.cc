@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% set root = "../../" %}
+
+{% block title %}{{ hunt.name }}{% endblock %}
+
+{% block back_nav %}
+<span class="back-nav"><a href="../../index.html">&larr; All Hunts</a></span>
+{% endblock %}
+
+{% block content %}
+<h1>Volume {{ hunt.volume_number }}: {{ hunt.name }}</h1>
+<p class="hunt-meta">Authors: {{ hunt.authors }}</p>
+<div class="chapter-list">
+  {% for round in rounds %}
+  {% set label %}
+    {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}: {% endif %}{{ round.name }}
+  {% endset %}
+  <div class="chapter-card">
+    <h2><a href="../../chapter/{{ round.slug | urlencode }}/index.html">{{ label | trim }}</a></h2>
+    <a class="btn" href="../../chapter/{{ round.slug | urlencode }}/index.html">Open Chapter &rarr;</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

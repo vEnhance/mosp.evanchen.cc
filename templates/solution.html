@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% set root = "../../" %}
+{% set puzzle_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+
+{% block title %}Solution: {{ puzzle.name }}{% endblock %}
+
+{% block back_nav %}
+<span class="back-nav">
+  {% if parent_round %}
+  <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">&larr; {{ parent_round.name }}</a>
+  {% else %}
+  <a href="../../index.html">&larr; Home</a>
+  {% endif %}
+</span>
+{% endblock %}
+
+{% block content %}
+<h1>Solution: {{ puzzle.name }}</h1>
+<p><a href="{{ puzzle_url }}">&larr; Back to puzzle</a></p>
+
+<div class="answer-box">
+  <strong>Answer:</strong> <span class="answer">{{ puzzle.answer }}</span>
+</div>
+
+{% if files.post_solve_story %}
+<div class="post-solve-story">{{ files.post_solve_story | md }}</div>
+<hr />
+{% endif %}
+
+<div class="solution-text">
+  <h2>Solution</h2>
+  {% if files.solution_text %}
+  {{ files.solution_text | md }}
+  {% else %}
+  <p><em>Solution text stub &mdash; to be written.</em></p>
+  {% endif %}
+</div>
+
+{% if files.author_notes %}
+<div class="author-notes">
+  <h2>Author Notes</h2>
+  {{ files.author_notes | md }}
+</div>
+{% endif %}
+{% endblock %}
