@@ -39,6 +39,11 @@
     return p.courage;
   };
 
+  /** Return true if a puzzle slug has been solved. */
+  window.MOSP_isSolved = function (slug) {
+    return getProgress().solved.has(slug);
+  };
+
   /** Mark a puzzle slug as solved. */
   window.MOSP_markSolved = function (slug) {
     const p = getProgress();
@@ -90,15 +95,18 @@
     let anyLocked = false;
 
     rows.forEach(function (row) {
-      const u = JSON.parse(row.getAttribute("data-unlockable"));
-
-      // Reveal answer if this puzzle has been solved
+      // Reveal answer if this puzzle has been solved (before JSON.parse so it
+      // works even if the unlockable data attribute is malformed)
       const answerCell = row.querySelector("[data-slug]");
       if (answerCell && progress.solved.has(answerCell.getAttribute("data-slug"))) {
         revealAnswer(answerCell);
       }
 
       // Apply lock styling for courage-gated puzzles
+      var u;
+      try {
+        u = JSON.parse(row.getAttribute("data-unlockable"));
+      } catch (_) { return; }
       if (!MOSP_isVisible(u)) {
         row.classList.add("locked");
         anyLocked = true;

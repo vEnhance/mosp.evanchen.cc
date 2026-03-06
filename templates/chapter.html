@@ -28,7 +28,7 @@
     {% for u in children %}
     {% set puzzle = puzzles.get(u.puzzle_pk) %}
     {% if puzzle %}
-    <tr class="puzzle-row" data-unlockable="{{ u | tojson }}">
+    <tr class="puzzle-row" data-unlockable='{{ u | tojson }}'>
       <td class="col-location">{{ u.icon }} {{ u.name }}</td>
       <td class="col-title">
         <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ puzzle.name }}</a>

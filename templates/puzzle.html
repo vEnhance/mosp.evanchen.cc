@@ -94,8 +94,9 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
         document.body.classList.add("solved");
         if (prize) { prize.style.display = "block"; prize.href = MOSP_SOLUTION_URL; }
         if (pct) pct.style.visibility = "hidden";
+        const firstSolve = !window.MOSP_isSolved || !MOSP_isSolved(MOSP_SLUG);
         if (window.MOSP_markSolved)  MOSP_markSolved(MOSP_SLUG);
-        if (window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
+        if (firstSolve && window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
         const cv = document.getElementById("courage_value");
         if (cv && window.MOSP_getCourage) cv.textContent = String(MOSP_getCourage());
         return;
