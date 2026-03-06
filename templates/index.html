@@ -3,18 +3,19 @@
 
 {% block title %}Home{% endblock %}
 
+{% block back_nav %}{% endblock %}
+
 {% block content %}
-<h1>MOSP Puzzle Hunt Archive</h1>
-<p>
-  This is a static archive of the MOSP (Math Olympiad Summer Program)
-  puzzle hunt, which ran in 2021 and 2022.
-  All puzzles are now freely accessible.
+<h1>MOSP: A Light Novel</h1>
+<p style="text-align:center">
+  A puzzle hunt archive &mdash; two years of puzzles, now freely accessible.
 </p>
+
 <div class="hunt-list">
   {% for hunt in hunts | sort(attribute="pk") %}
   <div class="hunt-card">
-    <h2><a href="vol/{{ hunt.volume_number | urlencode }}/index.html">{{ hunt.name }}</a></h2>
-    <p class="hunt-meta">Volume {{ hunt.volume_number }} &mdash; {{ hunt.authors }}</p>
+    <h2><a href="vol/{{ hunt.volume_number | urlencode }}/index.html">Volume {{ hunt.volume_number }}: {{ hunt.name }}</a></h2>
+    <p class="hunt-meta">{{ hunt.authors }}</p>
     <a class="btn" href="vol/{{ hunt.volume_number | urlencode }}/index.html">View Hunt &rarr;</a>
   </div>
   {% endfor %}

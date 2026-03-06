@@ -1,19 +1,20 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
+{% set body_class = "puzzle-page" %}
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+{% set unlockable = unlockables_by_pk.get(puzzle.unlockable_pk) %}
+{% set courage_bounty = unlockable.courage_bounty if unlockable else 0 %}
 
 {% block title %}{{ puzzle.name }}{% endblock %}
 
 {% block extra_head %}{{ files.puzzle_head | safe }}{% endblock %}
 
 {% block back_nav %}
-<span class="back-nav">
-  {% if parent_round %}
-  <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">&larr; {{ parent_round.name }}</a>
-  {% else %}
-  <a href="../../index.html">&larr; Home</a>
-  {% endif %}
-</span>
+<a class="emoji-link" href="{% if parent_round %}../../chapter/{{ parent_round.slug | urlencode }}/index.html{% else %}../../index.html{% endif %}">&#x1F199;</a>
+{% endblock %}
+
+{% block southeast %}
+<a href="{{ solution_url }}">&#x1F511; Solution</a>
 {% endblock %}
 
 {% block content %}
@@ -27,86 +28,105 @@
 const MOSP_HASHES = {{ puzzle.hashes | tojson }};
 const MOSP_PARTIAL = {{ puzzle.partial_answers | tojson }};
 const MOSP_SOLUTION_URL = {{ solution_url | tojson }};
+const MOSP_SLUG = {{ puzzle.slug | tojson }};
+const MOSP_BOUNTY = {{ courage_bounty | tojson }};
 </script>
 
-<div class="answer-checker">
-  <div class="answer-row">
-    <input id="answer-input" type="text" placeholder="Enter answer&hellip;" autocomplete="off" spellcheck="false" />
-    <button id="answer-submit">Check</button>
+{% if files.puzzle_head %}
+<div id="puzzlehead">
+  {# puzzle_head HTML/JS is already injected via extra_head; this div is for layout #}
+</div>
+{% endif %}
+
+<div id="answerchecker">
+  <input id="answer" type="text" placeholder="ENTER ANSWER" autocomplete="off" spellcheck="false" />
+  <br />
+  <button id="check-btn">Check answer</button>
+  <div class="icons">
+    <span class="icon-placeholder">&#x1F914;</span>
+    <span class="icon" id="thinking">&#x1F914;</span>
+    <span class="icon" id="wrong">&#x274C;</span>
+    <span class="icon" id="correct">&#x2705;</span>
   </div>
-  <div id="answer-feedback" class="answer-feedback"></div>
-  <div id="answer-success" class="answer-success" style="display:none">
-    <p>&#x1F511; <a href="{{ solution_url }}">View solution</a></p>
-  </div>
+  <div id="percent"></div>
+</div>
+
+<div class="prizeholder">
+  <a id="prize" class="emoji-link noshadow" href="{{ solution_url }}">&#x1F511;</a>
 </div>
 
 <script>
-(async function() {
-  async function sha256(message) {
-    const msgUint8 = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+(function () {
+  async function sha256(msg) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
   }
   function normalize(s) {
     return s.toUpperCase().replace(/[^A-Z]/g, "");
   }
-  document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("answer-input");
-    const btn = document.getElementById("answer-submit");
-    const feedback = document.getElementById("answer-feedback");
-    const successBox = document.getElementById("answer-success");
-    if (!input || !btn || !feedback) return;
+  function showIcon(id) {
+    document.querySelectorAll("span.icon").forEach(el => el.style.display = "none");
+    const el = document.getElementById(id);
+    if (el) el.style.display = "inline";
+  }
 
-    async function checkAnswer() {
-      const raw = input.value.trim();
-      const normalized = normalize(raw);
-      if (!normalized) return;
-      input.disabled = true;
-      btn.disabled = true;
-      feedback.textContent = "Checking\u2026";
-      feedback.className = "answer-feedback checking";
-      for (let salt = 0; salt < 10000; salt++) {
-        const hash = await sha256("MOSP_LIGHT_NOVEL_" + normalized + salt);
-        if (MOSP_HASHES.includes(hash)) {
-          feedback.textContent = "\u2705 Correct!";
-          feedback.className = "answer-feedback correct";
-          if (successBox) {
-            successBox.style.display = "block";
-            const link = successBox.querySelector("a");
-            if (link) link.href = MOSP_SOLUTION_URL;
-          }
+  const input = document.getElementById("answer");
+  const btn   = document.getElementById("check-btn");
+  const pct   = document.getElementById("percent");
+  const prize = document.getElementById("prize");
+
+  async function check() {
+    const normalized = normalize(input.value.trim());
+    if (!normalized) return;
+    input.disabled = true;
+    btn.disabled   = true;
+    showIcon("thinking");
+    if (pct) pct.style.visibility = "visible";
+
+    for (let salt = 0; salt < 10000; salt++) {
+      const h = await sha256("MOSP_LIGHT_NOVEL_" + normalized + salt);
+
+      if (MOSP_HASHES.includes(h)) {
+        showIcon("correct");
+        document.body.classList.add("solved");
+        if (prize) { prize.style.display = "block"; prize.href = MOSP_SOLUTION_URL; }
+        if (pct) pct.style.visibility = "hidden";
+        // Grant courage and mark solved
+        if (window.MOSP_markSolved)  MOSP_markSolved(MOSP_SLUG);
+        if (window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
+        // Refresh courage display
+        const cv = document.getElementById("courage_value");
+        if (cv && window.MOSP_getCourage) cv.textContent = String(MOSP_getCourage());
+        return;
+      }
+
+      for (const partial of MOSP_PARTIAL) {
+        if (partial.hash === h) {
+          showIcon("wrong");
+          if (pct) { pct.textContent = "🤔 " + partial.message; pct.style.visibility = "visible"; }
+          input.disabled = false;
+          btn.disabled   = false;
           return;
         }
-        for (const partial of MOSP_PARTIAL) {
-          if (partial.hash === hash) {
-            feedback.textContent = "\uD83E\uDD14 " + partial.message;
-            feedback.className = "answer-feedback partial";
-            input.disabled = false;
-            btn.disabled = false;
-            return;
-          }
-        }
       }
-      feedback.textContent = "\u274C Incorrect. Try again.";
-      feedback.className = "answer-feedback wrong";
-      input.disabled = false;
-      btn.disabled = false;
     }
 
-    btn.addEventListener("click", () => checkAnswer());
-    input.addEventListener("keydown", e => { if (e.key === "Enter") checkAnswer(); });
-  });
+    showIcon("wrong");
+    if (pct) { pct.textContent = ""; pct.style.visibility = "hidden"; }
+    input.disabled = false;
+    btn.disabled   = false;
+  }
+
+  btn.addEventListener("click", check);
+  input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
 })();
 </script>
 
-<div class="puzzle-content">
+<div id="puzzle-content">
   {% if files.content %}
   {{ files.content | md }}
   {% else %}
   <p><em>Puzzle content stub &mdash; to be filled in.</em></p>
   {% endif %}
 </div>
-
-<p><a href="{{ solution_url }}">View solution &rarr;</a></p>
 {% endblock %}

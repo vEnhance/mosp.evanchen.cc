@@ -5,18 +5,16 @@
 {% block title %}Solution: {{ puzzle.name }}{% endblock %}
 
 {% block back_nav %}
-<span class="back-nav">
-  {% if parent_round %}
-  <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">&larr; {{ parent_round.name }}</a>
-  {% else %}
-  <a href="../../index.html">&larr; Home</a>
-  {% endif %}
-</span>
+<a class="emoji-link" href="{{ puzzle_url }}">&#x1F199;</a>
+{% endblock %}
+
+{% block southeast %}
+<a href="{{ puzzle_url }}">Back to puzzle</a>
 {% endblock %}
 
 {% block content %}
-<h1>Solution: {{ puzzle.name }}</h1>
-<p><a href="{{ puzzle_url }}">&larr; Back to puzzle</a></p>
+<h1>{{ puzzle.name }}</h1>
+<p style="text-align:center"><em>Solution</em></p>
 
 <div class="answer-box">
   <strong>Answer:</strong> <span class="answer">{{ puzzle.answer }}</span>
@@ -24,7 +22,13 @@
 
 {% if files.post_solve_story %}
 <div class="post-solve-story">{{ files.post_solve_story | md }}</div>
-<hr />
+{% endif %}
+
+{% if puzzle.solution.post_solve_image_path %}
+<p style="text-align:center">
+  <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
+       alt="{{ puzzle.solution.post_solve_image_alt }}" />
+</p>
 {% endif %}
 
 <div class="solution-text">

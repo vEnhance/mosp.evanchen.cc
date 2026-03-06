@@ -3,22 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}MOSP Archive{% endblock %} | MOSP Archive</title>
+  <title>{% block title %}MOSP Archive{% endblock %} | MOSP: A Light Novel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
   <link rel="stylesheet" href="{{ root }}static/style.css" />
   {% block extra_head %}{% endblock %}
+  <script src="{{ root }}static/unlock.js" defer></script>
 </head>
-<body>
-  <header class="site-header">
+<body class="{{ body_class | default('') }}">
+<div id="container">
+  <div id="content">
     <nav class="site-nav">
-      {% block back_nav %}{% endblock %}
-      <a class="site-title" href="{{ root }}index.html">MOSP Archive</a>
+      <span id="back">
+        {% block back_nav %}<a class="emoji-link" href="{{ root }}index.html">&#x1F199;</a>{% endblock %}
+      </span>
+      <span id="status">
+        <span class="relative navitem" id="courage">
+          &#x1F49C;<span id="courage_value">0</span>
+          <div id="courage-tooltip">
+            <strong>Courage</strong><br>
+            Earn &#x1F49C; by solving puzzles.
+          </div>
+        </span>
+      </span>
     </nav>
-  </header>
-  <main class="site-main">
-    {% block content %}{% endblock %}
-  </main>
-  <footer class="site-footer">
-    <p>MOSP Puzzle Hunt Archive &mdash; <a href="{{ root }}index.html">Home</a></p>
-  </footer>
+
+    <div class="inner">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  <div id="footer">
+    <hr />
+    <div id="footer-inner">
+      <span>&copy; 2021&ndash;2022, MOSP Puzzle Hunt</span>
+      <span>{% block southeast %}<a href="{{ root }}index.html">Archive home</a>{% endblock %}</span>
+    </div>
+  </div>
+</div>
 </body>
 </html>

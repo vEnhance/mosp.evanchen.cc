@@ -1,16 +1,11 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
-
-{% set chapter_label %}
-  {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}: {% endif %}{{ round.name }}
-{% endset %}
+{% set chapter_label %}{% if round.show_chapter_number %}Chapter {{ round.chapter_number }}: {% endif %}{{ round.name }}{% endset %}
 
 {% block title %}{{ chapter_label | trim }}{% endblock %}
 
 {% block back_nav %}
-<span class="back-nav">
-  <a href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&larr; {{ hunt.name }}</a>
-</span>
+<a class="emoji-link" href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&#x1F199;</a>
 {% endblock %}
 
 {% block content %}
@@ -33,26 +28,25 @@
     {% for u in children %}
     {% set puzzle = puzzles.get(u.puzzle_pk) %}
     {% if puzzle %}
-    <tr class="puzzle-row">
+    <tr class="puzzle-row" data-unlockable="{{ u | tojson }}">
       <td class="col-location">{{ u.icon }} {{ u.name }}</td>
       <td class="col-title">
         <a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
       </td>
       <td class="col-answer">
-        <a class="spoiler-answer" href="../../solution/{{ puzzle.slug | urlencode }}/index.html">
-          {{ puzzle.answer }}
-        </a>
+        <a class="spoiler-answer noshadow" href="../../solution/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.answer }}</a>
       </td>
     </tr>
     {% elif u.story_only %}
     <tr class="story-row">
       <td></td>
-      <td class="story-title" colspan="2">{{ u.name }}</td>
+      <td class="story-title" colspan="2">{{ u.icon }} {{ u.name }}</td>
     </tr>
     {% endif %}
     {% endfor %}
   </tbody>
 </table>
+<button id="show-all-btn" style="display:none">Show all puzzles</button>
 {% else %}
 <p><em>No puzzles in this chapter.</em></p>
 {% endif %}

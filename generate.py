@@ -8,6 +8,7 @@ Reads:
   data/site.json              - structured puzzle/hunt metadata
   data/puzzles/{slug}/*.md    - long-form puzzle and solution text
   static/                     - assets copied verbatim
+  ancient/mosp-web/data2021/static/  - original puzzle static files
 
 Writes:
   out/                        - the generated static site
@@ -25,6 +26,7 @@ from markupsafe import Markup
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 OUT = ROOT / "out"
+ANCIENT_STATIC = ROOT / "ancient/mosp-web/data2021/static"
 
 # ---------------------------------------------------------------------------
 # Markdown + Jinja2 setup
@@ -89,10 +91,8 @@ def parent_round_for_puzzle(puzzle: dict) -> dict | None:
     u = unlockables.get(puzzle["unlockable_pk"])
     if not u or u.get("parent_pk") is None:
         return None
-    parent_u = unlockables.get(u["parent_pk"])
-    if not parent_u or parent_u.get("round_pk") is None:
-        return None
-    return rounds.get(parent_u["round_pk"])
+    # parent_pk is a Round pk (not an Unlockable pk)
+    return rounds.get(u["parent_pk"])
 
 
 def hunt_for_puzzle(puzzle: dict) -> dict | None:
@@ -121,19 +121,47 @@ def write(path: Path, content: str) -> None:
 
 print(f"Generating static site into: {OUT}\n")
 
-# 1. Static assets
+# 1. Static assets from our repo
 print("Copying static assets...")
 if (ROOT / "static").exists():
     if (OUT / "static").exists():
         shutil.rmtree(OUT / "static")
     shutil.copytree(ROOT / "static", OUT / "static")
 
-# 2. Index
+# 2. Static assets from the original hunt (puzzle JS, PDFs, images)
+ANCIENT_STATIC_2021 = ANCIENT_STATIC / "2021"
+if ANCIENT_STATIC_2021.exists():
+    print("Copying original puzzle static assets...")
+    dest = OUT / "static" / "2021"
+
+    def copy_tree_resolved(src: Path, dst: Path) -> None:
+        """Copy directory, resolving symlinks and skipping broken ones."""
+        dst.mkdir(parents=True, exist_ok=True)
+        for item in src.iterdir():
+            if item.name == "__pycache__":
+                continue
+            real = item.resolve()
+            target = dst / item.name
+            if not real.exists():
+                print(f"    Skipping broken symlink: {item.name}")
+                continue
+            if real.is_dir():
+                if target.exists():
+                    shutil.rmtree(target)
+                shutil.copytree(real, target)
+            else:
+                shutil.copy2(real, target)
+
+    copy_tree_resolved(ANCIENT_STATIC_2021, dest)
+else:
+    print("  Warning: ancient/mosp-web/data2021/static not found — skipping puzzle assets")
+
+# 3. Index
 print("\nGenerating index...")
 write(OUT / "index.html",
       env.get_template("index.html").render(hunts=site["hunts"]))
 
-# 3. Volume pages
+# 4. Volume pages
 print("\nGenerating volume pages...")
 for hunt in site["hunts"]:
     write(
@@ -144,7 +172,7 @@ for hunt in site["hunts"]:
         ),
     )
 
-# 4. Chapter pages
+# 5. Chapter pages
 print("\nGenerating chapter pages...")
 for round_ in site["rounds"]:
     hunt = hunt_for_round(round_)
@@ -152,7 +180,8 @@ for round_ in site["rounds"]:
         print(f"  Warning: no hunt found for round {round_['slug']}")
         continue
     children = sorted(
-        [u for u in site["unlockables"] if u.get("parent_pk") == round_["unlockable_pk"]],
+        # parent_pk on unlockables is a Round pk, not Unlockable pk
+        [u for u in site["unlockables"] if u.get("parent_pk") == round_["pk"]],
         key=lambda u: (u["sort_order"], u["name"]),
     )
     write(
@@ -165,7 +194,7 @@ for round_ in site["rounds"]:
         ),
     )
 
-# 5. Puzzle pages
+# 6. Puzzle pages
 print("\nGenerating puzzle pages...")
 for puzzle in site["puzzles"]:
     write(
@@ -175,10 +204,11 @@ for puzzle in site["puzzles"]:
             files=load_puzzle_files(puzzle["slug"]),
             parent_round=parent_round_for_puzzle(puzzle),
             hunt=hunt_for_puzzle(puzzle),
+            unlockables_by_pk=unlockables,
         ),
     )
 
-# 6. Solution pages
+# 7. Solution pages
 print("\nGenerating solution pages...")
 for puzzle in site["puzzles"]:
     write(
