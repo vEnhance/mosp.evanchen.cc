@@ -36,7 +36,8 @@ Reading the solutions will inform you how each puzzle worked.
 
 ## Hunt details
 
-Chapter 0 (from 2021) contains a single puzzle called Bridge: K. It can be translated easily.
+Chapter 0 (from 2021) contains a single puzzle called Bridge: K.
+It can be translated easily.
 
 Chapter 1 (from 2021) contains the following puzzles we should adapt:
 
@@ -58,6 +59,9 @@ Chapter 1 (from 2021) contains the following puzzles we should adapt:
   We should create a fake Zoom client that opens in a new window
   to simulate that past interactive component.
 - Map: Sticks and Stones is a straightforward static puzzle.
+
+In many cases, the `mosp-2021` submodule contains construction files
+that would be needed to recreate adaptions of the puzzles.
 
 Chapter 2 puzzles (from 2022) are all static PDF's and straightforward to adapt.
 
