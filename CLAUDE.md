@@ -61,7 +61,8 @@ Chapter 1 (from 2021) contains the following puzzles we should adapt:
 - Map: Sticks and Stones is a straightforward static puzzle.
 
 In many cases, the `mosp-2021` submodule contains construction files
-that would be needed to recreate adaptions of the puzzles.
+that would be needed to re-create adaptions of the puzzles.
+If you feel there is still information missing needed, please say so.
 
 Chapter 2 puzzles (from 2022) are all static PDF's and straightforward to adapt.
 
