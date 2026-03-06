@@ -146,9 +146,7 @@ if ANCIENT_STATIC_2021.exists():
                 print(f"    Skipping broken symlink: {item.name}")
                 continue
             if real.is_dir():
-                if target.exists():
-                    shutil.rmtree(target)
-                shutil.copytree(real, target)
+                copy_tree_resolved(real, target)
             else:
                 shutil.copy2(real, target)
 
