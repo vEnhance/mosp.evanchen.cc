@@ -1,3 +1,10 @@
+During the actual 2021 hunt, solvers had to dial into real Zoom meetings
+to traverse the network. For the archival version, use the
+**[Zoom client simulator](../../static/zoom-client.html)** (opens in this tab)
+instead of a real Zoom client — it faithfully recreates the meeting navigation.
+
+---
+
 You find the following email from Steve.
 
 <div class="font-mono whitespace-pre relative" id="email">

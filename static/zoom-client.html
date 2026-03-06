@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zoom Meeting — MOSP Archival Simulator</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1c1c1c;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Lobby ── */
+    #lobby {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    #lobby h1 {
+      font-size: 1.6rem;
+      color: #2d8cff;
+    }
+    .lobby-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #2d8cff;
+      letter-spacing: -1px;
+    }
+    .lobby-logo span { color: #fff; }
+    #lobby p { color: #aaa; font-size: 0.9rem; text-align: center; max-width: 400px; }
+    .notice {
+      background: #2a2a2a;
+      border-left: 3px solid #f0a500;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #e0c080;
+      max-width: 440px;
+      line-height: 1.5;
+    }
+    #lobby form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 340px;
+    }
+    #lobby label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+    #meeting-id-input {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.6rem 0.8rem;
+      font-size: 1rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+    }
+    #meeting-id-input:focus { outline: none; border-color: #2d8cff; }
+    .room-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.4rem;
+      width: 340px;
+    }
+    .room-btn-small {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #ccc;
+      padding: 0.35rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-align: center;
+    }
+    .room-btn-small:hover { border-color: #2d8cff; color: #fff; }
+    .btn-primary {
+      background: #2d8cff;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.65rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: #1a7ae0; }
+    .btn-danger {
+      background: #e03f3f;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-danger:hover { background: #c02020; }
+    .btn-secondary {
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 6px;
+      color: #ddd;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { background: #444; }
+
+    /* ── Meeting ── */
+    #meeting {
+      display: none;
+      flex-direction: column;
+      height: 100vh;
+    }
+    #meeting-header {
+      background: #262626;
+      border-bottom: 1px solid #333;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    #meeting-header .logo { color: #2d8cff; font-weight: 700; font-size: 1.1rem; }
+    #meeting-title { font-size: 0.95rem; color: #ddd; }
+    #meeting-id-display { font-family: monospace; color: #aaa; font-size: 0.85rem; }
+    #meeting-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Video grid */
+    #video-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1c1c1c;
+      position: relative;
+      overflow: hidden;
+    }
+    #screen-share-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: #111;
+      z-index: 10;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.4s ease;
+    }
+    #screen-share-overlay.visible { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .screen-label {
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .morse-display {
+      background: #1a1a1a;
+      border: 2px solid #2d8cff;
+      border-radius: 12px;
+      padding: 2rem 3rem;
+      text-align: center;
+    }
+    .morse-letter {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #2d8cff;
+      font-family: 'Courier New', monospace;
+    }
+    .morse-code {
+      font-size: 1.5rem;
+      color: #7ab8ff;
+      margin-top: 0.5rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 4px;
+    }
+    .morse-desc {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 1rem;
+    }
+    #dismiss-overlay {
+      margin-top: 2rem;
+    }
+    #video-grid {
+      flex: 1;
+      display: grid;
+      padding: 0.5rem;
+      gap: 0.5rem;
+    }
+    .video-tile {
+      background: #2a2a2a;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      position: relative;
+    }
+    .video-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .video-name {
+      font-size: 0.75rem;
+      color: #ccc;
+    }
+    .video-pin {
+      position: absolute;
+      bottom: 6px;
+      left: 8px;
+      font-size: 0.7rem;
+      color: #aaa;
+      background: rgba(0,0,0,0.5);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    #connecting-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #aaa;
+      animation: fadeIn 0.2s ease;
+    }
+    #connecting-overlay.visible { display: flex; }
+
+    /* Sidebar / Log */
+    #log-sidebar {
+      width: 260px;
+      background: #222;
+      border-left: 1px solid #333;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    #log-header {
+      padding: 0.6rem 1rem;
+      font-size: 0.8rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 1px solid #333;
+    }
+    #log-entries {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.5rem;
+    }
+    #log-entries::-webkit-scrollbar { width: 4px; }
+    #log-entries::-webkit-scrollbar-track { background: #222; }
+    #log-entries::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+    .log-entry {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.4rem;
+      border-radius: 4px;
+      margin-bottom: 0.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .log-entry .log-path { color: #aaa; }
+    .log-entry .log-letter { color: #2d8cff; font-weight: 700; font-size: 1rem; }
+    .log-entry .log-morse { color: #666; font-size: 0.7rem; }
+    .log-collected {
+      padding: 0.5rem;
+      border-top: 1px solid #333;
+      font-family: 'Courier New', monospace;
+    }
+    .log-collected-label {
+      font-size: 0.7rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+    .log-collected-letters {
+      font-size: 1rem;
+      color: #7ab8ff;
+      word-break: break-all;
+    }
+    #clear-log {
+      margin: 0.5rem;
+      font-size: 0.75rem;
+      background: none;
+      border: 1px solid #444;
+      border-radius: 4px;
+      color: #666;
+      padding: 0.3rem;
+      cursor: pointer;
+    }
+    #clear-log:hover { color: #aaa; border-color: #666; }
+
+    /* Bottom navigation */
+    #meeting-footer {
+      background: #262626;
+      border-top: 1px solid #333;
+      padding: 0.75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    #meeting-footer .footer-label {
+      font-size: 0.75rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    #neighbor-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .neighbor-btn {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #ccc;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.15s;
+    }
+    .neighbor-btn:hover {
+      background: #1a4a80;
+      border-color: #2d8cff;
+      color: #fff;
+    }
+    .neighbor-btn .nb-room { font-weight: 700; color: #2d8cff; font-size: 1rem; }
+    .neighbor-btn .nb-id { color: #888; font-family: monospace; font-size: 0.72rem; display: block; }
+    #footer-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #current-room-info { font-size: 0.85rem; color: #888; }
+    #current-room-info strong { color: #fff; font-size: 1rem; }
+
+    /* Error */
+    #error-msg {
+      color: #ff6060;
+      font-size: 0.85rem;
+      min-height: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Lobby -->
+<div id="lobby">
+  <div class="lobby-logo">zoom<span>.</span></div>
+  <h1>Zoom Network Park</h1>
+  <div class="notice">
+    <strong>Archival Notice:</strong> During the original 2021 MOSP puzzle hunt,
+    solvers had to dial into real Zoom meetings to traverse the network.
+    This simulator recreates that experience. Enter a Meeting ID to join a room,
+    then navigate between adjacent rooms to collect Morse code letters.
+  </div>
+  <form onsubmit="joinByInput(event)">
+    <label for="meeting-id-input">Join a Meeting</label>
+    <input type="text" id="meeting-id-input"
+           placeholder="e.g.&nbsp;&nbsp;953 1568 0293"
+           autocomplete="off" spellcheck="false" />
+    <div id="error-msg"></div>
+    <button type="submit" class="btn-primary">Join</button>
+  </form>
+  <div style="color:#666;font-size:0.8rem;">— or browse rooms —</div>
+  <div class="room-list" id="room-list-btns"></div>
+</div>
+
+<!-- Meeting -->
+<div id="meeting">
+  <div id="meeting-header">
+    <span class="logo">zoom.</span>
+    <span>
+      <span id="meeting-title">Room A</span>
+      <span style="color:#555;margin:0 0.5rem;">|</span>
+      <span id="meeting-id-display" class="font-mono"></span>
+    </span>
+    <button class="btn-danger" onclick="leaveMeeting()">Leave Meeting</button>
+  </div>
+
+  <div id="meeting-body">
+    <div id="video-area">
+      <!-- Connecting overlay -->
+      <div id="connecting-overlay">Connecting to meeting…</div>
+
+      <!-- Morse screen share overlay (shown on entry) -->
+      <div id="screen-share-overlay">
+        <div class="screen-label">📺 Steve's Screen Share</div>
+        <div class="morse-display">
+          <div class="morse-letter" id="overlay-letter">C</div>
+          <div class="morse-code" id="overlay-morse">-.-.</div>
+          <div class="morse-desc">Morse code received from this meeting</div>
+        </div>
+        <button class="btn-secondary" id="dismiss-overlay" onclick="dismissOverlay()">
+          Continue ▶
+        </button>
+      </div>
+
+      <!-- Fake video grid -->
+      <div id="video-grid"></div>
+    </div>
+
+    <!-- Log sidebar -->
+    <div id="log-sidebar">
+      <div id="log-header">Traversal Log</div>
+      <div id="log-entries"></div>
+      <div class="log-collected">
+        <div class="log-collected-label">Letters collected</div>
+        <div class="log-collected-letters" id="collected-letters">&nbsp;</div>
+      </div>
+      <button id="clear-log" onclick="clearLog()">Clear log</button>
+    </div>
+  </div>
+
+  <div id="meeting-footer">
+    <div id="footer-controls">
+      <div id="current-room-info">
+        Current room: <strong id="current-room-label">A</strong>
+      </div>
+      <div style="color:#666;font-size:0.8rem;">Navigate to an adjacent meeting:</div>
+    </div>
+    <div id="neighbor-buttons"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+// ── Graph data ──────────────────────────────────────────────────────────────
+// Coordinates from main.yaml; meeting ID = z + " " + x + " " + y (y zero-padded to 4)
+const ROOMS = {
+  A: { id: "953 1568 0293", neighbors: ["C", "B", "H"] },
+  B: { id: "917 2317 1185", neighbors: ["A", "D", "E"] },
+  C: { id: "979 8057 1394", neighbors: ["A", "L", "D"] },
+  D: { id: "916 5829 3170", neighbors: ["C", "I", "B"] },
+  E: { id: "993 4079 3458", neighbors: ["B", "F", "G"] },
+  F: { id: "956 5490 5821", neighbors: ["E", "I", "G"] },
+  G: { id: "996 4027 5827", neighbors: ["E", "F", "H"] },
+  H: { id: "945 2459 6096", neighbors: ["A", "G", "K"] },
+  I: { id: "936 7406 6683", neighbors: ["D", "J", "F"] },
+  J: { id: "926 6188 9072", neighbors: ["L", "K", "I"] },
+  K: { id: "940 3325 9359", neighbors: ["J", "L", "H"] },
+  L: { id: "947 9797 9524", neighbors: ["K", "J", "C"] },
+};
+
+// Edge labels: directed edge from X to Y → Morse letter
+const EDGE_LABEL = {
+  "A->C": "C", "A->B": "F", "A->H": "D",
+  "B->A": "L", "B->D": "I", "B->E": "M",
+  "C->A": "?", "C->L": "O", "C->D": "A",
+  "D->C": "N", "D->I": "N", "D->B": "I",
+  "E->B": "M", "E->F": "R", "E->G": "O",
+  "F->E": "R", "F->I": "?", "F->G": "O",
+  "G->E": "O", "G->F": "O", "G->H": "S",
+  "H->A": "U", "H->G": "S", "H->K": "V",
+  "I->D": "A", "I->J": "M", "I->F": "Z",
+  "J->L": "X", "J->K": "E", "J->I": "M",
+  "K->J": "E", "K->L": "A", "K->H": "B",
+  "L->K": "N", "L->J": "X", "L->C": "O",
+};
+
+const MORSE = {
+  A: ".-",   B: "-...", C: "-.-.", D: "-..",  E: ".",    F: "..-.",
+  G: "--.",  H: "....", I: "..",   J: ".---", K: "-.-",  L: ".-..",
+  M: "--",   N: "-.",   O: "---",  P: ".--.", Q: "--.-", R: ".-.",
+  S: "...",  T: "-",    U: "..-",  V: "...-", W: ".--",  X: "-..-",
+  Y: "-.--", Z: "--..", "?": "..--",
+};
+
+// Fake participant names per room
+const PARTICIPANTS = {
+  A: ["Steve (Host)", "You"],
+  B: ["Maria (Host)", "You"],
+  C: ["Carlos (Host)", "You"],
+  D: ["Dana (Host)", "You"],
+  E: ["Evie (Host)", "You"],
+  F: ["Felix (Host)", "You"],
+  G: ["Grace (Host)", "You"],
+  H: ["Hana (Host)", "You"],
+  I: ["Ivan (Host)", "You"],
+  J: ["Jordan (Host)", "You"],
+  K: ["Kai (Host)", "You"],
+  L: ["Leo (Host)", "You"],
+};
+
+const AVATAR_COLORS = [
+  "#2d8cff", "#36b37e", "#ff7452", "#6554c0", "#00b8d9",
+  "#ff5630", "#57d9a3", "#ffab00", "#998dd9", "#4c9aff",
+  "#00c7e6", "#ffc400",
+];
+
+// Room letter → avatar color
+function roomColor(r) {
+  return AVATAR_COLORS[r.charCodeAt(0) - 65];
+}
+
+// ── State ───────────────────────────────────────────────────────────────────
+let currentRoom = null;
+let previousRoom = null;
+let log = [];
+
+// ── Utility ─────────────────────────────────────────────────────────────────
+function roomByMeetingId(id) {
+  const norm = id.replace(/\s+/g, " ").trim();
+  for (const [name, room] of Object.entries(ROOMS)) {
+    if (room.id === norm) return name;
+  }
+  return null;
+}
+
+// ── Lobby setup ─────────────────────────────────────────────────────────────
+const roomListEl = document.getElementById("room-list-btns");
+for (const name of Object.keys(ROOMS)) {
+  const btn = document.createElement("button");
+  btn.className = "room-btn-small";
+  btn.textContent = `Room ${name}`;
+  btn.onclick = () => {
+    document.getElementById("meeting-id-input").value = ROOMS[name].id;
+  };
+  roomListEl.appendChild(btn);
+}
+
+function joinByInput(e) {
+  e.preventDefault();
+  const val = document.getElementById("meeting-id-input").value.trim();
+  const errEl = document.getElementById("error-msg");
+  if (!val) { errEl.textContent = "Please enter a meeting ID."; return; }
+  const room = roomByMeetingId(val);
+  if (!room) {
+    errEl.textContent = "Meeting not found. Check the ID and try again.";
+    return;
+  }
+  errEl.textContent = "";
+  enterMeeting(room, null);
+}
+
+// ── Enter / leave ────────────────────────────────────────────────────────────
+function enterMeeting(room, from) {
+  const connecting = document.getElementById("connecting-overlay");
+  connecting.classList.add("visible");
+  previousRoom = from;
+  currentRoom = room;
+
+  setTimeout(() => {
+    connecting.classList.remove("visible");
+    showMeeting(room, from);
+  }, 800);
+}
+
+function showMeeting(room, from) {
+  document.getElementById("lobby").style.display = "none";
+  const meetingEl = document.getElementById("meeting");
+  meetingEl.style.display = "flex";
+
+  document.getElementById("meeting-title").textContent = `Room ${room}`;
+  document.getElementById("meeting-id-display").textContent = ROOMS[room].id;
+  document.getElementById("current-room-label").textContent = room;
+
+  renderVideoGrid(room);
+  renderNeighborButtons(room);
+
+  if (from) {
+    const label = EDGE_LABEL[`${from}->${room}`] || "?";
+    const morse = MORSE[label] || label;
+    showScreenShare(label, morse, from, room);
+  } else {
+    hideScreenShare();
+  }
+}
+
+function leaveMeeting() {
+  currentRoom = null;
+  previousRoom = null;
+  document.getElementById("meeting").style.display = "none";
+  document.getElementById("lobby").style.display = "flex";
+  document.getElementById("meeting-id-input").value = "";
+  hideScreenShare();
+}
+
+// ── Screen share overlay ─────────────────────────────────────────────────────
+function showScreenShare(letter, morse, from, to) {
+  document.getElementById("overlay-letter").textContent = letter;
+  document.getElementById("overlay-morse").textContent = morse;
+  const overlay = document.getElementById("screen-share-overlay");
+  overlay.classList.add("visible");
+
+  // Add to log
+  if (letter !== null) {
+    log.push({ from, to, letter, morse });
+    renderLog();
+  }
+}
+
+function hideScreenShare() {
+  document.getElementById("screen-share-overlay").classList.remove("visible");
+}
+
+function dismissOverlay() {
+  hideScreenShare();
+}
+
+// ── Video grid ───────────────────────────────────────────────────────────────
+function renderVideoGrid(room) {
+  const grid = document.getElementById("video-grid");
+  grid.innerHTML = "";
+  const participants = PARTICIPANTS[room] || ["Host", "You"];
+  const count = participants.length;
+  const cols = count <= 2 ? count : 2;
+  grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+
+  participants.forEach((name, i) => {
+    const tile = document.createElement("div");
+    tile.className = "video-tile";
+    const color = i === 0 ? roomColor(room) : "#555";
+    const initials = name.split(" ")[0][0];
+    tile.innerHTML = `
+      <div class="video-avatar" style="background:${color}">${initials}</div>
+      <div class="video-name">${name}</div>
+      ${i === 0 ? `<div class="video-pin">📌 Host · Room ${room}</div>` : ""}
+    `;
+    grid.appendChild(tile);
+  });
+}
+
+// ── Neighbor buttons ─────────────────────────────────────────────────────────
+function renderNeighborButtons(room) {
+  const container = document.getElementById("neighbor-buttons");
+  container.innerHTML = "";
+  for (const neighbor of ROOMS[room].neighbors) {
+    const btn = document.createElement("button");
+    btn.className = "neighbor-btn";
+    btn.innerHTML = `<span class="nb-room">Room ${neighbor}</span><span class="nb-id">${ROOMS[neighbor].id}</span>`;
+    btn.onclick = () => navigateTo(neighbor);
+    container.appendChild(btn);
+  }
+}
+
+function navigateTo(room) {
+  const from = currentRoom;
+  currentRoom = room;
+  const connecting = document.getElementById("connecting-overlay");
+  connecting.classList.add("visible");
+  setTimeout(() => {
+    connecting.classList.remove("visible");
+    showMeeting(room, from);
+  }, 700);
+}
+
+// ── Log ──────────────────────────────────────────────────────────────────────
+function renderLog() {
+  const el = document.getElementById("log-entries");
+  el.innerHTML = "";
+  for (const entry of log) {
+    const row = document.createElement("div");
+    row.className = "log-entry";
+    row.innerHTML = `
+      <span>
+        <span class="log-path">${entry.from}→${entry.to}</span>
+        <span class="log-morse"> ${entry.morse}</span>
+      </span>
+      <span class="log-letter">${entry.letter}</span>
+    `;
+    el.appendChild(row);
+  }
+  el.scrollTop = el.scrollHeight;
+
+  const letters = log.map(e => e.letter).join("");
+  document.getElementById("collected-letters").textContent = letters || "\u00a0";
+}
+
+function clearLog() {
+  log = [];
+  renderLog();
+}
+</script>
+</body>
+</html>
