@@ -609,7 +609,7 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem, c
     .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     .replace(/`([^`]+)`/g,"<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
-    .replace(/\*([^*]+)\*/g,"<em>$1</em>")
+    .replace(/\n/g,"<br>")
     .replace(/#kindergarten/g,'<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>');
 
   msgEl.innerHTML = `
