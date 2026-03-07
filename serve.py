@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Serve the generated out/ directory on localhost for testing.
+Serve the generated site/ directory on localhost for testing.
 
 Usage:
   python3 serve.py          # serves on port 8000
@@ -12,7 +12,7 @@ import os
 import sys
 
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
-DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
+DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site")
 
 if not os.path.isdir(DIRECTORY):
     print(f"Error: '{DIRECTORY}' does not exist. Run 'python3 generate.py' first.")

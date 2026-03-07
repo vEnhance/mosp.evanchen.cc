@@ -1,4 +1,11 @@
 node_modules/
-out/
 dist/
 .tsc-out/
+
+# Generated HTML (site/static/ is tracked)
+site/index.html
+site/vol/
+site/chapter/
+site/unlock/
+site/puzzle/
+site/solution/

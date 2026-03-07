@@ -7,17 +7,15 @@ Usage: python3 generate.py
 Reads:
   data/site.json              - structured puzzle/hunt metadata
   data/puzzles/{slug}/*.md    - long-form puzzle and solution text
-  static/                     - assets copied verbatim
-  assets/2021/                - original puzzle static assets (images, PDFs, CSS)
+  site/static/                - static assets (images, PDFs, CSS, JS) checked into git
 
 Writes:
-  out/                        - the generated static site
+  site/                       - the generated static site (HTML files are gitignored)
+
+Note: compile TypeScript first with ./build-ts.sh
 """
 
 import json
-import shutil
-import subprocess
-import sys
 import urllib.parse
 from pathlib import Path
 
@@ -27,9 +25,7 @@ from markupsafe import Markup
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
-OUT = ROOT / "out"
-ASSETS_2021 = ROOT / "assets" / "2021"
-TSC_OUT = ROOT / ".tsc-out"
+OUT = ROOT / "site"
 
 # ---------------------------------------------------------------------------
 # Markdown + Jinja2 setup
@@ -145,73 +141,12 @@ def write(path: Path, content: str) -> None:
 
 print(f"Generating static site into: {OUT}\n")
 
-# 0. Compile puzzle TypeScript (set.ts, zoom.ts) → .tsc-out/
-print("Compiling puzzle TypeScript...")
-if not (ROOT / "node_modules").exists():
-    print("  Running npm install first...")
-    subprocess.run(["npm", "install"], cwd=ROOT, check=True)
-result = subprocess.run(
-    ["npx", "tsc", "--project", str(ROOT / "tsconfig.puzzles.json")],
-    cwd=ROOT,
-    capture_output=True,
-    text=True,
-)
-if result.returncode != 0:
-    print(f"  Warning: tsc failed — puzzle JS will be skipped:\n{result.stderr}", file=sys.stderr)
-else:
-    print("  OK")
-
-# 1. Static assets from our repo
-print("Copying static assets...")
-if (ROOT / "static").exists():
-    if (OUT / "static").exists():
-        shutil.rmtree(OUT / "static")
-    shutil.copytree(ROOT / "static", OUT / "static")
-
-# 2. Static assets from assets/2021/ (copied out of the ancient submodule)
-if ASSETS_2021.exists():
-    print("Copying original puzzle static assets...")
-    dest = OUT / "static" / "2021"
-    if dest.exists():
-        shutil.rmtree(dest)
-    shutil.copytree(ASSETS_2021, dest)
-
-    # Overlay compiled JS (set.js, zoom.js) from .tsc-out/ if available.
-    for name, sub in [("set.js", "set"), ("zoom.js", "zoom")]:
-        compiled = TSC_OUT / name
-        if compiled.exists():
-            dest_js = dest / sub / name
-            dest_js.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(compiled, dest_js)
-
-    # Create -sm aliases for images that are referenced with a -sm suffix
-    # but only exist at full size.
-    for original, alias in [
-        ("map.png", "map-sm.png"),
-        ("ch0map.png", "ch0map-sm.png"),
-        ("meeting.png", "meeting-sm.png"),
-    ]:
-        src_img = dest / original
-        dst_img = dest / alias
-        if src_img.exists() and not dst_img.exists():
-            shutil.copy2(src_img, dst_img)
-
-    # Create 2022/ directory with the flipped tromino thumbnail.
-    tromino_src = dest / "mosp-tromino.png"
-    tromino_2022_dir = OUT / "static" / "2022"
-    tromino_2022 = tromino_2022_dir / "mosp-tromino-flipped.png"
-    if tromino_src.exists() and not tromino_2022.exists():
-        tromino_2022_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(tromino_src, tromino_2022)
-else:
-    print("  Warning: assets/2021/ not found — skipping puzzle assets")
-
-# 3. Index
+# 1. Index
 print("\nGenerating index...")
 write(OUT / "index.html",
       env.get_template("index.html").render(hunts=site["hunts"]))
 
-# 4. Volume pages
+# 2. Volume pages
 print("\nGenerating volume pages...")
 for hunt in site["hunts"]:
     write(
@@ -223,7 +158,7 @@ for hunt in site["hunts"]:
         ),
     )
 
-# 5. Chapter pages
+# 3. Chapter pages
 print("\nGenerating chapter pages...")
 for round_ in site["rounds"]:
     hunt = hunt_for_round(round_)
@@ -253,7 +188,7 @@ for round_ in site["rounds"]:
         ),
     )
 
-# 6. Unlock / story intro pages
+# 4. Unlock / story intro pages
 print("\nGenerating unlock pages...")
 for u in site["unlockables"]:
     # Find puzzle and round for this unlockable
@@ -272,7 +207,7 @@ for u in site["unlockables"]:
         ),
     )
 
-# 7. Puzzle pages
+# 5. Puzzle pages
 print("\nGenerating puzzle pages...")
 for puzzle in site["puzzles"]:
     write(
@@ -286,7 +221,7 @@ for puzzle in site["puzzles"]:
         ),
     )
 
-# 8. Solution pages
+# 6. Solution pages
 print("\nGenerating solution pages...")
 for puzzle in site["puzzles"]:
     write(
