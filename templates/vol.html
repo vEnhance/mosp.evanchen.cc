@@ -7,6 +7,8 @@
 <a class="emoji-link" href="../../index.html">&#x1F199;</a>
 {% endblock %}
 
+{% block page_meta %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endblock %}
+
 {% block content %}
 <h1>Volume {{ hunt.volume_number }}: {{ hunt.name }}</h1>
 <p style="text-align:center; color:#555">{{ hunt.authors }}</p>
@@ -14,7 +16,9 @@
 <div class="chapter-gallery">
   {% for round in rounds %}
   {% set label %}{% if round.show_chapter_number %}Chapter {{ round.chapter_number }}: {% endif %}{{ round.name }}{% endset %}
-  <a class="chapter-card-art" href="../../chapter/{{ round.slug | urlencode }}/index.html">
+  {% set intro_slug = round_intro_slugs.get(round.pk) %}
+  {% set card_href %}{% if intro_slug %}../../unlock/{{ intro_slug | urlencode }}/index.html{% else %}../../chapter/{{ round.slug | urlencode }}/index.html{% endif %}{% endset %}
+  <a class="chapter-card-art" href="{{ card_href | trim }}">
     {% if round.thumbnail_path %}
     <div class="chapter-thumb" style="background-image: url('../../static/{{ round.thumbnail_path }}')"></div>
     {% else %}

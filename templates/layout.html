@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
   <link rel="stylesheet" href="{{ root }}static/style.css" />
   {% block extra_head %}{% endblock %}
+  {% block page_meta %}{% endblock %}
   <script src="{{ root }}static/unlock.js" defer></script>
 </head>
 <body class="{{ body_class | default('') }}">
@@ -21,10 +22,10 @@
       </span>
       <span id="status">
         <span class="relative navitem" id="courage">
-          &#x1F49C;<span id="courage_value">0</span>
+          <span id="courage_heart">&#x1F49C;</span><span id="courage_value">0</span>
           <div id="courage-tooltip">
             <strong>Courage</strong><br>
-            Earn &#x1F49C; by solving puzzles.
+            Earn hearts by solving puzzles.
           </div>
         </span>
       </span>

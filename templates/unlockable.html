@@ -11,11 +11,17 @@
 
 {% if parent_round %}
   {% set back_url = "../../chapter/" ~ (parent_round.slug | urlencode) ~ "/index.html" %}
+{% elif dest_round and hunt %}
+  {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
+{% elif hunt %}
+  {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
 {% else %}
   {% set back_url = "../../index.html" %}
 {% endif %}
 
 {% block title %}{{ unlockable.name }}{% endblock %}
+
+{% block page_meta %}{% if hunt %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endif %}{% endblock %}
 
 {% block back_nav %}
 <a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>

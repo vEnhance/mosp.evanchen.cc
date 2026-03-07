@@ -64,6 +64,18 @@ rounds = {r["pk"]: r for r in site["rounds"]}
 puzzles = {p["pk"]: p for p in site["puzzles"]}
 unlockables = {u["pk"]: u for u in site["unlockables"]}
 
+# Populate intro_story_text from markdown files (overrides any value in JSON)
+for u in site["unlockables"]:
+    intro = (DATA / "unlockables" / u["slug"] / "intro.md")
+    if intro.exists():
+        u["intro_story_text"] = intro.read_text()
+
+# Build mapping: round_pk → slug of the unlockable that introduces that round
+round_intro_slugs: dict[int, str] = {}
+for u in site["unlockables"]:
+    if u.get("round_pk") and u.get("parent_pk") is None:
+        round_intro_slugs[u["round_pk"]] = u["slug"]
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -101,6 +113,15 @@ def parent_round_for_puzzle(puzzle: dict) -> dict | None:
 def hunt_for_puzzle(puzzle: dict) -> dict | None:
     u = unlockables.get(puzzle["unlockable_pk"])
     return hunts.get(u["hunt_pk"]) if u else None
+
+
+def hunt_for_unlockable(u: dict) -> dict | None:
+    return hunts.get(u.get("hunt_pk"))
+
+
+def read_unlockable_intro(slug: str) -> str:
+    p = DATA / "unlockables" / slug / "intro.md"
+    return p.read_text() if p.exists() else ""
 
 
 def rounds_for_hunt(hunt: dict) -> list[dict]:
@@ -216,6 +237,7 @@ for hunt in site["hunts"]:
         env.get_template("vol.html").render(
             hunt=hunt,
             rounds=rounds_for_hunt(hunt),
+            round_intro_slugs=round_intro_slugs,
         ),
     )
 
@@ -264,6 +286,7 @@ for u in site["unlockables"]:
             puzzle=puzz,
             dest_round=dest_round,
             parent_round=parent_round,
+            hunt=hunt_for_unlockable(u),
         ),
     )
 

@@ -8,6 +8,8 @@
 
 {% block title %}{{ puzzle.name }}{% endblock %}
 
+{% block page_meta %}{% if hunt %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endif %}{% endblock %}
+
 {% block extra_head %}{{ files.puzzle_head | safe }}{% endblock %}
 
 {% block back_nav %}
@@ -94,8 +96,10 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
         document.body.classList.add("solved");
         if (prize) { prize.style.display = "block"; prize.href = MOSP_SOLUTION_URL; }
         if (pct) pct.style.visibility = "hidden";
+        // Check firstSolve immediately before markSolved so concurrent calls
+        // can't both see firstSolve=true (JS is single-threaded between awaits).
         const firstSolve = !window.MOSP_isSolved || !MOSP_isSolved(MOSP_SLUG);
-        if (window.MOSP_markSolved)  MOSP_markSolved(MOSP_SLUG);
+        if (window.MOSP_markSolved) MOSP_markSolved(MOSP_SLUG);
         if (firstSolve && window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
         const cv = document.getElementById("courage_value");
         if (cv && window.MOSP_getCourage) cv.textContent = String(MOSP_getCourage());

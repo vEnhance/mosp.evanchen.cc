@@ -4,6 +4,8 @@
 
 {% block title %}{{ chapter_label | trim }}{% endblock %}
 
+{% block page_meta %}{% if hunt %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endif %}{% endblock %}
+
 {% block back_nav %}
 <a class="emoji-link" href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&#x1F199;</a>
 {% endblock %}

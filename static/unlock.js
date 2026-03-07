@@ -11,13 +11,21 @@
 (function () {
   "use strict";
 
-  const KEY = "mosp_progress_v1";
+  // Per-volume localStorage keys; falls back to "all" on pages without a volume
+  function getKey() {
+    var vol = (typeof window.MOSP_VOLUME !== "undefined") ? window.MOSP_VOLUME : null;
+    return vol ? "mosp_progress_v2_" + vol : "mosp_progress_v2_all";
+  }
+
+  function getHeart() {
+    return (typeof window.MOSP_HEART !== "undefined") ? window.MOSP_HEART : "\uD83D\uDC9C";
+  }
 
   function getProgress() {
     try {
-      const raw = localStorage.getItem(KEY);
+      var raw = localStorage.getItem(getKey());
       if (raw) {
-        const p = JSON.parse(raw);
+        var p = JSON.parse(raw);
         return { courage: p.courage || 0, solved: new Set(p.solved || []) };
       }
     } catch (_) {}
@@ -25,7 +33,7 @@
   }
 
   function saveProgress(p) {
-    localStorage.setItem(KEY, JSON.stringify({
+    localStorage.setItem(getKey(), JSON.stringify({
       courage: p.courage,
       solved: Array.from(p.solved),
     }));
@@ -79,10 +87,12 @@
       : answer;
   }
 
-  /** Update the courage display in the nav. */
+  /** Update the courage display in the nav (heart emoji + count). */
   function refreshCourageDisplay() {
-    const el = document.getElementById("courage_value");
+    var el = document.getElementById("courage_value");
     if (el) el.textContent = String(getProgress().courage);
+    var heartEl = document.getElementById("courage_heart");
+    if (heartEl) heartEl.textContent = getHeart();
   }
 
   // ── Protagonist name ──────────────────────────────────────────────────────
@@ -143,7 +153,7 @@
           const msg = document.createElement("span");
           msg.className = "lock-msg";
           msg.textContent = u.unlock_courage_threshold > 0
-            ? "\uD83D\uDD12 Unlocks at \uD83D\uDC9C" + u.unlock_courage_threshold
+            ? "\uD83D\uDD12 Unlocks at " + getHeart() + u.unlock_courage_threshold
             : "\uD83D\uDD12 Locked";
           cell.appendChild(msg);
         }
