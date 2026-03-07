@@ -10,6 +10,6 @@
   },
   "files": [
     "ancient/mosp-web/data2021/src/set.ts",
-    "ancient/mosp-web/data2021/src/zoom.ts"
+    "src/zoom.ts"
   ]
 }

@@ -566,6 +566,12 @@ a.door:hover { transform: scale(1.15); text-shadow: 0 0 20px #00cca7; }
 }
 .puzzle-nav-links a { color: #7eb8f7; }
 
+/* ── Utility classes (used in puzzle content.md files) ── */
+.font-mono { font-family: 'Courier New', Courier, monospace; }
+.whitespace-pre { white-space: pre; }
+.relative { position: relative; }
+.text-sm { font-size: 0.875rem; }
+
 /* ── Responsiveness ── */
 @media (max-width: 600px) {
   .puzzle-table .col-answer { display: none; }
