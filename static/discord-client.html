@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOSP Discord Server — Archival Simulation</title>
+  <title>MOSP Discord Server</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -181,9 +181,7 @@
       font-size: 0.9rem;
       margin-top: 2px;
     }
-    .msg-avatar.placeholder {
-      visibility: hidden;
-    }
+    .msg-avatar.placeholder { visibility: hidden; }
     .msg-body { flex: 1; min-width: 0; }
     .msg-header {
       display: flex;
@@ -191,10 +189,7 @@
       gap: 0.5rem;
       margin-bottom: 0.15rem;
     }
-    .msg-author {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
+    .msg-author { font-weight: 600; font-size: 0.95rem; }
     .msg-author.bot-tag::after {
       content: "BOT";
       background: #5865f2;
@@ -245,8 +240,6 @@
       gap: 0.25rem;
     }
     .reaction .react-count { font-size: 0.75rem; color: #b5bac1; }
-
-    /* System messages */
     .system-msg {
       color: #72767d;
       font-size: 0.82rem;
@@ -255,10 +248,7 @@
     }
 
     /* Input area */
-    #input-area {
-      padding: 0 1rem 1.2rem;
-      flex-shrink: 0;
-    }
+    #input-area { padding: 0 1rem 1.2rem; flex-shrink: 0; }
     #input-bar {
       background: #383a40;
       border-radius: 8px;
@@ -290,15 +280,10 @@
     }
     #send-btn:hover { color: #7289da; }
     #send-btn:disabled { color: #444; cursor: default; }
-    #input-hint {
-      font-size: 0.72rem;
-      color: #72767d;
-      padding: 0.3rem 0 0 0.3rem;
-    }
 
-    /* Scoreboard panel */
+    /* Score panel */
     #score-panel {
-      width: 220px;
+      width: 200px;
       background: #2b2d31;
       border-left: 1px solid #1e1f22;
       padding: 1rem;
@@ -316,16 +301,8 @@
     .score-label { font-size: 0.75rem; color: #72767d; margin-bottom: 0.15rem; }
     .score-value { font-size: 1.1rem; font-weight: 700; color: #fff; }
     .score-value.accent { color: #5865f2; }
-    #emoji-log {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.2rem;
-      margin-top: 0.25rem;
-    }
-    .emoji-log-item {
-      font-size: 1.2rem;
-      line-height: 1;
-    }
+    #emoji-log { display: flex; flex-wrap: wrap; gap: 0.2rem; margin-top: 0.25rem; }
+    .emoji-log-item { font-size: 1.2rem; line-height: 1; }
     .haiku-lines {
       font-family: 'Courier New', monospace;
       font-size: 0.8rem;
@@ -336,16 +313,17 @@
     .haiku-line-active { color: #5865f2; }
     .haiku-line-done { color: #57f287; text-decoration: line-through; }
 
-    /* Notice */
-    .archival-notice {
-      background: #2a2a1c;
-      border-left: 3px solid #f0a500;
-      margin: 0.5rem 1rem;
-      padding: 0.6rem 0.8rem;
-      border-radius: 4px;
+    /* Creodont countdown */
+    #creodont-bar {
+      display: none;
+      background: #4e2d85;
+      color: #dbb8ff;
       font-size: 0.8rem;
-      color: #c8a860;
-      line-height: 1.5;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -387,17 +365,11 @@
 
 <!-- Chat Area -->
 <div id="chat-area">
+  <div id="creodont-bar" id="creodont-bar">🎵 Singing Creodont: <span id="creodont-timer">2:00</span> remaining!</div>
   <div id="chat-header">
     <span class="hash">#</span>
     <span id="channel-name">kindergarten</span>
     <span id="channel-desc">Count together as a team!</span>
-  </div>
-  <div class="archival-notice">
-    <strong>Archival Notice:</strong> During the 2021 MOSP puzzle hunt, this Discord server
-    hosted a cooperative haiku counting game. Players typed math expressions into
-    <strong>#kindergarten</strong>. Each expression must evaluate to the next integer,
-    with the right syllable count (5-7-5 repeating). Try it yourself below!
-    Start by sending Steve a DM: type "<code>teach me a lesson</code>" in the Steve DM channel.
   </div>
   <div id="messages"></div>
   <div id="input-area">
@@ -408,7 +380,6 @@
              onkeydown="onInputKey(event)" />
       <button id="send-btn" onclick="sendMessage()">➤</button>
     </div>
-    <div id="input-hint"></div>
   </div>
 </div>
 
@@ -424,10 +395,6 @@
     <div class="score-value" id="sp-haikus">0</div>
   </div>
   <div class="score-row">
-    <div class="score-label">Current line (1=5syl, 2=7syl)</div>
-    <div class="score-value" id="sp-line">1 of 3 (5 syl)</div>
-  </div>
-  <div class="score-row">
     <div class="score-label">Current haiku</div>
     <div class="haiku-lines" id="sp-haiku-text">
       <div id="hl1" class="haiku-line-active">— (line 1)</div>
@@ -436,7 +403,7 @@
     </div>
   </div>
   <div class="score-row">
-    <div class="score-label">Emoji reactions received</div>
+    <div class="score-label">Emoji reactions</div>
     <div id="emoji-log"></div>
   </div>
 </div>
@@ -444,9 +411,7 @@
 <script>
 "use strict";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Syllable counting — mirrors haiku.py logic
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Syllable counting ────────────────────────────────────────────────────────
 
 const SYL = {
   zero:2, one:1, two:1, three:1, four:1, five:1, six:1, seven:2, eight:1,
@@ -454,13 +419,10 @@ const SYL = {
   sixteen:2, seventeen:3, eighteen:2, nineteen:2, twenty:2, thirty:2,
   forty:2, fifty:2, sixty:2, seventy:3, eighty:2, ninety:2,
   hundred:2, thousand:2, million:3, and:1,
-  // operators
   plus:1, minus:2, times:1, divided:3, by:1,
 };
 
-function syllablesOfWord(w) {
-  return (w in SYL) ? SYL[w] : null;
-}
+function syllablesOfWord(w) { return (w in SYL) ? SYL[w] : null; }
 
 function numToWords(n) {
   if (n < 0) return "negative " + numToWords(-n);
@@ -472,26 +434,25 @@ function numToWords(n) {
   if (n < 20) return ones[n];
   if (n < 100) {
     const t = tens[Math.floor(n/10)];
-    const o = ones[n % 10];
-    return o ? t + "-" + o : t;
+    const o = ones[n%10];
+    return o ? t+"-"+o : t;
   }
   if (n < 1000) {
     const h = ones[Math.floor(n/100)];
-    const rest = n % 100;
-    if (rest === 0) return h + " hundred";
-    return h + " hundred and " + numToWords(rest);
+    const rest = n%100;
+    if (rest === 0) return h+" hundred";
+    return h+" hundred and "+numToWords(rest);
   }
   if (n < 1000000) {
-    const th = Math.floor(n / 1000);
-    const rest = n % 1000;
-    if (rest === 0) return numToWords(th) + " thousand";
-    return numToWords(th) + " thousand " + numToWords(rest);
+    const th = Math.floor(n/1000);
+    const rest = n%1000;
+    if (rest === 0) return numToWords(th)+" thousand";
+    return numToWords(th)+" thousand "+numToWords(rest);
   }
   return String(n);
 }
 
 function syllablesOfPhrase(phrase) {
-  // split on non-alpha characters, filter empty
   const words = phrase.split(/[^a-z]+/).filter(Boolean);
   let total = 0;
   for (const w of words) {
@@ -503,21 +464,18 @@ function syllablesOfPhrase(phrase) {
 }
 
 function exprSyllables(expr) {
-  // mirrors get_number_syllables in haiku.py
-  const s = expr.replace(/\s/g, "");
-  // split by non-digits keeping delimiters
+  const s = expr.replace(/\s/g,"");
   const chunks = s.split(/([^0-9])/);
   let total = 0;
   for (const chunk of chunks) {
     if (chunk === "") continue;
     let phrase;
-    if (/^\d+$/.test(chunk)) {
-      phrase = numToWords(parseInt(chunk, 10));
-    } else if (chunk === "+") phrase = "plus";
+    if (/^\d+$/.test(chunk)) phrase = numToWords(parseInt(chunk,10));
+    else if (chunk === "+") phrase = "plus";
     else if (chunk === "-") phrase = "minus";
     else if (chunk === "*") phrase = "times";
     else if (chunk === "/") phrase = "divided by";
-    else return null; // unrecognized
+    else return null;
     const s2 = syllablesOfPhrase(phrase);
     if (s2 === null) return null;
     total += s2;
@@ -525,69 +483,63 @@ function exprSyllables(expr) {
   return total;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Safe arithmetic evaluator (mirrors get_expr_value in haiku.py)
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Evaluator ────────────────────────────────────────────────────────────────
 
 function evalExpr(s) {
-  s = s.replace(/\s/g, "");
+  s = s.replace(/\s/g,"");
   if (s.length === 0 || s.length > 50) return null;
   if (!/^[0-9+\-*/]+$/.test(s)) return null;
-  // Reject strings that start with + or contain *+ etc (syntax errors)
   try {
-    const result = Function('"use strict"; return (' + s + ')')();
+    const result = Function('"use strict"; return ('+s+')')();
     if (typeof result !== "number" || !Number.isFinite(result)) return null;
     if (!Number.isInteger(result)) return null;
     return result;
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
-// Prettify (adds spaces around operators for display)
 function prettify(s) {
-  return s.replace(/\s/g, "")
-    .replace(/([+\-*/])/g, " $1 ");
+  return s.replace(/\s/g,"").replace(/([+\-*/])/g," $1 ");
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HAIKU_EMOJI list (from mospbot.py)
-// ─────────────────────────────────────────────────────────────────────────────
+// ── HAIKU_EMOJI ──────────────────────────────────────────────────────────────
 
 const HAIKU_EMOJI = [
-  "🍵", "➗", "🍎", "↔️", "❓",
-  "📧", "✖️", "👁️", "↔️", "💤",
-  "➕", "❓", "🚁", "➖", "🌘",
-  "↔️", "❓",
-  "🇳", "🇴", "🇹",
-  "🍵", "💰", "🍵",
+  "🍵","➗","🍎","↔️","❓",
+  "📧","✖️","👁️","↔️","💤",
+  "➕","❓","🚁","➖","🌘",
+  "↔️","❓",
+  "🇳","🇴","🇹",
+  "🍵","💰","🍵",
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Game state
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Game state ───────────────────────────────────────────────────────────────
 
-let score = 0;       // how many correct lines so far
-let lines = ["", "", ""];   // the three haiku lines (current haiku)
-let emojiLog = [];   // emojis received from completed haikus
-let hasKindergarten = false;  // whether the user has the kindergarten role
+let score = 0;
+let lines = ["","",""];
+let emojiLog = [];
+let hasKindergarten = false;
 let currentChannel = "kindergarten";
 let messageIdCounter = 0;
+let lastExpr = null;           // last expression posted correctly
+let gameEnded = false;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// UI helpers
-// ─────────────────────────────────────────────────────────────────────────────
+// ── UI helpers ───────────────────────────────────────────────────────────────
 
 function getTime() {
   const now = new Date();
-  const h = now.getHours().toString().padStart(2, "0");
-  const m = now.getMinutes().toString().padStart(2, "0");
-  return `Today at ${h}:${m}`;
+  return `Today at ${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`;
 }
 
 let lastAuthor = null;
 
-function addMessage({ author, color, botTag, text, embed, reactions, isSystem }) {
+function addMessage({ author, color, botTag, text, embed, reactions, isSystem, channel }) {
+  // Only show messages in the currently-viewed channel (default kindergarten)
+  const targetCh = channel || "kindergarten";
+  if (targetCh !== currentChannel && !isSystem) {
+    // silently drop — troll posts go to kindergarten channel
+    if (targetCh !== currentChannel) return null;
+  }
+
   const el = document.getElementById("messages");
 
   if (isSystem) {
@@ -596,7 +548,7 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem })
     div.textContent = text;
     el.appendChild(div);
     el.scrollTop = el.scrollHeight;
-    return;
+    return null;
   }
 
   const showHeader = author !== lastAuthor;
@@ -614,8 +566,7 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem })
 
   const headerEl = showHeader
     ? `<div class="msg-header">
-         <span class="msg-author${botTag ? " bot-tag" : ""}"
-               style="color:${color}">${author}</span>
+         <span class="msg-author${botTag?" bot-tag":""}" style="color:${color}">${author}</span>
          <span class="msg-time">${getTime()}</span>
        </div>`
     : "";
@@ -629,14 +580,11 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem })
   }
 
   let textHtml = text
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    .replace(/`([^`]+)`/g, "<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
-
-  // linkify #kindergarten
-  textHtml = textHtml.replace(/#kindergarten/g,
-    '<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>');
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/`([^`]+)`/g,"<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g,"<em>$1</em>")
+    .replace(/#kindergarten/g,'<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>');
 
   msgEl.innerHTML = `
     ${avatarEl}
@@ -651,43 +599,18 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem })
   el.appendChild(msgEl);
   el.scrollTop = el.scrollHeight;
 
-  if (reactions && reactions.length > 0) {
-    addReactions(id, reactions);
-  }
-
+  if (reactions && reactions.length > 0) addReactions(id, reactions);
   return id;
 }
 
-function addReactions(msgId, emojis) {
-  const el = document.getElementById(msgId + "-reactions");
-  if (!el) return;
-  // Group identical emojis
-  const counts = {};
-  for (const e of emojis) {
-    counts[e] = (counts[e] || 0) + 1;
-  }
-  for (const [emoji, count] of Object.entries(counts)) {
-    const span = document.createElement("span");
-    span.className = "reaction";
-    span.innerHTML = `${emoji}<span class="react-count">${count}</span>`;
-    el.appendChild(span);
-  }
-  const msg = el.closest(".message");
-  if (msg) msg.scrollIntoView({ block: "end" });
-}
-
-// Add a reaction to the LAST message with a given author
 function addReactionToLast(emoji, targetId) {
   if (!targetId) return;
-  const el = document.getElementById(targetId + "-reactions");
+  const el = document.getElementById(targetId+"-reactions");
   if (!el) return;
-  // Check if this emoji already has a reaction bubble
-  const existing = Array.from(el.querySelectorAll(".reaction")).find(
-    r => r.textContent.startsWith(emoji)
-  );
+  const existing = Array.from(el.querySelectorAll(".reaction")).find(r => r.textContent.startsWith(emoji));
   if (existing) {
     const cnt = existing.querySelector(".react-count");
-    cnt.textContent = String(parseInt(cnt.textContent) + 1);
+    cnt.textContent = String(parseInt(cnt.textContent)+1);
   } else {
     const span = document.createElement("span");
     span.className = "reaction";
@@ -696,9 +619,20 @@ function addReactionToLast(emoji, targetId) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Channel switching
-// ─────────────────────────────────────────────────────────────────────────────
+function addReactions(msgId, emojis) {
+  const el = document.getElementById(msgId+"-reactions");
+  if (!el) return;
+  const counts = {};
+  for (const e of emojis) counts[e] = (counts[e]||0)+1;
+  for (const [emoji, count] of Object.entries(counts)) {
+    const span = document.createElement("span");
+    span.className = "reaction";
+    span.innerHTML = `${emoji}<span class="react-count">${count}</span>`;
+    el.appendChild(span);
+  }
+}
+
+// ── Channel switching ────────────────────────────────────────────────────────
 
 function switchChannel(ch) {
   currentChannel = ch;
@@ -712,7 +646,7 @@ function switchChannel(ch) {
     document.getElementById("ch-dm").classList.add("active");
     document.getElementById("channel-name").textContent = "Steve";
     document.getElementById("channel-desc").textContent = "Direct Message";
-    document.getElementById("msg-input").placeholder = 'Message @Steve — try "teach me a lesson"';
+    document.getElementById("msg-input").placeholder = "Message @Steve";
   } else {
     document.getElementById("channel-name").textContent = ch;
     document.getElementById("channel-desc").textContent = "";
@@ -722,80 +656,38 @@ function switchChannel(ch) {
   el.innerHTML = "";
   lastAuthor = null;
 
-  if (ch === "kindergarten") {
-    renderKindergartenWelcome();
-  } else if (ch === "dm") {
-    renderDmWelcome();
-  } else {
-    addMessage({ isSystem: true, text: "Nothing to see here." });
-  }
+  if (ch === "kindergarten") renderKindergartenWelcome();
+  else if (ch === "dm") renderDmWelcome();
+  else addMessage({ isSystem: true, text: "Nothing to see here." });
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Initial render
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Welcome renders ──────────────────────────────────────────────────────────
 
 function renderDmWelcome() {
   addMessage({
-    author: "Steve",
-    color: "#5865f2",
-    botTag: true,
-    text: "Hey there! Send me `teach me a lesson` to get started with the Kindergarten puzzle.",
+    author: "Steve", color: "#5865f2", botTag: true,
+    text: "Hey there! 👋",
+    channel: "dm",
   });
 }
 
 function renderKindergartenWelcome() {
   if (!hasKindergarten) {
     addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
-      text: "Welcome! You need the **Kindergarten** role to participate here. DM me `teach me a lesson` to get started.",
+      author: "Steve", color: "#5865f2", botTag: true,
+      text: "You need the **Kindergarten** role to participate here.",
     });
     return;
   }
-
-  addMessage({
-    author: "Steve",
-    color: "#5865f2",
-    botTag: true,
-    text: "Welcome to #kindergarten! Type math expressions (using `+`, `-`, `*`, `/`) " +
-          "to count up from 1. Each expression must evaluate to the next integer, " +
-          "with the right number of syllables:\n" +
-          "Lines 1 & 3: **5 syllables** | Line 2: **7 syllables**.\n" +
-          "Complete haikus to earn emoji reactions! Good luck 🍀",
-  });
   if (score > 0) {
-    addMessage({ isSystem: true, text: `(Current score: ${score}. You can keep going from where you left off!)` });
+    addMessage({ isSystem: true, text: `(Resuming from score ${score}.)` });
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Input handling
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Input handling ───────────────────────────────────────────────────────────
 
 function onInputKey(e) {
   if (e.key === "Enter") sendMessage();
-  // Live syllable hint
-  updateInputHint();
-}
-
-function updateInputHint() {
-  const s = document.getElementById("msg-input").value.trim();
-  if (!s || currentChannel !== "kindergarten" || !hasKindergarten) {
-    document.getElementById("input-hint").textContent = "";
-    return;
-  }
-  const val = evalExpr(s);
-  const syl = exprSyllables(s);
-  const lineNum = (score % 3) + 1;
-  const target = lineNum === 2 ? 7 : 5;
-  const targetScore = score + 1;
-
-  let hint = "";
-  if (val !== null) hint += `= ${val} (need ${targetScore})`;
-  if (syl !== null) hint += (hint ? " | " : "") + `${syl} syl (need ${target})`;
-  document.getElementById("input-hint").textContent = hint;
 }
 
 function sendMessage() {
@@ -803,82 +695,78 @@ function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
   input.value = "";
-  document.getElementById("input-hint").textContent = "";
 
-  if (currentChannel === "dm") {
-    handleDm(text);
-  } else if (currentChannel === "kindergarten") {
-    handleKindergarten(text);
-  }
+  if (currentChannel === "dm") handleDm(text);
+  else if (currentChannel === "kindergarten") handleKindergarten(text);
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// DM handler
-// ─────────────────────────────────────────────────────────────────────────────
+// ── DM handler ───────────────────────────────────────────────────────────────
 
 function handleDm(text) {
-  addMessage({ author: "You", color: "#57f287", text });
+  addMessage({ author: "You", color: "#57f287", text, channel: "dm" });
+
+  // Owl intercept: if Owl is active and input looks like a number, treat as answer
+  if (owlState.active) {
+    const n = parseInt(text.trim(), 10);
+    if (!isNaN(n) && String(n) === text.trim()) {
+      owlHandleDmAnswer(n);
+      return;
+    }
+  }
 
   const lower = text.trim().toLowerCase();
   if (lower === "teach me a lesson") {
     hasKindergarten = true;
     addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
+      author: "Steve", color: "#5865f2", botTag: true,
       text: "Don't know 🍎 🐝 🌘's?\nWant to learn to count with me?\nJoin #kindergarten!",
+      channel: "dm",
     });
     addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
-      text: "✅ You've been given the **Kindergarten** role! Head to #kindergarten to start counting.",
+      author: "Steve", color: "#5865f2", botTag: true,
+      text: "✅ You've been given the **Kindergarten** role!",
+      channel: "dm",
     });
-    // Update channel list styling slightly
     document.getElementById("ch-kindergarten").style.color = "#dcddde";
   } else if (lower === "i learnt a lesson") {
     addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
+      author: "Steve", color: "#5865f2", botTag: true,
       text: "such haiku much impressive\nhere have special role",
+      channel: "dm",
     });
   } else {
-    addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
-      text: "❓",
-    });
+    addMessage({ author: "Steve", color: "#5865f2", botTag: true, text: "❓", channel: "dm" });
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Kindergarten channel handler
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Kindergarten handler ─────────────────────────────────────────────────────
 
 function handleKindergarten(text) {
+  if (gameEnded) { addMessage({ isSystem: true, text: "The game has ended." }); return; }
   if (!hasKindergarten) {
-    addMessage({ isSystem: true, text: "You need the Kindergarten role to post here. DM Steve first!" });
+    addMessage({ isSystem: true, text: "You need the Kindergarten role. DM Steve first." });
     return;
   }
 
   const msgId = addMessage({ author: "You", color: "#57f287", text });
+  processExpr(text, msgId, true);
+}
 
-  const s = text.replace(/\s/g, "");
+// Process an expression (posted by user or by a troll bot)
+// Returns true if correct, false otherwise.
+function processExpr(text, msgId, isUser) {
+  const s = text.replace(/\s/g,"");
   const val = evalExpr(s);
 
   if (val === null) {
-    // Non-numeric or invalid expression
-    addReactionToLast("❓", msgId);
-    return;
+    if (msgId) addReactionToLast("❓", msgId);
+    return false;
   }
 
   if (val !== score + 1) {
-    // Wrong value → reset
-    addReactionToLast("❌", msgId);
-    botReset(msgId);
-    return;
+    if (msgId) addReactionToLast("❌", msgId);
+    botReset();
+    return false;
   }
 
   const lineNum = (score % 3) + 1;
@@ -886,127 +774,307 @@ function handleKindergarten(text) {
   const syl = exprSyllables(s);
 
   if (syl === null) {
-    addReactionToLast("🚫", msgId);
-    botReset(msgId);
-    return;
+    if (msgId) addReactionToLast("🚫", msgId);
+    botReset();
+    return false;
   }
 
   if (syl !== targetSyl) {
-    addReactionToLast("🚫", msgId);
-    const botMsgId = addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
-      text: `That evaluates to **${val}** ✓, but has **${syl}** syllable${syl !== 1 ? "s" : ""} (need ${targetSyl}).`,
+    if (msgId) addReactionToLast("🚫", msgId);
+    addMessage({
+      author: "Steve", color: "#5865f2", botTag: true,
+      text: `That evaluates to **${val}** ✓, but has **${syl}** syllable${syl!==1?"s":""} (need ${targetSyl}).`,
     });
-    botReset(msgId);
-    return;
+    botReset();
+    return false;
   }
 
   // Correct!
-  addReactionToLast("✅", msgId);
+  if (msgId) addReactionToLast("✅", msgId);
+  if (isUser) lastExpr = prettify(s);
   score++;
 
-  // Update haiku lines
   const lineIdx = (score - 1) % 3;
   lines[lineIdx] = prettify(s);
-  if (score % 3 !== 0) {
-    // Not yet a complete haiku — need more
-    // Prompt for next line
-  }
 
   if (score % 3 === 0) {
-    // Completed a haiku!
     const haikuNum = score / 3;
     const completedLines = [...lines];
-
-    // Show haiku embed
     addMessage({
-      author: "Steve",
-      color: "#5865f2",
-      botTag: true,
-      text: "",
+      author: "Steve", color: "#5865f2", botTag: true, text: "",
       embed: {
         title: `Haiku #${haikuNum} complete!`,
         body: completedLines.map(l => `<em>${l}</em>`).join("<br>"),
       },
     });
-
-    // Give the haiku-completion emoji to the triggering message
     if (haikuNum <= HAIKU_EMOJI.length) {
-      addReactionToLast(HAIKU_EMOJI[haikuNum - 1], msgId);
-      emojiLog.push(HAIKU_EMOJI[haikuNum - 1]);
+      if (msgId) addReactionToLast(HAIKU_EMOJI[haikuNum-1], msgId);
+      emojiLog.push(HAIKU_EMOJI[haikuNum-1]);
     }
-
-    // Reset lines for next haiku
-    lines = ["", "", ""];
+    lines = ["","",""];
   }
 
   updateScorePanel();
+  afterCorrect();
+  return true;
 }
 
-function botReset(triggerMsgId) {
+function botReset() {
   const prevScore = score;
   score = 0;
-  lines = ["", "", ""];
-  const scoreline = prevScore > 0
-    ? `You scored \`${prevScore}\`.`
-    : "You got a score of 0. Read the channel description if you haven't already!";
+  lines = ["","",""];
+  lastExpr = null;
+  fireflyState.cooldown = 0;
+  // Don't reset owlState — owl stays active if it was
+  if (creoState.active) creoState.stop();
   addMessage({
-    author: "Steve",
-    color: "#5865f2",
-    botTag: true,
-    text: "",
+    author: "Steve", color: "#5865f2", botTag: true, text: "",
     embed: {
       title: "Reset",
-      body: `${scoreline} You completed ${Math.floor(prevScore/3)} haiku${prevScore >= 6 ? "s" : prevScore >= 3 ? "" : "s"}.`,
+      body: prevScore > 0
+        ? `You scored \`${prevScore}\`. You completed ${Math.floor(prevScore/3)} haiku${Math.floor(prevScore/3)!==1?"s":""}.`
+        : "Score of 0. Read the channel description if you haven't already!",
     },
   });
   updateScorePanel();
 }
 
-function updateScorePanel() {
-  document.getElementById("sp-score").textContent = score;
-  document.getElementById("sp-haikus").textContent = Math.floor(score / 3);
-  const lineNum = (score % 3) + 1;
-  const targetSyl = lineNum === 2 ? 7 : 5;
-  document.getElementById("sp-line").textContent = `${lineNum} of 3 (${targetSyl} syl)`;
+// ── Troll bots ───────────────────────────────────────────────────────────────
 
-  for (let i = 0; i < 3; i++) {
-    const el = document.getElementById("hl" + (i + 1));
-    const lineScore = score % 3;
-    if (i < lineScore) {
-      el.className = "haiku-line-done";
-      el.textContent = lines[i] || `— (line ${i+1})`;
-    } else if (i === lineScore) {
-      el.className = "haiku-line-active";
-      el.textContent = lines[i] || `— (line ${i+1})`;
-    } else {
-      el.className = "";
-      el.textContent = `— (line ${i+1})`;
-    }
-  }
+// ── Helpful Firefly ──────────────────────────────────────────────────────────
 
-  const emojiEl = document.getElementById("emoji-log");
-  emojiEl.innerHTML = "";
-  for (const e of emojiLog) {
-    const span = document.createElement("span");
-    span.className = "emoji-log-item";
-    span.title = `Haiku #${emojiLog.indexOf(e) + 1}`;
-    span.textContent = e;
-    emojiEl.appendChild(span);
+const fireflyState = {
+  active: false,
+  cooldown: 0,    // turns remaining before firefly can activate again
+};
+
+const FIREFLY_START = [
+  "oh oh i know what comes next!!!",
+  "ooh ooh i got this one",
+  "let me help!! 🔥",
+];
+const FIREFLY_END = [
+  "was that right?? 👀",
+  "you're welcome!!",
+  "happy to help 🤗",
+];
+
+function fireflyTryActivate() {
+  if (fireflyState.active) return;
+  if (fireflyState.cooldown > 0) { fireflyState.cooldown--; return; }
+  if (!lastExpr) return;
+
+  let prob = 0;
+  if (score >= 9 && score <= 44) prob = 0.20;
+  else if (score >= 45 && score <= 94) prob = 0.10;
+  if (Math.random() >= prob) return;
+
+  fireflyState.active = true;
+  const expr = lastExpr.replace(/\s/g,"") + "+1";
+  const delay = 7000 + Math.random() * 5000;
+
+  addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true,
+    text: FIREFLY_START[Math.floor(Math.random()*FIREFLY_START.length)] });
+
+  setTimeout(function() {
+    if (gameEnded) return;
+    const fmsgId = addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true, text: expr });
+    processExpr(expr, fmsgId, false);
+    addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true,
+      text: FIREFLY_END[Math.floor(Math.random()*FIREFLY_END.length)] });
+    fireflyState.active = false;
+    fireflyState.cooldown = 7;
+  }, delay);
+}
+
+// ── Quiz Owl ─────────────────────────────────────────────────────────────────
+
+const AMC_PROBLEMS = [
+  { q: "What is the value of 3 × 4 + 2 × 5?\n(A) 22 (B) 24 (C) 26 (D) 28 (E) 30", a: 22 },
+  { q: "How many positive integers less than 30 are divisible by both 2 and 3?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 4 },
+  { q: "A rectangle has perimeter 20 and length 6. What is its area?\n(A) 16 (B) 24 (C) 28 (D) 32 (E) 36", a: 24 },
+  { q: "What is 12 × 12 − 11 × 11?\n(A) 22 (B) 23 (C) 24 (D) 25 (E) 26", a: 23 },
+  { q: "How many prime numbers are between 10 and 30?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 5 },
+];
+
+const OWL_HELP = [
+  "ooo ooo, a problem!! can someone DM me the answer? 🦉",
+  "Quiz time!! I need the answer in my DMs pleaaaase 🦉",
+];
+const OWL_INSIST = [
+  "hello?? still waiting on that answer!! DM me!! 🦉",
+  "c'mon someone must know this!! DM me the answer!! 🦉",
+];
+
+const owlState = {
+  active: false,
+  problem: null,
+  timer1: null,
+  timer2: null,
+};
+
+function owlTryActivate() {
+  if (owlState.active) return;
+  if (score < 20) return;
+  if (Math.random() >= 0.25) return;
+
+  owlState.active = true;
+  owlState.problem = AMC_PROBLEMS[Math.floor(Math.random()*AMC_PROBLEMS.length)];
+
+  addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+    text: OWL_HELP[Math.floor(Math.random()*OWL_HELP.length)],
+    embed: { title: "AMC Problem", body: owlState.problem.q.replace(/\n/g,"<br>") },
+  });
+
+  owlState.timer1 = setTimeout(function() {
+    if (!owlState.active) return;
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: OWL_INSIST[Math.floor(Math.random()*OWL_INSIST.length)] });
+  }, 27000);
+
+  owlState.timer2 = setTimeout(function() {
+    if (!owlState.active) return;
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "nvm i found the answer!! it's `" + owlState.problem.a + "`" });
+    // Post the answer to the channel — goes through game logic
+    const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: String(owlState.problem.a) });
+    processExpr(String(owlState.problem.a), omsgId, false);
+    owlState.active = false;
+    owlState.problem = null;
+  }, 43000);
+}
+
+function owlHandleDmAnswer(n) {
+  if (!owlState.active) return;
+  if (n === owlState.problem.a) {
+    clearTimeout(owlState.timer1);
+    clearTimeout(owlState.timer2);
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "yesss that's right!! thank youuu 🦉✅", channel: "dm" });
+    owlState.active = false;
+    owlState.problem = null;
+  } else {
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "hmm i think the answer might be `"+n+"`...", channel: "dm" });
+    // Post wrong answer to channel
+    const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true, text: String(n) });
+    processExpr(String(n), omsgId, false);
+    clearTimeout(owlState.timer1);
+    clearTimeout(owlState.timer2);
+    owlState.active = false;
+    owlState.problem = null;
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Init
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Singing Creodont ─────────────────────────────────────────────────────────
+
+const creoState = {
+  active: false,
+  endTimer: null,
+  encTimer1: null,
+  encTimer2: null,
+  startTime: null,
+  barInterval: null,
+};
+
+const CREO_ENCOURAGE = [
+  ["you're halfway through!! keep gooooing!! 🎵", 60],
+  ["almost there!! push push push!! 🎵🎵", 90],
+];
+
+function creoActivate() {
+  if (creoState.active) return;
+  creoState.active = true;
+  creoState.startTime = Date.now();
+
+  addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
+    text: "🎵 *A wild Singing Creodont appears!* 🎵\nYou have **2 minutes** to get as far as you can!! GO GO GO!! 🚀" });
+
+  document.getElementById("creodont-bar").style.display = "block";
+  creoState.barInterval = setInterval(function() {
+    const elapsed = Math.floor((Date.now() - creoState.startTime) / 1000);
+    const remaining = Math.max(0, 125 - elapsed);
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    document.getElementById("creodont-timer").textContent = m+":"+String(s).padStart(2,"0");
+  }, 500);
+
+  CREO_ENCOURAGE.forEach(function([msg, delay]) {
+    creoState["enc"+delay] = setTimeout(function() {
+      if (!creoState.active) return;
+      addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true, text: msg });
+    }, delay * 1000);
+  });
+
+  creoState.endTimer = setTimeout(function() {
+    if (!creoState.active) return;
+    creoState.stop(true);
+  }, 125000);
+}
+
+creoState.stop = function(timeUp) {
+  creoState.active = false;
+  clearTimeout(creoState.endTimer);
+  clearInterval(creoState.barInterval);
+  document.getElementById("creodont-bar").style.display = "none";
+  if (timeUp) {
+    gameEnded = true;
+    addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
+      text: "⏰ Time's up!! The Creodont's song is over. Final score: **"+score+"**. 🎵" });
+    document.getElementById("msg-input").disabled = true;
+    document.getElementById("send-btn").disabled = true;
+  }
+};
+
+// ── After each correct answer, check trolls ──────────────────────────────────
+
+function afterCorrect() {
+  if (gameEnded) return;
+
+  // Creodont triggers exactly at score 42
+  if (score === 42 && !creoState.active) {
+    creoActivate();
+    return; // don't fire other trolls at same time
+  }
+
+  // Only one troll at a time; don't fire if owl or firefly already active
+  if (owlState.active || fireflyState.active) return;
+
+  // Firefly first (lower threshold)
+  fireflyTryActivate();
+
+  // Owl (higher threshold, independent of firefly cooldown)
+  if (!fireflyState.active) owlTryActivate();
+}
+
+// ── Score panel ──────────────────────────────────────────────────────────────
+
+function updateScorePanel() {
+  document.getElementById("sp-score").textContent = score;
+  document.getElementById("sp-haikus").textContent = Math.floor(score/3);
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById("hl"+(i+1));
+    const lineScore = score % 3;
+    if (i < lineScore) { el.className = "haiku-line-done"; el.textContent = lines[i]||`— (line ${i+1})`; }
+    else if (i === lineScore) { el.className = "haiku-line-active"; el.textContent = lines[i]||`— (line ${i+1})`; }
+    else { el.className = ""; el.textContent = `— (line ${i+1})`; }
+  }
+  const emojiEl = document.getElementById("emoji-log");
+  emojiEl.innerHTML = "";
+  emojiLog.forEach(function(e, idx) {
+    const span = document.createElement("span");
+    span.className = "emoji-log-item";
+    span.title = "Haiku #"+(idx+1);
+    span.textContent = e;
+    emojiEl.appendChild(span);
+  });
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
 
 switchChannel("kindergarten");
 updateScorePanel();
-
-// Keep hint updated as user types
-document.getElementById("msg-input").addEventListener("input", updateInputHint);
 </script>
 </body>
 </html>
