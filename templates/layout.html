@@ -17,6 +17,7 @@
     <nav class="site-nav">
       <span id="back">
         {% block back_nav %}<a class="emoji-link" href="{{ root }}index.html">&#x1F199;</a>{% endblock %}
+        <a id="setname" href="#" onclick="MOSP_promptName(); return false;" title="Click to set your name"><span id="tokenname"></span></a>
       </span>
       <span id="status">
         <span class="relative navitem" id="courage">
@@ -29,7 +30,9 @@
       </span>
     </nav>
 
-    {% block content %}{% endblock %}
+    <div id="content-inner">
+      {% block content %}{% endblock %}
+    </div>
   </div>
 
   <div id="footer">

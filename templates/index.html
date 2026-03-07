@@ -11,13 +11,22 @@
   A puzzle hunt archive &mdash; two years of puzzles, now freely accessible.
 </p>
 
-<div class="hunt-list">
+<div class="volume-gallery">
   {% for hunt in hunts | sort(attribute="pk") %}
-  <div class="hunt-card">
-    <h2><a href="vol/{{ hunt.volume_number | urlencode }}/index.html">Volume {{ hunt.volume_number }}: {{ hunt.name }}</a></h2>
-    <p class="hunt-meta">{{ hunt.authors }}</p>
-    <a class="btn" href="vol/{{ hunt.volume_number | urlencode }}/index.html">View Hunt &rarr;</a>
-  </div>
+  <a class="volume-card" href="vol/{{ hunt.volume_number | urlencode }}/index.html">
+    {% if hunt.thumbnail_path %}
+    <div class="volume-thumb" style="background-image: url('static/{{ hunt.thumbnail_path }}')"></div>
+    {% else %}
+    <div class="volume-thumb volume-thumb-fallback"></div>
+    {% endif %}
+    <div class="volume-overlay">
+      <div class="volume-label">
+        <span class="volume-num">Volume {{ hunt.volume_number }}</span>
+        <span class="volume-name">{{ hunt.name }}</span>
+        <span class="volume-authors">{{ hunt.authors }}</span>
+      </div>
+    </div>
+  </a>
   {% endfor %}
 </div>
 {% endblock %}

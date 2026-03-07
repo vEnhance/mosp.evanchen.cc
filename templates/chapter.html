@@ -15,6 +15,10 @@
 <div class="round-text">{{ round.round_text | md }}</div>
 {% endif %}
 
+{% if round_unlockable %}
+<p class="story-link"><a href="../../unlock/{{ round_unlockable.slug | urlencode }}/index.html">&#x1F4D6; View story for this chapter</a></p>
+{% endif %}
+
 {% if children %}
 <table class="puzzle-table">
   <thead>
@@ -43,7 +47,9 @@
     {% elif u.story_only %}
     <tr class="story-row">
       <td></td>
-      <td class="story-title" colspan="2">{{ u.icon }} {{ u.name }}</td>
+      <td class="story-title" colspan="2">
+        <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>
+      </td>
     </tr>
     {% endif %}
     {% endfor %}

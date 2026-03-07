@@ -85,7 +85,35 @@
     if (el) el.textContent = String(getProgress().courage);
   }
 
+  // ── Protagonist name ──────────────────────────────────────────────────────
+  const NAME_KEY = "mosp_name_v1";
+
+  function getName() {
+    return localStorage.getItem(NAME_KEY) || "Frisk";
+  }
+
+  function renderName() {
+    const name = getName();
+    const first = name.indexOf(" ") !== -1 ? name.substring(0, name.indexOf(" ")) : name;
+    document.querySelectorAll("span.name.fullname").forEach(function (el) { el.textContent = name; });
+    document.querySelectorAll("span.name.firstname").forEach(function (el) { el.textContent = first; });
+    const tok = document.getElementById("tokenname");
+    if (tok) tok.textContent = name;
+  }
+
+  window.MOSP_promptName = function () {
+    const current = getName();
+    const input = window.prompt("Enter your name (it will appear in the story):", current);
+    if (input !== null) {
+      const trimmed = input.trim() || "Frisk";
+      localStorage.setItem(NAME_KEY, trimmed);
+      renderName();
+    }
+  };
+
+  // ── DOMContentLoaded ──────────────────────────────────────────────────────
   document.addEventListener("DOMContentLoaded", function () {
+    renderName();
     refreshCourageDisplay();
 
     const rows = document.querySelectorAll("[data-unlockable]");

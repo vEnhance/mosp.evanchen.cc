@@ -191,6 +191,15 @@ if ANCIENT_STATIC_2021.exists():
         dst_img = dest / alias
         if src_img.exists() and not dst_img.exists():
             shutil.copy2(src_img, dst_img)
+
+    # Create 2022/ directory with the flipped tromino thumbnail (copy of 2021's for now,
+    # since the separate flipped asset was never committed to the submodule).
+    tromino_2021 = dest / "mosp-tromino.png"
+    tromino_2022_dir = OUT / "static" / "2022"
+    tromino_2022 = tromino_2022_dir / "mosp-tromino-flipped.png"
+    if tromino_2021.exists() and not tromino_2022.exists():
+        tromino_2022_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(tromino_2021, tromino_2022)
 else:
     print("  Warning: ancient/mosp-web/data2021/static not found — skipping puzzle assets")
 
@@ -222,6 +231,13 @@ for round_ in site["rounds"]:
         [u for u in site["unlockables"] if u.get("parent_pk") == round_["pk"]],
         key=lambda u: (u["sort_order"], u["name"]),
     )
+    # Find the unlockable whose purpose is introducing this round
+    # (round_pk == round pk, parent_pk is None — it's the chapter's own story page)
+    round_unlockable = next(
+        (u for u in site["unlockables"]
+         if u.get("round_pk") == round_["pk"] and u.get("parent_pk") is None),
+        None,
+    )
     write(
         OUT / "chapter" / round_["slug"] / "index.html",
         env.get_template("chapter.html").render(
@@ -229,6 +245,7 @@ for round_ in site["rounds"]:
             hunt=hunt,
             children=children,
             puzzles=puzzles,
+            round_unlockable=round_unlockable,
         ),
     )
 
