@@ -40,6 +40,7 @@ const MOSP_SOLUTION_URL = {{ solution_url | tojson }};
 const MOSP_SLUG = {{ puzzle.slug | tojson }};
 const MOSP_BOUNTY = {{ courage_bounty | tojson }};
 </script>
+<script src="{{ root }}js/grader.js" defer></script>
 
 <div id="puzzlehead">
   <div id="answerchecker">
@@ -59,75 +60,6 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
     </div>
   </div>
 </div>
-
-<script>
-(function () {
-  async function sha256(msg) {
-    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-  function normalize(s) {
-    return s.toUpperCase().replace(/[^A-Z]/g, "");
-  }
-  function showIcon(id) {
-    document.querySelectorAll("span.icon").forEach(el => el.style.display = "none");
-    const el = document.getElementById(id);
-    if (el) el.style.display = "inline";
-  }
-
-  const input = document.getElementById("answer");
-  const btn   = document.getElementById("check-btn");
-  const pct   = document.getElementById("percent");
-  const prize = document.getElementById("prize");
-
-  async function check() {
-    const normalized = normalize(input.value.trim());
-    if (!normalized) return;
-    input.disabled = true;
-    if (btn) btn.disabled = true;
-    showIcon("thinking");
-    if (pct) pct.style.visibility = "visible";
-
-    for (let salt = 0; salt < 10000; salt++) {
-      const h = await sha256("MOSP_LIGHT_NOVEL_" + normalized + salt);
-
-      if (MOSP_HASHES.includes(h)) {
-        showIcon("correct");
-        document.body.classList.add("solved");
-        if (prize) { prize.style.display = "block"; prize.href = MOSP_SOLUTION_URL; }
-        if (pct) pct.style.visibility = "hidden";
-        // Check firstSolve immediately before markSolved so concurrent calls
-        // can't both see firstSolve=true (JS is single-threaded between awaits).
-        const firstSolve = !window.MOSP_isSolved || !MOSP_isSolved(MOSP_SLUG);
-        if (window.MOSP_markSolved) MOSP_markSolved(MOSP_SLUG);
-        if (firstSolve && window.MOSP_grantCourage && MOSP_BOUNTY > 0) MOSP_grantCourage(MOSP_BOUNTY);
-        const cv = document.getElementById("courage_value");
-        if (cv && window.MOSP_getCourage) cv.textContent = String(MOSP_getCourage());
-        return;
-      }
-
-      for (const partial of MOSP_PARTIAL) {
-        if (partial.hash === h) {
-          showIcon("wrong");
-          if (pct) { pct.textContent = "\uD83E\uDD14 " + partial.message; pct.style.visibility = "visible"; }
-          input.disabled = false;
-          if (btn) btn.disabled = false;
-          return;
-        }
-      }
-    }
-
-    showIcon("wrong");
-    if (pct) { pct.textContent = ""; pct.style.visibility = "hidden"; }
-    input.disabled = false;
-    if (btn) btn.disabled = false;
-  }
-
-  input.addEventListener("keydown", e => { if (e.key === "Enter") check(); });
-  const b = document.getElementById("check-btn");
-  if (b) b.addEventListener("click", check);
-})();
-</script>
 
 <div id="puzzlecontent">
   {% if files.content %}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Compile puzzle TypeScript and place output into site/static/.
-# Run this whenever src/set.ts or src/zoom.ts change.
+# Compile all TypeScript in typescripts/ → site/js/.
+# Run this whenever any .ts file changes.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -11,13 +11,6 @@ if [ ! -d "$ROOT/node_modules" ]; then
 fi
 
 echo "Compiling TypeScript..."
-npx --prefix "$ROOT" tsc --project "$ROOT/tsconfig.puzzles.json"
-
-echo "Copying compiled JS to site/static/..."
-mkdir -p "$ROOT/site/static/2021/set"
-cp "$ROOT/.tsc-out/set.js" "$ROOT/site/static/2021/set/set.js"
-
-mkdir -p "$ROOT/site/static/2021/zoom"
-cp "$ROOT/.tsc-out/zoom.js" "$ROOT/site/static/2021/zoom/zoom.js"
+npx --prefix "$ROOT" tsc
 
 echo "Done."

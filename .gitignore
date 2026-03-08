@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .tsc-out/
+site/js/
 
 # Generated HTML (site/static/ is tracked)
 site/index.html

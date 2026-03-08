@@ -26,7 +26,7 @@
  * SOFTWARE.
  */
 
-import Swal from "sweetalert2";
+declare const Swal: { fire: (...args: unknown[]) => Promise<unknown> };
 
 export function SetCard(value: string, month: string, day: number): string {
   // dark theme
