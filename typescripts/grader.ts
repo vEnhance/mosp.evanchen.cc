@@ -25,13 +25,6 @@ declare const MOSP_PARTIAL: { hash: string; message: string }[];
 declare const MOSP_SLUG: string;
 declare const MOSP_BOUNTY: number;
 
-interface Window {
-  MOSP_isSolved?: (slug: string) => boolean;
-  MOSP_markSolved?: (slug: string) => void;
-  MOSP_grantCourage?: (amount: number) => void;
-  MOSP_getCourage?: () => number;
-}
-
 async function sha256(message: string): Promise<string> {
   const msgUint8 = new TextEncoder().encode(message);
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);

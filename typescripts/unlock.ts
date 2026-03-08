@@ -4,51 +4,84 @@
  * Progress is stored in localStorage under a per-volume key as:
  *   { courage: number, solved: string[], opened: string[] }
  *
- * "solved" tracks puzzle slugs that have been answered correctly.
+ * "solved" tracks puzzle slugs answered correctly.
  * "opened" tracks unlockable slugs whose story page has been visited.
- *
- * Puzzles earn courage_bounty points when solved.
- * Answers in the chapter table are only revealed for solved puzzles.
- * Puzzle titles on the chapter page show as "???" until the corresponding
- * unlockable story page has been opened (visited).
  */
+
+interface Unlockable {
+  slug: string;
+  hunt_volume: string;
+  parent_slug: string | null;
+  name: string;
+  icon: string;
+  sort_order: number;
+  story_only: boolean;
+  courage_bounty: number;
+  unlock_courage_threshold: number;
+  unlock_needs_slug: string | null;
+  force_visibility: boolean | null;
+  on_solve_link_to: string | null;
+  puzzle_slug: string | null;
+  round_slug: string | null;
+  intro_story_text: string;
+}
+
+interface Progress {
+  courage: number;
+  solved: Set<string>;
+  opened: Set<string>;
+}
+
+// Extend Window with template-injected globals and the public MOSP API.
+// All .ts files in the same compilation see these declarations.
+interface Window {
+  // Injected per-page by templates
+  MOSP_VOLUME?: string;
+  MOSP_HEART?: string;
+  MOSP_UNLOCK_SLUG?: string;
+  // Published by unlock.ts for use by grader.ts and inline scripts
+  MOSP_grantCourage?: (n: number) => number;
+  MOSP_isSolved?: (slug: string) => boolean;
+  MOSP_markSolved?: (slug: string) => void;
+  MOSP_getCourage?: () => number;
+  MOSP_markOpened?: (slug: string) => void;
+  MOSP_isOpened?: (slug: string) => boolean;
+  MOSP_isVisible?: (u: Unlockable) => boolean;
+  MOSP_promptName?: () => void;
+}
+
 (function () {
   "use strict";
 
-  // Per-volume localStorage keys; falls back to "all" on pages without a volume
-  function getVol() {
-    return typeof globalThis.MOSP_VOLUME !== "undefined"
-      ? globalThis.MOSP_VOLUME
-      : null;
+  function getVol(): string | null {
+    return window.MOSP_VOLUME !== undefined ? window.MOSP_VOLUME : null;
   }
 
-  function getKey() {
+  function getKey(): string {
     const vol = getVol();
     return vol ? "mosp_progress_v2_" + vol : "mosp_progress_v2_all";
   }
 
-  function getHeart() {
-    return typeof globalThis.MOSP_HEART !== "undefined"
-      ? globalThis.MOSP_HEART
-      : "\uD83D\uDC9C";
+  function getHeart(): string {
+    return window.MOSP_HEART !== undefined ? window.MOSP_HEART : "\uD83D\uDC9C";
   }
 
-  function getProgress() {
+  function getProgress(): Progress {
     try {
       const raw = localStorage.getItem(getKey());
       if (raw) {
         const p = JSON.parse(raw);
         return {
           courage: p.courage || 0,
-          solved: new Set(p.solved || []),
-          opened: new Set(p.opened || []),
+          solved: new Set<string>(p.solved || []),
+          opened: new Set<string>(p.opened || []),
         };
       }
     } catch (_) {}
-    return { courage: 0, solved: new Set(), opened: new Set() };
+    return { courage: 0, solved: new Set<string>(), opened: new Set<string>() };
   }
 
-  function saveProgress(p) {
+  function saveProgress(p: Progress): void {
     localStorage.setItem(
       getKey(),
       JSON.stringify({
@@ -59,64 +92,53 @@
     );
   }
 
-  /** Add n to the courage total and return the new value. */
-  globalThis.MOSP_grantCourage = function (n) {
+  window.MOSP_grantCourage = function (n: number): number {
     const p = getProgress();
     p.courage += n;
     saveProgress(p);
     return p.courage;
   };
 
-  /** Return true if a puzzle slug has been solved. */
-  globalThis.MOSP_isSolved = function (slug) {
+  window.MOSP_isSolved = function (slug: string): boolean {
     return getProgress().solved.has(slug);
   };
 
-  /** Mark a puzzle slug as solved. */
-  globalThis.MOSP_markSolved = function (slug) {
+  window.MOSP_markSolved = function (slug: string): void {
     const p = getProgress();
     p.solved.add(slug);
     saveProgress(p);
   };
 
-  /** Return current courage total. */
-  globalThis.MOSP_getCourage = function () {
+  window.MOSP_getCourage = function (): number {
     return getProgress().courage;
   };
 
-  /** Mark an unlockable slug as opened (story page has been visited). */
-  globalThis.MOSP_markOpened = function (slug) {
+  window.MOSP_markOpened = function (slug: string): void {
     const p = getProgress();
     p.opened.add(slug);
     saveProgress(p);
   };
 
-  /** Return true if an unlockable story page has been visited. */
-  globalThis.MOSP_isOpened = function (slug) {
+  window.MOSP_isOpened = function (slug: string): boolean {
     return getProgress().opened.has(slug);
   };
 
   // ── Open-all switch ───────────────────────────────────────────────────────
 
-  function getOpenAllKey() {
+  function getOpenAllKey(): string {
     const vol = getVol();
     return vol ? "mosp_openall_" + vol : "mosp_openall_all";
   }
 
-  function getOpenAll() {
+  function getOpenAll(): boolean {
     return localStorage.getItem(getOpenAllKey()) === "true";
   }
 
-  function setOpenAll(val) {
+  function setOpenAll(val: boolean): void {
     localStorage.setItem(getOpenAllKey(), String(val));
   }
 
-  /**
-   * Determine whether an unlockable should be visible.
-   * When the "open all" switch is on, all unlockables are visible.
-   * @param {Object} u - unlockable with force_visibility, unlock_courage_threshold, unlock_needs_slug
-   */
-  globalThis.MOSP_isVisible = function (u) {
+  window.MOSP_isVisible = function (u: Unlockable): boolean {
     if (getOpenAll()) return true;
     if (u.force_visibility === true) return true;
     if (u.force_visibility === false) return false;
@@ -126,8 +148,9 @@
     return true;
   };
 
-  /** Reveal the answer cell for a solved puzzle row. */
-  function revealAnswer(cell) {
+  // ── Chapter table helpers ─────────────────────────────────────────────────
+
+  function revealAnswer(cell: Element): void {
     const answer = cell.getAttribute("data-answer");
     const solutionUrl = cell.getAttribute("data-solution");
     if (!answer) return;
@@ -136,8 +159,7 @@
       : answer;
   }
 
-  /** Update the courage display in the nav (heart emoji + count). */
-  function refreshCourageDisplay() {
+  function refreshCourageDisplay(): void {
     const el = document.getElementById("courage_value");
     if (el) el.textContent = String(getProgress().courage);
     const heartEl = document.getElementById("courage_heart");
@@ -145,29 +167,30 @@
   }
 
   // ── Protagonist name ──────────────────────────────────────────────────────
+
   const NAME_KEY = "mosp_name_v1";
 
-  function getName() {
+  function getName(): string {
     return localStorage.getItem(NAME_KEY) || "Frisk";
   }
 
-  function renderName() {
+  function renderName(): void {
     const name = getName();
     const first =
       name.indexOf(" ") !== -1 ? name.substring(0, name.indexOf(" ")) : name;
-    document.querySelectorAll("span.name.fullname").forEach(function (el) {
+    document.querySelectorAll("span.name.fullname").forEach((el) => {
       el.textContent = name;
     });
-    document.querySelectorAll("span.name.firstname").forEach(function (el) {
+    document.querySelectorAll("span.name.firstname").forEach((el) => {
       el.textContent = first;
     });
     const tok = document.getElementById("tokenname");
     if (tok) tok.textContent = name;
   }
 
-  globalThis.MOSP_promptName = function () {
+  window.MOSP_promptName = function (): void {
     const current = getName();
-    const input = globalThis.prompt(
+    const input = window.prompt(
       "Enter your name (it will appear in the story):",
       current,
     );
@@ -179,17 +202,20 @@
   };
 
   // ── DOMContentLoaded ──────────────────────────────────────────────────────
+
   document.addEventListener("DOMContentLoaded", function () {
     renderName();
     refreshCourageDisplay();
 
     // If this is an unlock/story page, mark it as opened
-    if (typeof globalThis.MOSP_UNLOCK_SLUG !== "undefined") {
-      globalThis.MOSP_markOpened(globalThis.MOSP_UNLOCK_SLUG);
+    if (window.MOSP_UNLOCK_SLUG !== undefined) {
+      window.MOSP_markOpened!(window.MOSP_UNLOCK_SLUG);
     }
 
     // Initialise the "open all" toggle checkbox
-    const openAllCheckbox = document.getElementById("openall-checkbox");
+    const openAllCheckbox = document.getElementById(
+      "openall-checkbox",
+    ) as HTMLInputElement | null;
     if (openAllCheckbox) {
       openAllCheckbox.checked = getOpenAll();
       openAllCheckbox.addEventListener("change", function () {
@@ -205,37 +231,36 @@
     let anyLocked = false;
 
     rows.forEach(function (row) {
-      let u;
+      let u: Unlockable;
       try {
-        u = JSON.parse(row.getAttribute("data-unlockable"));
+        u = JSON.parse(row.getAttribute("data-unlockable")!);
       } catch (_) {
         return;
       }
 
       // Story-only rows: hide entirely when not visible
       if (row.classList.contains("story-row")) {
-        if (!MOSP_isVisible(u)) {
-          row.style.display = "none";
+        if (!window.MOSP_isVisible!(u)) {
+          (row as HTMLElement).style.display = "none";
         }
         return;
       }
 
-      // Puzzle rows: reveal answer if solved
+      // Puzzle rows: reveal answer if already solved
       const answerCell = row.querySelector("[data-slug]");
       if (
         answerCell &&
-        progress.solved.has(answerCell.getAttribute("data-slug"))
+        progress.solved.has(answerCell.getAttribute("data-slug")!)
       ) {
         revealAnswer(answerCell);
       }
 
-      if (!MOSP_isVisible(u)) {
-        // Locked: dim the row and add a lock message, but no title placeholder
+      if (!window.MOSP_isVisible!(u)) {
+        // Locked: dim the row and show a lock message; clear the title
         row.classList.add("locked");
         anyLocked = true;
         const cell = row.querySelector(".col-title");
         if (cell) {
-          // Clear the title contents so locked rows show no puzzle name
           cell.innerHTML = "";
           const msg = document.createElement("span");
           msg.className = "lock-msg";
@@ -247,9 +272,8 @@
               : "\uD83D\uDD12 Locked";
           cell.appendChild(msg);
         }
-      } else if (!MOSP_isOpened(u.slug)) {
-        // Visible but unlockable story not yet opened: show plain "???" (no link).
-        // The location cell already links to the unlock page for navigation.
+      } else if (!window.MOSP_isOpened!(u.slug)) {
+        // Visible but story not yet visited: show "New puzzle found!" placeholder
         const cell = row.querySelector(".col-title");
         if (cell) {
           const span = document.createElement("span");
@@ -259,20 +283,17 @@
           cell.appendChild(span);
         }
       }
-      // else: visible and opened — the template already rendered the puzzle title
-      // with a link to the puzzle page; no JS change needed
+      // else: visible and opened — template-rendered puzzle name + link stands
     });
 
-    // "Show all" escape hatch when some puzzles are locked
     if (anyLocked) {
       const btn = document.getElementById("show-all-btn");
       if (btn) {
         btn.style.display = "inline-block";
         btn.addEventListener("click", function () {
-          document.querySelectorAll(".puzzle-row.locked").forEach(function (r) {
+          document.querySelectorAll(".puzzle-row.locked").forEach((r) => {
             r.classList.remove("locked");
-            const msg = r.querySelector(".lock-msg");
-            if (msg) msg.remove();
+            r.querySelector(".lock-msg")?.remove();
           });
           btn.style.display = "none";
         });
