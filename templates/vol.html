@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
-{% block title %}Volume {{ hunt.volume_number }}: {{ hunt.name }}{% endblock title %}
-{% block back_nav %}<a class="emoji-link" href="../../index.html">🔙</a>{% endblock back_nav %}
+{% block title %}
+    Volume {{ hunt.volume_number }}: {{ hunt.name }}
+{% endblock title %}
+{% block back_nav %}
+    <a class="emoji-link" href="../../index.html">🔙</a>
+{% endblock back_nav %}
 {% block page_meta %}
     <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
 {% endblock page_meta %}

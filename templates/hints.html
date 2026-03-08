@@ -4,14 +4,20 @@
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
 {% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
-{% block title %}Hints: {{ puzzle.name }}{% endblock title %}
+{% block title %}
+    Hints: {{ puzzle.name }}
+{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
 {% endblock page_meta %}
-{% block back_nav %}<a class="emoji-link" href="{{ puzzle_url }}">🔙</a>{% endblock back_nav %}
-{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock southeast %}
+{% block back_nav %}
+    <a class="emoji-link" href="{{ puzzle_url }}">🔙</a>
+{% endblock back_nav %}
+{% block southeast %}
+    <a href="{{ solution_url }}">View solution</a>
+{% endblock southeast %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <p style="text-align:center">

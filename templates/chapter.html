@@ -4,7 +4,9 @@
     {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}:{% endif %}
     {{ round.name }}
 {% endset %}
-{% block title %}{{ chapter_label | trim }}{% endblock title %}
+{% block title %}
+    {{ chapter_label | trim }}
+{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
@@ -40,7 +42,9 @@
                                 <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>
                             </td>
                             <td class="col-title">
-                                {% if puzzle.is_meta %}<strong>{% endif %}<a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>{% if puzzle.is_meta %}</strong>{% endif %}
+                                {% if puzzle.is_meta %}<strong>{% endif %}
+                                    <a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
+                                    {% if puzzle.is_meta %}</strong>{% endif %}
                             </td>
                             <td class="col-answer"
                                 data-answer="{{ puzzle.answer }}"

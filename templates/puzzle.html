@@ -5,18 +5,24 @@
 {% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
 {% set courage_bounty = unlockable.courage_bounty if unlockable else 0 %}
 {% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
-{% block title %}{{ puzzle.name }}{% endblock title %}
+{% block title %}
+    {{ puzzle.name }}
+{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
 {% endblock page_meta %}
-{% block extra_head %}{{ files.puzzle_head | safe }}{% endblock extra_head %}
+{% block extra_head %}
+    {{ files.puzzle_head | safe }}
+{% endblock extra_head %}
 {% block back_nav %}
     <a class="emoji-link"
        href="{{ '../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html' }}">🗺️</a>
 {% endblock back_nav %}
-{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock southeast %}
+{% block southeast %}
+    <a href="{{ solution_url }}">View solution</a>
+{% endblock southeast %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <div class="text-sm puzzle-nav-links">
