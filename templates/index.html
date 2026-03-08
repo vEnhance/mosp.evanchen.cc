@@ -1,32 +1,42 @@
 {% extends "layout.html" %}
 {% set root = "" %}
-
 {% block title %}Home{% endblock %}
-
 {% block back_nav %}{% endblock %}
-
 {% block content %}
-<h1>MOSP: A Light Novel</h1>
-<p style="text-align:center">
-  A puzzle hunt archive &mdash; two years of puzzles, now freely accessible.
-</p>
-
-<div class="volume-gallery">
-  {% for hunt in hunts | sort(attribute="pk") %}
-  <a class="volume-card" href="vol/{{ hunt.volume_number | urlencode }}/index.html">
-    {% if hunt.thumbnail_path %}
-    <div class="volume-thumb" style="background-image: url('static/{{ hunt.thumbnail_path }}')"></div>
-    {% else %}
-    <div class="volume-thumb volume-thumb-fallback"></div>
-    {% endif %}
-    <div class="volume-overlay">
-      <div class="volume-label">
-        <span class="volume-num">Volume {{ hunt.volume_number }}</span>
-        <span class="volume-name">{{ hunt.name }}</span>
-        <span class="volume-authors">{{ hunt.authors }}</span>
-      </div>
+    <h1>MOSP: A Light Novel</h1>
+    <p style="text-align:center">
+        Welcome to the MOSP puzzle hunt!
+        This was a puzzle hunt we ran from MOP 2021 and 2022.
+        <ul>
+            <li>
+                The archive of the 2021 hunt is fairly complete,
+                including solutions, story text, artwork, and adaptations of puzzle content.
+                I generally recommend this one (a bit selfishly, since I wrote it).
+            </li>
+            <li>
+                For the 2022 hunt, we only have the opening story
+                and the puzzle content (but no solutions or artwork).
+            </li>
+        </ul>
+    </p>
+    <div class="volume-gallery">
+        {% for hunt in hunts | sort(attribute="pk") %}
+            <a class="volume-card"
+               href="vol/{{ hunt.volume_number | urlencode }}/index.html">
+                {% if hunt.thumbnail_path %}
+                    <div class="volume-thumb"
+                         style="background-image: url('static/{{ hunt.thumbnail_path }}')"></div>
+                {% else %}
+                    <div class="volume-thumb volume-thumb-fallback"></div>
+                {% endif %}
+                <div class="volume-overlay">
+                    <div class="volume-label">
+                        <span class="volume-num">Volume {{ hunt.volume_number }}</span>
+                        <span class="volume-name">{{ hunt.name }}</span>
+                        <span class="volume-authors">{{ hunt.authors }}</span>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
     </div>
-  </a>
-  {% endfor %}
-</div>
 {% endblock %}
