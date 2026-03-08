@@ -19,6 +19,13 @@
 {% block southeast %}<a href="{{ solution_url }}">&#x1F511; Solution</a>{% endblock %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
+    <div class="text-sm puzzle-nav-links">
+        {% if parent_round %}
+            <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
+        {% endif %}
+        {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
+        <a href="{{ solution_url }}">View solution</a>
+    </div>
     {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}
     <script>
 const MOSP_HASHES = {{ puzzle.hashes | tojson }};
@@ -46,13 +53,5 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
             </p>
         </div>
     </div>
-    <div id="puzzlecontent">
-        {% if files.content %}
-            {{ files.content | md }}
-        {% else %}
-            <p>
-                <em>Puzzle content stub &mdash; to be filled in.</em>
-            </p>
-        {% endif %}
-    </div>
+    <div id="puzzlecontent">{{ files.content | md }}</div>
 {% endblock %}
