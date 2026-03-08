@@ -4,15 +4,14 @@
 {% if on_solve_unlockable %}
     {% set on_solve_url = "../../unlock/" ~ (on_solve_unlockable.slug | urlencode) ~ "/index.html" %}
 {% else %}
-    {% set on_solve_url = "" %}
+    {% set on_solve_url = ('../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html') %}
 {% endif %}
 {% block title %}Solution: {{ puzzle.name }}{% endblock %}
 {% block extra_head %}
-<script>
-MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
-</script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };</script>
+    <script id="MathJax-script"
+            async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 {% endblock %}
 {% block page_meta %}
     {% if hunt %}
@@ -32,16 +31,10 @@ MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
     {% if files.post_solve_story %}<div class="post-solve-story">{{ files.post_solve_story | md }}</div>{% endif %}
     {% if puzzle.solution.post_solve_image_path %}
         <p style="text-align:center">
-            {% if on_solve_url %}
-                <a class="proceed-link" href="{{ on_solve_url }}">
-                    <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
-                         alt="{{ puzzle.solution.post_solve_image_alt }}" />
-                </a>
-                <em>Click the image to continue</em>
-            {% else %}
+            <a class="proceed-link" href="{{ on_solve_url }}">
                 <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
                      alt="{{ puzzle.solution.post_solve_image_alt }}" />
-            {% endif %}
+            </a>
         </p>
     {% endif %}
     <div class="solution-text">
