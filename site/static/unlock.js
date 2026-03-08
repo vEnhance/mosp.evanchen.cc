@@ -5,7 +5,6 @@
  *   { courage: number, solved: string[] }
  *
  * Puzzles earn courage_bounty points when solved.
- * Chapter 2 puzzles unlock once enough courage is accumulated.
  * Answers in the chapter table are only revealed for solved puzzles.
  */
 (function () {
