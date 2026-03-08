@@ -29,7 +29,7 @@
       "show_chapter_number": true,
       "slug": "mosp-world-map",
       "thumbnail_path": "2021/map.png",
-      "round_text": "![MOSP 2021 Online Map](/static/2021/map.png)\r\n\r\nSince the hunt has ended, all the puzzles are now unlocked, so you can solve them in any order."
+      "round_text": "![MOSP 2021 Online Map](/static/2021/map.png)"
     },
     {
       "unlockable_slug": "mop-intro",

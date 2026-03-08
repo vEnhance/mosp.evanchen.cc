@@ -15,7 +15,7 @@
  *   #thinking      - shown while hashing
  *   #wrong         - shown on wrong/partial answer
  *   #correct       - shown on correct answer (kept visible after solve)
- *   #percent       - text feedback (partial answer messages)
+ *   #feedback-text - text feedback (partial answer messages)
  *   #prize-overlay - large centered key overlay shown after solve
  *   #courage_value - courage counter in site nav (from layout.html)
  */
@@ -47,7 +47,7 @@ function showIcon(id: string): void {
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("answer") as HTMLInputElement | null;
   const btn = document.getElementById("check-btn") as HTMLButtonElement | null;
-  const pct = document.getElementById("percent") as HTMLElement | null;
+  const pct = document.getElementById("feedback-text") as HTMLElement | null;
 
   if (!input) return;
 
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input!.disabled = true;
     if (btn) btn.disabled = true;
     showIcon("thinking");
-    if (pct) pct.style.visibility = "visible";
+    if (pct) { pct.textContent = ""; pct.style.visibility = "hidden"; }
 
     for (let salt = 0; salt < 10000; salt++) {
       const h = await sha256("MOSP_LIGHT_NOVEL_" + normalized + salt);

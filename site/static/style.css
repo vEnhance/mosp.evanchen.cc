@@ -466,19 +466,6 @@ div.strong-emph em {
   opacity: 1;
 }
 
-/* ── Round intro text ── */
-.round-text {
-  background: #f0f4ec;
-  border-left: 4px solid #666;
-  padding: 0.75rem 1rem;
-  margin: 1rem 0;
-  border-radius: 0 4px 4px 0;
-}
-.round-text img {
-  max-width: 100%;
-  border: none;
-}
-
 /* ── Puzzle table (chapter page) ── */
 .puzzle-table {
   width: 100%;
