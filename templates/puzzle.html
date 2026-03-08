@@ -44,20 +44,14 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
 
 <div id="puzzlehead">
   <div id="answerchecker">
-    <div class="icons">
-      <span class="icon-placeholder">&#x274C;</span>
+    <div class="feedback">
       <span class="icon" id="thinking">&#x1F914;</span>
       <span class="icon" id="wrong">&#x274C;</span>
       <span class="icon" id="correct">&#x2705;</span>
-      <span class="icon-placeholder">&#x274C;</span>
-    </div>
-    <p><input id="answer" type="text" placeholder="ENTER ANSWER" autocomplete="off" spellcheck="false" /></p>
-    <div class="percentholder">
       <span id="percent"></span>
-    </div>
-    <div class="prizeholder">
       <a id="prize" class="emoji-link noshadow" href="{{ solution_url }}">&#x1F511;</a>
     </div>
+    <p><input id="answer" type="text" placeholder="ENTER ANSWER" autocomplete="off" spellcheck="false" /></p>
   </div>
 </div>
 

@@ -5,7 +5,6 @@
  * Expected globals injected by the page:
  *   MOSP_HASHES: string[]                            - SHA-256 hashes of correct answers
  *   MOSP_PARTIAL: {hash: string, message: string}[]  - partial answer hashes
- *   MOSP_SOLUTION_URL: string                        - relative URL to the solution page
  *   MOSP_SLUG: string                                - puzzle slug for progress tracking
  *   MOSP_BOUNTY: number                              - courage points awarded on first solve
  *
@@ -17,13 +16,11 @@
  *   #wrong         - shown on wrong/partial answer
  *   #correct       - shown on correct answer
  *   #percent       - text feedback (partial answer messages)
- *   #prize         - success link (shown on correct answer)
  *   #courage_value - courage counter in site nav (from layout.html)
  */
 
 declare const MOSP_HASHES: string[];
 declare const MOSP_PARTIAL: { hash: string; message: string }[];
-declare const MOSP_SOLUTION_URL: string;
 declare const MOSP_SLUG: string;
 declare const MOSP_BOUNTY: number;
 
@@ -57,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("answer") as HTMLInputElement | null;
   const btn = document.getElementById("check-btn") as HTMLButtonElement | null;
   const pct = document.getElementById("percent") as HTMLElement | null;
-  const prize = document.getElementById("prize") as HTMLAnchorElement | null;
 
   if (!input) return;
 
@@ -76,10 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (MOSP_HASHES.includes(h)) {
         showIcon("correct");
         document.body.classList.add("solved");
-        if (prize) {
-          prize.style.display = "block";
-          prize.href = MOSP_SOLUTION_URL;
-        }
         if (pct) pct.style.visibility = "hidden";
         const firstSolve = !window.MOSP_isSolved || !window.MOSP_isSolved(MOSP_SLUG);
         if (window.MOSP_markSolved) window.MOSP_markSolved(MOSP_SLUG);
