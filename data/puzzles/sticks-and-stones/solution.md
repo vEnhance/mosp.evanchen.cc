@@ -1,4 +1,4 @@
-The metapuzzle requires the undordered set of
+The metapuzzle requires the unordered set of
 the feeder answers to the previous puzzles,
 which we give below sorted first by length and then alphabetically.
 
