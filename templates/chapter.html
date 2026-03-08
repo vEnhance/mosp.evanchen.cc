@@ -1,64 +1,67 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
-{% set chapter_label %}{% if round.show_chapter_number %}Chapter {{ round.chapter_number }}: {% endif %}{{ round.name }}{% endset %}
-
+{% set chapter_label %}
+    {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}:{% endif %}
+    {{ round.name }}
+{% endset %}
 {% block title %}{{ chapter_label | trim }}{% endblock %}
-
-{% block page_meta %}{% if hunt %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endif %}{% endblock %}
-
-{% block back_nav %}
-<a class="emoji-link" href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&#x1F199;</a>
-{% endblock %}
-
-{% block content %}
-<h1>{{ chapter_label | trim }}</h1>
-
-{% if round.round_text %}
-<div class="round-text">{{ round.round_text | md }}</div>
-{% endif %}
-
-{% if round_unlockable %}
-<p class="story-link"><a href="../../unlock/{{ round_unlockable.slug | urlencode }}/index.html">&#x1F4D6; View story for this chapter</a></p>
-{% endif %}
-
-{% if children %}
-<table class="puzzle-table">
-  <thead>
-    <tr>
-      <th class="col-location">Location</th>
-      <th class="col-title">Puzzle</th>
-      <th class="col-answer">Answer</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for u in children %}
-    {% set puzzle = puzzles.get(u.puzzle_pk) %}
-    {% if puzzle %}
-    <tr class="puzzle-row" data-unlockable='{{ u | tojson }}'>
-      <td class="col-location">{{ u.icon }} {{ u.name }}</td>
-      <td class="col-title">
-        <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
-      </td>
-      <td class="col-answer"
-          data-answer="{{ puzzle.answer }}"
-          data-solution="../../solution/{{ puzzle.slug | urlencode }}/index.html"
-          data-slug="{{ puzzle.slug }}">
-        <span class="answer-hidden">—</span>
-      </td>
-    </tr>
-    {% elif u.story_only %}
-    <tr class="story-row">
-      <td></td>
-      <td class="story-title" colspan="2">
-        <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>
-      </td>
-    </tr>
+{% block page_meta %}
+    {% if hunt %}
+        <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
-    {% endfor %}
-  </tbody>
-</table>
-<button id="show-all-btn" style="display:none">Show all puzzles</button>
-{% else %}
-<p><em>No puzzles in this chapter.</em></p>
-{% endif %}
+{% endblock %}
+{% block back_nav %}
+    <a class="emoji-link"
+       href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&#x1F199;</a>
+{% endblock %}
+{% block content %}
+    <h1>{{ chapter_label | trim }}</h1>
+    {% if round.round_text %}<div class="round-text">{{ round.round_text | md }}</div>{% endif %}
+    {% if round_unlockable %}
+        <p class="story-link">
+            <a href="../../unlock/{{ round_unlockable.slug | urlencode }}/index.html">&#x1F4D6; View story for this chapter</a>
+        </p>
+    {% endif %}
+    {% if children %}
+        <table class="puzzle-table">
+            <thead>
+                <tr>
+                    <th class="col-location">Location</th>
+                    <th class="col-title">Puzzle</th>
+                    <th class="col-answer">Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in children %}
+                    {% set puzzle = puzzles.get(u.puzzle_pk) %}
+                    {% if puzzle %}
+                        <tr class="puzzle-row" data-unlockable='{{ u | tojson }}'>
+                            <td class="col-location">{{ u.icon }} {{ u.name }}</td>
+                            <td class="col-title">
+                                <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
+                            </td>
+                            <td class="col-answer"
+                                data-answer="{{ puzzle.answer }}"
+                                data-solution="../../solution/{{ puzzle.slug | urlencode }}/index.html"
+                                data-slug="{{ puzzle.slug }}">
+                                <span class="answer-hidden">—</span>
+                            </td>
+                        </tr>
+                    {% elif u.story_only %}
+                        <tr class="story-row">
+                            <td></td>
+                            <td class="story-title" colspan="2">
+                                <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <button id="show-all-btn" style="display:none">Show all puzzles</button>
+    {% else %}
+        <p>
+            <em>No puzzles in this chapter.</em>
+        </p>
+    {% endif %}
 {% endblock %}

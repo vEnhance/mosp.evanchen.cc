@@ -1,40 +1,32 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
-
 {% if unlockable.puzzle_pk %}
-  {% set dest_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+    {% set dest_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% elif unlockable.round_pk %}
-  {% set dest_url = "../../chapter/" ~ (dest_round.slug | urlencode) ~ "/index.html" %}
+    {% set dest_url = "../../chapter/" ~ (dest_round.slug | urlencode) ~ "/index.html" %}
 {% else %}
-  {% set dest_url = "../../index.html" %}
+    {% set dest_url = "../../index.html" %}
 {% endif %}
-
 {% if parent_round %}
-  {% set back_url = "../../chapter/" ~ (parent_round.slug | urlencode) ~ "/index.html" %}
+    {% set back_url = "../../chapter/" ~ (parent_round.slug | urlencode) ~ "/index.html" %}
 {% elif dest_round and hunt %}
-  {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
+    {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
 {% elif hunt %}
-  {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
+    {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
 {% else %}
-  {% set back_url = "../../index.html" %}
+    {% set back_url = "../../index.html" %}
 {% endif %}
-
 {% block title %}{{ unlockable.name }}{% endblock %}
-
-{% block page_meta %}{% if hunt %}<script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>{% endif %}{% endblock %}
-
-{% block back_nav %}
-<a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>
+{% block page_meta %}
+    {% if hunt %}
+        <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
+    {% endif %}
 {% endblock %}
-
+{% block back_nav %}<a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>{% endblock %}
 {% block content %}
-<h1>{{ unlockable.icon }} {{ unlockable.name }}</h1>
-
-{% if unlockable.intro_story_text %}
-<div class="story-text">{{ unlockable.intro_story_text | md }}</div>
-{% endif %}
-
-<div class="door-link">
-  <a class="emoji-link door" href="{{ dest_url }}">&#x1F6AA;</a>
-</div>
+    <h1>{{ unlockable.icon }} {{ unlockable.name }}</h1>
+    {% if unlockable.intro_story_text %}<div class="story-text">{{ unlockable.intro_story_text | md }}</div>{% endif %}
+    <div class="door-link">
+        <a class="emoji-link door" href="{{ dest_url }}">&#x1F6AA;</a>
+    </div>
 {% endblock %}

@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}MOSP Archive{% endblock %} | MOSP: A Light Novel</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
-  <link rel="stylesheet" href="{{ root }}static/style.css" />
-  {% block extra_head %}{% endblock %}
-  {% block page_meta %}{% endblock %}
-  <script src="{{ root }}static/unlock.js" defer></script>
-  <script src="{{ root }}static/images.js" defer></script>
-</head>
-<body class="{{ body_class | default('') }}">
-<div id="container">
-  <div id="content">
-    <nav class="site-nav">
-      <span id="back">
-        {% block back_nav %}<a class="emoji-link" href="{{ root }}index.html">&#x1F199;</a>{% endblock %}
-        <a id="setname" href="#" onclick="MOSP_promptName(); return false;" title="Click to set your name"><span id="tokenname"></span></a>
-      </span>
-      <span id="status">
-        <span class="relative navitem" id="courage">
-          <span id="courage_heart">&#x1F49C;</span><span id="courage_value">0</span>
-          <div id="courage-tooltip">
-            <strong>Courage</strong><br>
-            Earn hearts by solving puzzles.
-          </div>
-        </span>
-      </span>
-    </nav>
-
-    <div id="content-inner">
-      {% block content %}{% endblock %}
-    </div>
-  </div>
-
-  <div id="footer">
-    <hr />
-    <div id="footer-inner">
-      <span>&copy; 2021&ndash;2022, MOSP Puzzle Hunt</span>
-      <span>{% block southeast %}<a href="{{ root }}index.html">Archive home</a>{% endblock %}</span>
-    </div>
-  </div>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            {% block title %}MOSP Archive{% endblock %}
+        | MOSP: A Light Novel</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
+        <link rel="stylesheet" href="{{ root }}static/style.css" />
+        {% block extra_head %}{% endblock %}
+        {% block page_meta %}{% endblock %}
+        <script src="{{ root }}static/unlock.js" defer></script>
+        <script src="{{ root }}static/images.js" defer></script>
+    </head>
+    <body class="{{ body_class | default("") }}">
+        <div id="container">
+            <div id="content">
+                <nav class="site-nav">
+                    <span id="back">
+                        {% block back_nav %}<a class="emoji-link" href="{{ root }}index.html">&#x1F199;</a>{% endblock %}
+                        <a id="setname"
+                           href="#"
+                           onclick="MOSP_promptName(); return false;"
+                           title="Click to set your name"><span id="tokenname"></span></a>
+                    </span>
+                    <span id="status">
+                        <span class="relative navitem" id="courage">
+                            <span id="courage_heart">&#x1F49C;</span><span id="courage_value">0</span>
+                            <div id="courage-tooltip">
+                                <strong>Courage</strong>
+                                <br>
+                                Earn hearts by solving puzzles.
+                            </div>
+                        </span>
+                    </span>
+                </nav>
+                <div id="content-inner">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+            <div id="footer">
+                <hr />
+                <div id="footer-inner">
+                    <span>&copy; 2021&ndash;2022, MOSP Puzzle Hunt</span>
+                    <span>
+                        {% block southeast %}<a href="{{ root }}index.html">Archive home</a>{% endblock %}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
