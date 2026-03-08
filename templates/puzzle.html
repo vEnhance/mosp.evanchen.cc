@@ -16,7 +16,7 @@
     <a class="emoji-link"
        href="{{ unlock_url if unlock_url else ('../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html') }}">&#x1F5FA;&#xFE0F;</a>
 {% endblock %}
-{% block southeast %}<a href="{{ solution_url }}">&#x1F511; Solution</a>{% endblock %}
+{% block southeast %}{% endblock %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <div class="text-sm puzzle-nav-links">
