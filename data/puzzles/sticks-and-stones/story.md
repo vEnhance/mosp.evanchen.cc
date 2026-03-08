@@ -3,7 +3,7 @@ _They're lunar stones_.
 You realize Steve's stones are actually charged by moonlight;
 bringing them with you gives you enough light to navigate the tunnel.
 Using the `LUNAR STONE ON RADICAL ROOTS`{.answer},
-the seemingly insane *route* is actually not too difficult to navigate.
+the seemingly insane _route_ is actually not too difficult to navigate.
 
 "Ah, so ya figured out how to get back to your side?"
 
@@ -12,7 +12,7 @@ Well, figures he'd only come around now.
 
 "So... this is goodbye?" you ask.
 
-"Beats me. *You're* the one standing by the exit."
+"Beats me. _You're_ the one standing by the exit."
 
 You're left without words again,
 and stand awkwardly as you fumble for a response.

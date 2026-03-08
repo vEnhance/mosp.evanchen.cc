@@ -30,19 +30,19 @@ Enumerations are given for the colors to confirm them
 (the main ambiguity is OLIVE vs HEART GOLD),
 giving the following table:
 
-\# | Color                | Red | Green | Blue |
----|----------------------|:---:|:-----:|:----:|
- 1 | Utah crimson         |  D3 |   00  |  3F  |
- 2 | School bus yellow    |  FF |   D8  |  00  |
- 3 | Alice blue           |  F0 |   F8  |  FF  |
- 4 | Candy apple red      |  FF |   08  |  00  |
- 5 | Honeydew             |  F0 |   FF  |  F0  |
- 6 | Red                  |  FF |   00  |  00  |
- 7 | Olive                |  80 |   80  |  00  |
- 8 | Maroon               |  80 |   00  |  00  |
- 9 | Alice blue           |  F0 |   F8  |  FF  |
-10 | KU Crimson           |  E8 |   00  |  0D  |
-11 | Electric ultramarine |  3F |   00  |  FF  |
-12 | Yellow               |  FF |   FF  |  00  |
+| \#  | Color                | Red | Green | Blue |
+| --- | -------------------- | :-: | :---: | :--: |
+| 1   | Utah crimson         | D3  |  00   |  3F  |
+| 2   | School bus yellow    | FF  |  D8   |  00  |
+| 3   | Alice blue           | F0  |  F8   |  FF  |
+| 4   | Candy apple red      | FF  |  08   |  00  |
+| 5   | Honeydew             | F0  |  FF   |  F0  |
+| 6   | Red                  | FF  |  00   |  00  |
+| 7   | Olive                | 80  |  80   |  00  |
+| 8   | Maroon               | 80  |  00   |  00  |
+| 9   | Alice blue           | F0  |  F8   |  FF  |
+| 10  | KU Crimson           | E8  |  00   |  0D  |
+| 11  | Electric ultramarine | 3F  |  00   |  FF  |
+| 12  | Yellow               | FF  |  FF   |  00  |
 
 This gives the answer `USA CHROMA KEY`.

@@ -37,20 +37,20 @@ we are now walking on a graph!
 
 This gives the following table of meetings:
 
-| Point |Topic of Zoom meeting |    Zoom ID    |
-|:-----:|:---------------------|:-------------:|
-|   A   | `B@917 C@979 H@945`  | 953 1568 0293 |
-|   B   | `A@953 D@916 E@993`  | 917 2317 1185 |
-|   C   | `A@953 D@916 L@947`  | 979 8057 1394 |
-|   D   | `B@917 C@979 I@936`  | 916 5829 3170 |
-|   E   | `B@917 F@956 G@996`  | 993 4079 3458 |
-|   F   | `E@993 G@996 I@936`  | 956 5490 5821 |
-|   G   | `E@993 F@956 H@945`  | 996 4027 5827 |
-|   H   | `A@953 G@996 K@940`  | 945 2459 6096 |
-|   I   | `D@916 F@956 J@926`  | 936 7406 6683 |
-|   J   | `I@936 K@940 L@947`  | 926 6188 9072 |
-|   K   | `H@945 J@926 L@947`  | 940 3325 9359 |
-|   L   | `C@979 J@926 K@940`  | 947 9797 9524 |
+| Point | Topic of Zoom meeting |    Zoom ID    |
+| :---: | :-------------------- | :-----------: |
+|   A   | `B@917 C@979 H@945`   | 953 1568 0293 |
+|   B   | `A@953 D@916 E@993`   | 917 2317 1185 |
+|   C   | `A@953 D@916 L@947`   | 979 8057 1394 |
+|   D   | `B@917 C@979 I@936`   | 916 5829 3170 |
+|   E   | `B@917 F@956 G@996`   | 993 4079 3458 |
+|   F   | `E@993 G@996 I@936`   | 956 5490 5821 |
+|   G   | `E@993 F@956 H@945`   | 996 4027 5827 |
+|   H   | `A@953 G@996 K@940`   | 945 2459 6096 |
+|   I   | `D@916 F@956 J@926`   | 936 7406 6683 |
+|   J   | `I@936 K@940 L@947`   | 926 6188 9072 |
+|   K   | `H@945 J@926 L@947`   | 940 3325 9359 |
+|   L   | `C@979 J@926 K@940`   | 947 9797 9524 |
 
 ## Traveling the graph
 
@@ -68,7 +68,7 @@ this gives the clue phrase `CAN ZOOM IN ON EMAIL`.
 
 ## Zooming in
 
-Solvers go back to the puzzle page and *zoom in*, literally,
+Solvers go back to the puzzle page and _zoom in_, literally,
 on the given email message.
 When they do so, a new message appears:
 
@@ -116,20 +116,20 @@ Both paths are illustrated below.
 Finally, reading the numbered arrows
 and reading Morse gives
 
-| # |   Edge  | Letter |
-|--:|:-------:|:------:|
-| 1 | K ==> H |   B    |
-| 2 | J ==> K |   E    |
-| 3 | C ==> D |   A    |
-| 4 | A ==> C |   C    |
-| 5 | C ==> L |   O    |
-| 6 | D ==> C |   N    |
-| 7 | F ==> E |   R    |
-| 8 | C ==> D |   A    |
-| 9 | A ==> H |   D    |
-|10 | D ==> B |   I    |
-|11 | H ==> A |   U    |
-|12 | H ==> G |   S    |
+|   # |  Edge   | Letter |
+| --: | :-----: | :----: |
+|   1 | K ==> H |   B    |
+|   2 | J ==> K |   E    |
+|   3 | C ==> D |   A    |
+|   4 | A ==> C |   C    |
+|   5 | C ==> L |   O    |
+|   6 | D ==> C |   N    |
+|   7 | F ==> E |   R    |
+|   8 | C ==> D |   A    |
+|   9 | A ==> H |   D    |
+|  10 | D ==> B |   I    |
+|  11 | H ==> A |   U    |
+|  12 | H ==> G |   S    |
 
 This gives the answer `BEACON RADIUS`{.answer}.
 

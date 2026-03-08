@@ -6,9 +6,9 @@ as the mechanic, since it was a reference that this group might appreciate.
 The original form of the puzzle was a bit simpler.
 The only given data was
 
-* A link to the Steve's stones problem in the flavortext
-* The blue numbers
-* The indices of the extracted letters along the S-path (out of 66).
+- A link to the Steve's stones problem in the flavortext
+- The blue numbers
+- The indices of the extracted letters along the S-path (out of 66).
 
 The problem with this was that test-solvers kept trying
 to use the numbers 1-66 much too early.

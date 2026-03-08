@@ -2,13 +2,13 @@ The metapuzzle requires the undordered set of
 the feeder answers to the previous puzzles,
 which we give below sorted first by length and then alphabetically.
 
-* `GETSUMNULL`
-* `KAZAKHSTAN`
-* `BEACONRADIUS`
-* `SAYNOTOCOMBO`
-* `USACHROMAKEY`
-* `FILESPECIALFORMAT`
-* `TEAMSELECTIONEXAM`
+- `GETSUMNULL`
+- `KAZAKHSTAN`
+- `BEACONRADIUS`
+- `SAYNOTOCOMBO`
+- `USACHROMAKEY`
+- `FILESPECIALFORMAT`
+- `TEAMSELECTIONEXAM`
 
 It's also necessary to find the puzzle itself:
 it's hidden in the same place that the hunt itself was,
@@ -19,18 +19,18 @@ behind the world map (this time behind the MOSP world map).
 The first step is to translate the Braille grid provided.
 Doing so provides the following message:
 
-|   |   |   |   |   |   |
-|:-:|:-:|:-:|:-:|:-:|:-:|
-| N | E | W | J | O | B |
-| F | I | N | D |   |   |
-| A |   | T | E | S | T |
-| O | N | E | V | A | N |
-| C | H | E | N | C | C |
-| A |   | P | D | F |   |
-| S | O | L | N |   |   |
-|   |   | T | E | X | T |
-| U | S | A | J | M | O |
-| P |   | S | I | X |   |
+|     |     |     |     |     |     |
+| :-: | :-: | :-: | :-: | :-: | :-: |
+|  N  |  E  |  W  |  J  |  O  |  B  |
+|  F  |  I  |  N  |  D  |     |     |
+|  A  |     |  T  |  E  |  S  |  T  |
+|  O  |  N  |  E  |  V  |  A  |  N  |
+|  C  |  H  |  E  |  N  |  C  |  C  |
+|  A  |     |  P  |  D  |  F  |     |
+|  S  |  O  |  L  |  N  |     |     |
+|     |     |  T  |  E  |  X  |  T  |
+|  U  |  S  |  A  |  J  |  M  |  O  |
+|  P  |     |  S  |  I  |  X  |     |
 
 This prompts the solver to navigate to the
 [problem archive at evanchen.cc](https://evanchen.cc/problems.html).
@@ -51,7 +51,7 @@ Doing so reminds the solver of the statement of USAJMO 2015/6:
 > and moving them to $(i, l)$ and $(j, k)$ respectively,
 > or removing one stone from each of $(i, l)$ and $(j, k)$
 > and moving them to $(i, k)$ and $(j, l)$ respectively.
->  
+>
 > Two ways of piling the stones are equivalent
 > if they can be obtained from one another
 > by a sequence of stone moves.
@@ -73,8 +73,8 @@ as is MOSP tradition, the letter S is repeated over and over
 And indeed, one notices that each of the answers has the letter S exactly once.
 So this suggests the way to fill in the grid:
 
-* The letter S's represent the stones, and should satisfy the blue numbers.
-* The answers should be placed in the grid with three horizontal
+- The letter S's represent the stones, and should satisfy the blue numbers.
+- The answers should be placed in the grid with three horizontal
   and four vertical; moreover the occupied cells must be centrally symmetric.
 
 It turns out there is a unique way to do this, depicted below.

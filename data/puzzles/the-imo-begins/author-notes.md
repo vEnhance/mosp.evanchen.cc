@@ -3,7 +3,7 @@ but it did not work at all.
 We also tried to make all the Sets an unrotated tromino
 at first, which worked even less well.
 
-The set interface itself also went through a *lot* of quality-of-life
+The set interface itself also went through a _lot_ of quality-of-life
 updates during its evolution. Initially, it was not even clickable;
 later we added this feature,
 and then later added on the "feature" of hiding the cards once a table

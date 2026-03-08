@@ -23,7 +23,7 @@ The first few lines read:
 
 Huh, still Korean? Well, better than before.
 You plug it in to Google Translate and then realize what you are looking at.
-The handbook is actually just a *band book*.
+The handbook is actually just a _band book_.
 With a lot of K-pop.
 
 Well, so much for getting any instructions for your newfound job.
