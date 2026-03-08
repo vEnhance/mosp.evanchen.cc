@@ -21,7 +21,7 @@
                 {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}:{% endif %}
                 {{ round.name }}
             {% endset %}
-            {% set intro_slug = round_intro_slugs.get(round.pk) %}
+            {% set intro_slug = round_intro_slugs.get(round.slug) %}
             {% set card_href %}
                 {% if intro_slug %}
                     ../../unlock/{{ intro_slug | urlencode }}/index.html
