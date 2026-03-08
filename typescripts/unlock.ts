@@ -285,19 +285,5 @@ interface Window {
       }
       // else: visible and opened — template-rendered puzzle name + link stands
     });
-
-    if (anyLocked) {
-      const btn = document.getElementById("show-all-btn");
-      if (btn) {
-        btn.style.display = "inline-block";
-        btn.addEventListener("click", function () {
-          document.querySelectorAll(".puzzle-row.locked").forEach((r) => {
-            r.classList.remove("locked");
-            r.querySelector(".lock-msg")?.remove();
-          });
-          btn.style.display = "none";
-        });
-      }
-    }
   });
 })();
