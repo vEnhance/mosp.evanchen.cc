@@ -73,20 +73,24 @@ document.addEventListener("DOMContentLoaded", () => {
         showIcon("correct");
         if (pct) pct.style.visibility = "hidden";
         document.body.classList.add("solved");
-        const firstSolve = !window.MOSP_isSolved || !window.MOSP_isSolved(MOSP_SLUG);
+        const firstSolve =
+          !window.MOSP_isSolved || !window.MOSP_isSolved(MOSP_SLUG);
         if (window.MOSP_markSolved) window.MOSP_markSolved(MOSP_SLUG);
         if (firstSolve && window.MOSP_grantCourage && MOSP_BOUNTY > 0) {
           window.MOSP_grantCourage(MOSP_BOUNTY);
         }
         const cv = document.getElementById("courage_value");
-        if (cv && window.MOSP_getCourage) cv.textContent = String(window.MOSP_getCourage());
-        const prize = document.getElementById("prize") as HTMLAnchorElement | null;
+        if (cv && window.MOSP_getCourage)
+          cv.textContent = String(window.MOSP_getCourage());
+        const prize = document.getElementById(
+          "prize",
+        ) as HTMLAnchorElement | null;
         setTimeout(() => {
           document.querySelectorAll("span.icon").forEach((el) => {
             (el as HTMLElement).style.display = "none";
           });
           if (prize) prize.style.display = "inline";
-        }, 1500);
+        }, 1000);
         return;
       }
 

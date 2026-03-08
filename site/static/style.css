@@ -31,6 +31,7 @@ strong {
 /* Teal glow on hover, no underline (original a:hover) */
 a {
   color: #1a56a0;
+  text-decoration: none;
 }
 a:hover {
   text-shadow: 0 0 12px #00cca7;
@@ -52,6 +53,7 @@ a.noshadow:hover {
 /* ── Container: wide outer shell (nav + footer span full width of this) ── */
 #container {
   max-width: 56rem;
+  width: 100vw;
   min-height: 100vh;
   padding: 0.5rem;
   margin: 0 auto;
@@ -85,7 +87,6 @@ nav.site-nav {
   padding: 0.25rem 0;
 }
 #back {
-  font-size: 1rem;
   display: flex;
   align-items: baseline;
   gap: 0.4rem;
