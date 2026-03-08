@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let has_appended_payload = false;
   let finished_zooming = false;
   const places: string[] = Array.from({ length: 43 }).map(() => "?");
-  places[0] = "X"; // pretend array is 1-indexed
   places[1] = "L";
   places[21] = "K";
   places[22] = "E";
