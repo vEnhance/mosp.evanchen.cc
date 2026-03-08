@@ -9,7 +9,7 @@ You find Steve standing near the base of the furthest tower.
 
 "Zoom communication. Heard of it?" Steve says.
 "This fancy tech's all black magic to me.
-Wireless signals, ya know? The bits are *in the air*.  Crazy stuff."
+Wireless signals, ya know? The bits are _in the air_. Crazy stuff."
 
 "And yet..." Steve looks upwards towards one of the towers as his voice trails off.
 "We've been having problems with our Zoom calls lately.

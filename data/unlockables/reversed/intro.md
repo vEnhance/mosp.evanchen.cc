@@ -8,11 +8,11 @@ Today, the Nth of Whenember, you sat down at the start of the 4.5 hours to take 
 The first thought you have was that you’d dozed off. Oh no, I’ll be late for lunch, was the second.
 The third? “Why is everything so quiet?”
 
-You turn in your seat. They’re all still working – or so it seems, until you notice Eric Shen, frowning intently at his paper, but pen not moving. 
-You poke him. No response. 
+You turn in your seat. They’re all still working – or so it seems, until you notice Eric Shen, frowning intently at his paper, but pen not moving.
+You poke him. No response.
 You poke him a few more times. Nothing. He’s not blinked once— nor breathed, for that matter.
-“The heck?” you mutter to yourself. 
-You cast your gaze around— it’s not just him that’s been petrified— not one person is moving. Luke’s hunched over his pages like a math nerd rendition of The Thinker. Ram’s gone one step further and passed out wholesale on his desk— whatever statuification he underwent seems to have caught him mid-snore. 
+“The heck?” you mutter to yourself.
+You cast your gaze around— it’s not just him that’s been petrified— not one person is moving. Luke’s hunched over his pages like a math nerd rendition of The Thinker. Ram’s gone one step further and passed out wholesale on his desk— whatever statuification he underwent seems to have caught him mid-snore.
 Experimentally, hesitantly, you get up in your seat— an action that would have normally gotten several glances at the very least. Still no one moves. Or breathes. Or does anything. The proctor stares out into space, phone in hand, completely unaware of your hand waving in front of his face.
 Somehow, everyone’s been petrified in place. Except you.
 You glance up at the clock analog on the wall, which usually ticks a staccato beat. It’s 2:30 PM— and somehow, the clock is dead silent. The second hand has lost its constant motion— whatever happened, the clock’s suddenly been broken.
@@ -21,7 +21,7 @@ Just, it seems, like time itself.
 
 A literally unmeasurable amount of time later, you’ve confirmed the following through some simple science:
 You can still open doors, pick up pencils, trip over carpets (embarrassingly often). You sure aren’t getting signal, though, and without ready access to a charger (locked yourself out this morning!) you’d better use your phone sparingly – thankfully, it still turns on.
-The sun is still shining, and lights are still running. You don’t even want to consider the implications of that on the Earth’s orbit, or on CMU’s electricity bill. But no wind blows, no clouds move, and despite your patience the sun resolutely hovers in its stalwart position. 
+The sun is still shining, and lights are still running. You don’t even want to consider the implications of that on the Earth’s orbit, or on CMU’s electricity bill. But no wind blows, no clouds move, and despite your patience the sun resolutely hovers in its stalwart position.
 Moreover, all animal life has come to a screeching halt— people aside, you’ve seen mosquitoes frozen midair as if preserved in amber (and killed one of those nuisances for good measure). You can wiggle your classmates’ arms, but you sure can’t make them talk (and so you’ve decided to leave them be for now).
 In short, the world is yours for the taking.
 

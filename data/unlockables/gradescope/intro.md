@@ -4,7 +4,7 @@ Not just one herd, in fact.
 No, more like a dozen herds of maybe a dozen-odd cows each,.
 
 But oddly enough, the cows aren't standing up like you'd expect.
-They're all... *sitting*. With laptops. Typing on the laptops.
+They're all... _sitting_. With laptops. Typing on the laptops.
 
 You promptly give up trying to make sense of the situation.
 

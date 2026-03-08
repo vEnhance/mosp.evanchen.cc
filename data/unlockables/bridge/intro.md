@@ -1,4 +1,4 @@
-*Just where the heck am I?*
+_Just where the heck am I?_
 
 You thought you were in a math olympiad training camp.
 Just a boring old program where they

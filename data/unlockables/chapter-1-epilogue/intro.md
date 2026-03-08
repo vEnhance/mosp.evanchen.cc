@@ -98,6 +98,7 @@ Sincerely,
 ![Steve](/static/2021/steve-sig.png){.signature}
 Academic Director, Math Olympiad Summer Program  
 Untied States of America
+
 </div>
 
 <script type="text/javascript">
