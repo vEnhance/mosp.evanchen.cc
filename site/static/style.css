@@ -516,7 +516,8 @@ div.strong-emph em {
 .puzzle-row.locked {
   opacity: 0.45;
 }
-.puzzle-row.locked .col-title a {
+.puzzle-row.locked .col-title a,
+.puzzle-row.locked .col-location a {
   pointer-events: none;
   color: #888;
 }
@@ -861,14 +862,17 @@ a.door:hover {
   user-select: none;
 }
 
-/* Icon swap: show lock when gated, open-lock when all-open */
-#openall-icon-on {
+/* Icon and text swap: show lock+Gated when gated, open-lock+Open when all-open */
+#openall-icon-on,
+#openall-text-on {
   display: none;
 }
-#openall-checkbox:checked + #openall-label #openall-icon-off {
+#openall-checkbox:checked + #openall-label #openall-icon-off,
+#openall-checkbox:checked + #openall-label #openall-text-off {
   display: none;
 }
-#openall-checkbox:checked + #openall-label #openall-icon-on {
+#openall-checkbox:checked + #openall-label #openall-icon-on,
+#openall-checkbox:checked + #openall-label #openall-text-on {
   display: inline;
 }
 

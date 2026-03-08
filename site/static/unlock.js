@@ -248,13 +248,11 @@
           cell.appendChild(msg);
         }
       } else if (!MOSP_isOpened(u.slug)) {
-        // Visible but unlockable story not yet opened: show "???" linking to unlock page
+        // Visible but unlockable story not yet opened: show plain "???" (no link).
+        // The location cell already links to the unlock page for navigation.
         const cell = row.querySelector(".col-title");
         if (cell) {
-          const unlockHref =
-            "../../unlock/" + encodeURIComponent(u.slug) + "/index.html";
-          cell.innerHTML =
-            '<a href="' + unlockHref + '">???</a>';
+          cell.textContent = "???";
         }
       }
       // else: visible and opened — the template already rendered the puzzle title
