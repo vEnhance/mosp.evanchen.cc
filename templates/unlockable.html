@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
-{% if unlockable.puzzle_pk %}
+{% if unlockable.puzzle_slug %}
     {% set dest_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
-{% elif unlockable.round_pk %}
+{% elif unlockable.round_slug %}
     {% set dest_url = "../../chapter/" ~ (dest_round.slug | urlencode) ~ "/index.html" %}
 {% else %}
     {% set dest_url = "../../index.html" %}
@@ -21,6 +21,7 @@
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
+    <script>window.MOSP_UNLOCK_SLUG={{ unlockable.slug | tojson }};</script>
 {% endblock %}
 {% block back_nav %}<a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>{% endblock %}
 {% block content %}

@@ -1,21 +1,29 @@
 /**
  * Client-side unlock progression for the MOSP archive.
  *
- * Progress is stored in localStorage under MOSP_PROGRESS_KEY as:
- *   { courage: number, solved: string[] }
+ * Progress is stored in localStorage under a per-volume key as:
+ *   { courage: number, solved: string[], opened: string[] }
+ *
+ * "solved" tracks puzzle slugs that have been answered correctly.
+ * "opened" tracks unlockable slugs whose story page has been visited.
  *
  * Puzzles earn courage_bounty points when solved.
  * Answers in the chapter table are only revealed for solved puzzles.
+ * Puzzle titles on the chapter page show as "???" until the corresponding
+ * unlockable story page has been opened (visited).
  */
 (function () {
   "use strict";
 
   // Per-volume localStorage keys; falls back to "all" on pages without a volume
+  function getVol() {
+    return typeof globalThis.MOSP_VOLUME !== "undefined"
+      ? globalThis.MOSP_VOLUME
+      : null;
+  }
+
   function getKey() {
-    const vol =
-      typeof globalThis.MOSP_VOLUME !== "undefined"
-        ? globalThis.MOSP_VOLUME
-        : null;
+    const vol = getVol();
     return vol ? "mosp_progress_v2_" + vol : "mosp_progress_v2_all";
   }
 
@@ -30,10 +38,14 @@
       const raw = localStorage.getItem(getKey());
       if (raw) {
         const p = JSON.parse(raw);
-        return { courage: p.courage || 0, solved: new Set(p.solved || []) };
+        return {
+          courage: p.courage || 0,
+          solved: new Set(p.solved || []),
+          opened: new Set(p.opened || []),
+        };
       }
     } catch (_) {}
-    return { courage: 0, solved: new Set() };
+    return { courage: 0, solved: new Set(), opened: new Set() };
   }
 
   function saveProgress(p) {
@@ -42,6 +54,7 @@
       JSON.stringify({
         courage: p.courage,
         solved: Array.from(p.solved),
+        opened: Array.from(p.opened),
       }),
     );
   }
@@ -71,11 +84,40 @@
     return getProgress().courage;
   };
 
+  /** Mark an unlockable slug as opened (story page has been visited). */
+  globalThis.MOSP_markOpened = function (slug) {
+    const p = getProgress();
+    p.opened.add(slug);
+    saveProgress(p);
+  };
+
+  /** Return true if an unlockable story page has been visited. */
+  globalThis.MOSP_isOpened = function (slug) {
+    return getProgress().opened.has(slug);
+  };
+
+  // ── Open-all switch ───────────────────────────────────────────────────────
+
+  function getOpenAllKey() {
+    const vol = getVol();
+    return vol ? "mosp_openall_" + vol : "mosp_openall_all";
+  }
+
+  function getOpenAll() {
+    return localStorage.getItem(getOpenAllKey()) === "true";
+  }
+
+  function setOpenAll(val) {
+    localStorage.setItem(getOpenAllKey(), String(val));
+  }
+
   /**
    * Determine whether an unlockable should be visible.
+   * When the "open all" switch is on, all unlockables are visible.
    * @param {Object} u - unlockable with force_visibility, unlock_courage_threshold, unlock_needs_slug
    */
   globalThis.MOSP_isVisible = function (u) {
+    if (getOpenAll()) return true;
     if (u.force_visibility === true) return true;
     if (u.force_visibility === false) return false;
     const p = getProgress();
@@ -141,6 +183,21 @@
     renderName();
     refreshCourageDisplay();
 
+    // If this is an unlock/story page, mark it as opened
+    if (typeof globalThis.MOSP_UNLOCK_SLUG !== "undefined") {
+      globalThis.MOSP_markOpened(globalThis.MOSP_UNLOCK_SLUG);
+    }
+
+    // Initialise the "open all" toggle checkbox
+    const openAllCheckbox = document.getElementById("openall-checkbox");
+    if (openAllCheckbox) {
+      openAllCheckbox.checked = getOpenAll();
+      openAllCheckbox.addEventListener("change", function () {
+        setOpenAll(this.checked);
+        location.reload();
+      });
+    }
+
     const rows = document.querySelectorAll("[data-unlockable]");
     if (rows.length === 0) return;
 
@@ -148,8 +205,22 @@
     let anyLocked = false;
 
     rows.forEach(function (row) {
-      // Reveal answer if this puzzle has been solved (before JSON.parse so it
-      // works even if the unlockable data attribute is malformed)
+      let u;
+      try {
+        u = JSON.parse(row.getAttribute("data-unlockable"));
+      } catch (_) {
+        return;
+      }
+
+      // Story-only rows: hide entirely when not visible
+      if (row.classList.contains("story-row")) {
+        if (!MOSP_isVisible(u)) {
+          row.style.display = "none";
+        }
+        return;
+      }
+
+      // Puzzle rows: reveal answer if solved
       const answerCell = row.querySelector("[data-slug]");
       if (
         answerCell &&
@@ -158,18 +229,14 @@
         revealAnswer(answerCell);
       }
 
-      // Apply lock styling for courage-gated puzzles
-      let u;
-      try {
-        u = JSON.parse(row.getAttribute("data-unlockable"));
-      } catch (_) {
-        return;
-      }
       if (!MOSP_isVisible(u)) {
+        // Locked: dim the row and add a lock message, but no title placeholder
         row.classList.add("locked");
         anyLocked = true;
         const cell = row.querySelector(".col-title");
         if (cell) {
+          // Clear the title contents so locked rows show no puzzle name
+          cell.innerHTML = "";
           const msg = document.createElement("span");
           msg.className = "lock-msg";
           msg.textContent =
@@ -180,7 +247,18 @@
               : "\uD83D\uDD12 Locked";
           cell.appendChild(msg);
         }
+      } else if (!MOSP_isOpened(u.slug)) {
+        // Visible but unlockable story not yet opened: show "???" linking to unlock page
+        const cell = row.querySelector(".col-title");
+        if (cell) {
+          const unlockHref =
+            "../../unlock/" + encodeURIComponent(u.slug) + "/index.html";
+          cell.innerHTML =
+            '<a href="' + unlockHref + '">???</a>';
+        }
       }
+      // else: visible and opened — the template already rendered the puzzle title
+      // with a link to the puzzle page; no JS change needed
     });
 
     // "Show all" escape hatch when some puzzles are locked

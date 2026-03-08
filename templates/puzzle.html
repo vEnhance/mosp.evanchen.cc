@@ -2,7 +2,7 @@
 {% set root = "../../" %}
 {% set body_class = "puzzle-page" %}
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
-{% set unlockable = unlockables_by_pk.get(puzzle.unlockable_pk) %}
+{% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
 {% set courage_bounty = unlockable.courage_bounty if unlockable else 0 %}
 {% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
 {% block title %}{{ puzzle.name }}{% endblock %}
@@ -52,6 +52,9 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
                        spellcheck="false" />
             </p>
         </div>
+    </div>
+    <div id="prize-overlay">
+        <a id="prize-big" class="emoji-link" href="{{ solution_url }}">&#x1F511;</a>
     </div>
     <div id="puzzlecontent">{{ files.content | md }}</div>
 {% endblock %}

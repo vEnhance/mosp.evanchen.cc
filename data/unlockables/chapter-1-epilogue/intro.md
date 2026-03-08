@@ -110,7 +110,7 @@ if (!letter_date) {
 	letter_date = formatter.format(now);
 }
 localStorage.setItem('letter_date', letter_date);
-$("#letter-date").html(letter_date);
+document.getElementById("letter-date").textContent = letter_date;
 })();
 </script>
 

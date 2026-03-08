@@ -33,12 +33,12 @@
             </thead>
             <tbody>
                 {% for u in children %}
-                    {% set puzzle = puzzles.get(u.puzzle_pk) %}
+                    {% set puzzle = puzzles.get(u.puzzle_slug) %}
                     {% if puzzle %}
                         <tr class="puzzle-row" data-unlockable='{{ u | tojson }}'>
                             <td class="col-location">{{ u.icon }} {{ u.name }}</td>
                             <td class="col-title">
-                                <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
+                                {% if puzzle.is_meta %}<strong>{% endif %}<a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>{% if puzzle.is_meta %}</strong>{% endif %}
                             </td>
                             <td class="col-answer"
                                 data-answer="{{ puzzle.answer }}"
@@ -48,7 +48,7 @@
                             </td>
                         </tr>
                     {% elif u.story_only %}
-                        <tr class="story-row">
+                        <tr class="story-row" data-unlockable='{{ u | tojson }}'>
                             <td></td>
                             <td class="story-title" colspan="2">
                                 <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>

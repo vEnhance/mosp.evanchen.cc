@@ -1,7 +1,19 @@
 {% extends "layout.html" %}
 {% set root = "../../" %}
 {% set puzzle_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+{% if on_solve_unlockable %}
+    {% set on_solve_url = "../../unlock/" ~ (on_solve_unlockable.slug | urlencode) ~ "/index.html" %}
+{% else %}
+    {% set on_solve_url = "" %}
+{% endif %}
 {% block title %}Solution: {{ puzzle.name }}{% endblock %}
+{% block extra_head %}
+<script>
+MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+{% endblock %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
@@ -20,8 +32,16 @@
     {% if files.post_solve_story %}<div class="post-solve-story">{{ files.post_solve_story | md }}</div>{% endif %}
     {% if puzzle.solution.post_solve_image_path %}
         <p style="text-align:center">
-            <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
-                 alt="{{ puzzle.solution.post_solve_image_alt }}" />
+            {% if on_solve_url %}
+                <a class="img-link" href="{{ on_solve_url }}">
+                    <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
+                         alt="{{ puzzle.solution.post_solve_image_alt }}" />
+                </a>
+                <em>Click the image to continue</em>
+            {% else %}
+                <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
+                     alt="{{ puzzle.solution.post_solve_image_alt }}" />
+            {% endif %}
         </p>
     {% endif %}
     <div class="solution-text">

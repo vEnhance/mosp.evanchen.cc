@@ -1,7 +1,6 @@
 {
   "hunts": [
     {
-      "pk": 1,
       "volume_number": "I",
       "name": "Beginnings (2021)",
       "authors": "Evan Chen, Isabella Quan, Serena An, Sanjana Das",
@@ -12,7 +11,6 @@
       "orientation_text": "The 2021 hunt consisted of two rounds, Chapter 0 and Chapter 1.\n\n- Chapter 0 was a single puzzle that unlocked the main event, but the puzzle's post-hunt adaptation is less thematic, so personally I would just skip through it for the story.\n- Chapter 1 is a one-round hunt with some feeder puzzles and a metapuzzle."
     },
     {
-      "pk": 2,
       "volume_number": "II",
       "name": "New Directions (2022)",
       "authors": "Luke Robitaille et al",
@@ -25,8 +23,7 @@
   ],
   "rounds": [
     {
-      "pk": 1,
-      "unlockable_pk": 2,
+      "unlockable_slug": "mosp-world-map",
       "name": "Map of Secret Puzzles",
       "chapter_number": "1",
       "show_chapter_number": true,
@@ -35,8 +32,7 @@
       "round_text": "![MOSP 2021 Online Map](/static/2021/map-sm.png)\r\n\r\nSince the hunt has ended, all the puzzles are now unlocked, so you can solve them in any order."
     },
     {
-      "pk": 2,
-      "unlockable_pk": 1,
+      "unlockable_slug": "mop-intro",
       "name": "Online World Map",
       "chapter_number": "0",
       "show_chapter_number": true,
@@ -45,8 +41,7 @@
       "round_text": "![Online Map 2021](/static/2021/ch0map-sm.png){.w-5/6 .mx-auto}"
     },
     {
-      "pk": 3,
-      "unlockable_pk": 12,
+      "unlockable_slug": "reversed",
       "name": "Reversed",
       "chapter_number": "2",
       "show_chapter_number": true,
@@ -57,7 +52,6 @@
   ],
   "puzzles": [
     {
-      "pk": 1,
       "name": "K",
       "slug": "K",
       "is_meta": false,
@@ -75,10 +69,9 @@
         "post_solve_image_path": "2021/bridge.png",
         "post_solve_image_alt": "Cross the bridge..."
       },
-      "unlockable_pk": 3
+      "unlockable_slug": "bridge"
     },
     {
-      "pk": 2,
       "name": "Lost In Translation",
       "slug": "lost-in-translation",
       "is_meta": false,
@@ -104,10 +97,9 @@
         "post_solve_image_path": "2021/gfriend.png",
         "post_solve_image_alt": "Farewell GFRIEND, we will miss you <3"
       },
-      "unlockable_pk": 4
+      "unlockable_slug": "handbook"
     },
     {
-      "pk": 3,
       "name": "The IMO Begins",
       "slug": "the-imo-begins",
       "is_meta": false,
@@ -120,10 +112,9 @@
         "post_solve_image_path": "2021/calendar.png",
         "post_solve_image_alt": "Date tetris, colorized."
       },
-      "unlockable_pk": 5
+      "unlockable_slug": "calendar"
     },
     {
-      "pk": 4,
       "name": "Kindergarten",
       "slug": "kindergarten",
       "is_meta": false,
@@ -141,10 +132,9 @@
         "post_solve_image_path": "2021/cow-sm.png",
         "post_solve_image_alt": "Propoganda at its finest."
       },
-      "unlockable_pk": 6
+      "unlockable_slug": "discord"
     },
     {
-      "pk": 5,
       "name": "P53GZ7",
       "slug": "farml",
       "is_meta": false,
@@ -157,10 +147,9 @@
         "post_solve_image_path": "2021/flowchart-sm.png",
         "post_solve_image_alt": "Finding five friends?"
       },
-      "unlockable_pk": 7
+      "unlockable_slug": "gradescope"
     },
     {
-      "pk": 6,
       "name": "Zoom Network Park",
       "slug": "zoom-network-park",
       "is_meta": false,
@@ -178,10 +167,9 @@
         "post_solve_image_path": "2021/towers-sm.png",
         "post_solve_image_alt": "A scenic sunset from Zoom HQ."
       },
-      "unlockable_pk": 8
+      "unlockable_slug": "zoom"
     },
     {
-      "pk": 7,
       "name": "mtbcupg",
       "slug": "sisi",
       "is_meta": false,
@@ -199,10 +187,9 @@
         "post_solve_image_path": "2021/lincoln-sm.jpg",
         "post_solve_image_alt": "Lincoln, NE."
       },
-      "unlockable_pk": 9
+      "unlockable_slug": "classroom"
     },
     {
-      "pk": 8,
       "name": "Sticks And Stones",
       "slug": "sticks-and-stones",
       "is_meta": true,
@@ -215,10 +202,9 @@
         "post_solve_image_path": "2021/ending-sm.png",
         "post_solve_image_alt": "Don't think too hard about it."
       },
-      "unlockable_pk": 10
+      "unlockable_slug": "map"
     },
     {
-      "pk": 10,
       "name": "Data Connection",
       "slug": "data-connection",
       "is_meta": false,
@@ -231,10 +217,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 13
+      "unlockable_slug": "reversed-1"
     },
     {
-      "pk": 11,
       "name": "Math Olympics Program",
       "slug": "math-olympics-program",
       "is_meta": false,
@@ -247,10 +232,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 14
+      "unlockable_slug": "reversed-2"
     },
     {
-      "pk": 12,
       "name": "The Social Square",
       "slug": "the-social-square",
       "is_meta": false,
@@ -263,10 +247,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 15
+      "unlockable_slug": "reversed-3"
     },
     {
-      "pk": 13,
       "name": "Where in the World is Cathy?",
       "slug": "where-in-the-world-is-cathy",
       "is_meta": false,
@@ -279,10 +262,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 16
+      "unlockable_slug": "reversed-4"
     },
     {
-      "pk": 14,
       "name": "The Starry Knight",
       "slug": "the-starry-knight",
       "is_meta": false,
@@ -300,10 +282,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 18
+      "unlockable_slug": "reversed-5"
     },
     {
-      "pk": 15,
       "name": "Gemstones",
       "slug": "gemstones",
       "is_meta": false,
@@ -316,10 +297,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 19
+      "unlockable_slug": "reversed-6"
     },
     {
-      "pk": 16,
       "name": "The Mini Puzzle Hunt",
       "slug": "the-mini-puzzle-hunt",
       "is_meta": false,
@@ -332,10 +312,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 20
+      "unlockable_slug": "reversed-7"
     },
     {
-      "pk": 17,
       "name": "Hop on MOP",
       "slug": "hop-on-mop",
       "is_meta": false,
@@ -348,10 +327,9 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 21
+      "unlockable_slug": "reversed-8"
     },
     {
-      "pk": 18,
       "name": "Going in a New Direction",
       "slug": "going-in-a-new-direction",
       "is_meta": true,
@@ -364,408 +342,345 @@
         "post_solve_image_path": "",
         "post_solve_image_alt": ""
       },
-      "unlockable_pk": 22
+      "unlockable_slug": "reversed-meta"
     }
   ],
   "unlockables": [
     {
-      "pk": 1,
-      "hunt_pk": 1,
-      "parent_pk": null,
+      "hunt_volume": "I",
+      "parent_slug": null,
       "slug": "mop-intro",
       "name": "Online World Map",
       "icon": "",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 0,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
       "on_solve_link_to": null,
-      "puzzle_pk": null,
-      "round_pk": 2
+      "puzzle_slug": null,
+      "round_slug": "welcome"
     },
     {
-      "pk": 2,
-      "hunt_pk": 1,
-      "parent_pk": null,
+      "hunt_volume": "I",
+      "parent_slug": null,
       "slug": "mosp-world-map",
       "name": "Map of Secret Puzzles",
       "icon": "",
       "sort_order": 55,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 0,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
       "on_solve_link_to": null,
-      "puzzle_pk": null,
-      "round_pk": 1
+      "puzzle_slug": null,
+      "round_slug": "mosp-world-map"
     },
     {
-      "pk": 3,
-      "hunt_pk": 1,
-      "parent_pk": 2,
+      "hunt_volume": "I",
+      "parent_slug": "welcome",
       "slug": "bridge",
       "name": "Bridge",
       "icon": "🌉",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
-      "on_solve_link_to": 1,
-      "puzzle_pk": 1,
-      "round_pk": null
+      "on_solve_link_to": "mop-intro",
+      "puzzle_slug": "K",
+      "round_slug": null
     },
     {
-      "pk": 4,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "handbook",
       "name": "Handbook",
       "icon": "📒",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 2,
-      "round_pk": null
+      "puzzle_slug": "lost-in-translation",
+      "round_slug": null
     },
     {
-      "pk": 5,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "calendar",
       "name": "Calendar",
       "icon": "📅",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 3,
-      "round_pk": null
+      "puzzle_slug": "the-imo-begins",
+      "round_slug": null
     },
     {
-      "pk": 6,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "discord",
       "name": "Discord",
       "icon": "💬",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 4,
-      "round_pk": null
+      "puzzle_slug": "kindergarten",
+      "round_slug": null
     },
     {
-      "pk": 7,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "gradescope",
       "name": "Gradescope",
       "icon": "📊",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 25,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 5,
-      "round_pk": null
+      "puzzle_slug": "farml",
+      "round_slug": null
     },
     {
-      "pk": 8,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "zoom",
       "name": "Zoom",
       "icon": "📽️",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 50,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 6,
-      "round_pk": null
+      "puzzle_slug": "zoom-network-park",
+      "round_slug": null
     },
     {
-      "pk": 9,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "classroom",
       "name": "Classroom",
       "icon": "🏫",
       "sort_order": 50,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 75,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 7,
-      "round_pk": null
+      "puzzle_slug": "sisi",
+      "round_slug": null
     },
     {
-      "pk": 10,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "map",
       "name": "Map",
       "icon": "🗺️",
       "sort_order": 60,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 100,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 8,
-      "round_pk": null
+      "puzzle_slug": "sticks-and-stones",
+      "round_slug": null
     },
     {
-      "pk": 11,
-      "hunt_pk": 1,
-      "parent_pk": 1,
+      "hunt_volume": "I",
+      "parent_slug": "mosp-world-map",
       "slug": "chapter-1-epilogue",
       "name": "Epilogue",
       "icon": "",
       "sort_order": 70,
       "story_only": true,
-      "intro_story_text": "",
       "courage_bounty": 0,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": "sticks-and-stones",
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": null,
-      "round_pk": null
+      "puzzle_slug": null,
+      "round_slug": null
     },
     {
-      "pk": 12,
-      "hunt_pk": 2,
-      "parent_pk": null,
+      "hunt_volume": "II",
+      "parent_slug": null,
       "slug": "reversed",
       "name": "Reversed",
       "icon": "",
       "sort_order": 140,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 0,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": null,
-      "round_pk": 3
+      "puzzle_slug": null,
+      "round_slug": "reversed"
     },
     {
-      "pk": 13,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-1",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
       "on_solve_link_to": null,
-      "puzzle_pk": 10,
-      "round_pk": null
+      "puzzle_slug": "data-connection",
+      "round_slug": null
     },
     {
-      "pk": 14,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-2",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
       "on_solve_link_to": null,
-      "puzzle_pk": 11,
-      "round_pk": null
+      "puzzle_slug": "math-olympics-program",
+      "round_slug": null
     },
     {
-      "pk": 15,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-3",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 0,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": true,
       "on_solve_link_to": null,
-      "puzzle_pk": 12,
-      "round_pk": null
+      "puzzle_slug": "the-social-square",
+      "round_slug": null
     },
     {
-      "pk": 16,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-4",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 25,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 13,
-      "round_pk": null
+      "puzzle_slug": "where-in-the-world-is-cathy",
+      "round_slug": null
     },
     {
-      "pk": 18,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-5",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 50,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 14,
-      "round_pk": null
+      "puzzle_slug": "the-starry-knight",
+      "round_slug": null
     },
     {
-      "pk": 19,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-6",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 75,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 15,
-      "round_pk": null
+      "puzzle_slug": "gemstones",
+      "round_slug": null
     },
     {
-      "pk": 20,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-7",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 100,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 16,
-      "round_pk": null
+      "puzzle_slug": "the-mini-puzzle-hunt",
+      "round_slug": null
     },
     {
-      "pk": 21,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-8",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 125,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 17,
-      "round_pk": null
+      "puzzle_slug": "hop-on-mop",
+      "round_slug": null
     },
     {
-      "pk": 22,
-      "hunt_pk": 2,
-      "parent_pk": 3,
+      "hunt_volume": "II",
+      "parent_slug": "reversed",
       "slug": "reversed-meta",
       "name": "MOSP",
       "icon": "",
       "sort_order": 150,
       "story_only": false,
-      "intro_story_text": "",
       "courage_bounty": 25,
       "unlock_courage_threshold": 125,
-      "unlock_date": null,
       "unlock_needs_slug": null,
       "force_visibility": null,
       "on_solve_link_to": null,
-      "puzzle_pk": 18,
-      "round_pk": null
+      "puzzle_slug": "going-in-a-new-direction",
+      "round_slug": null
     }
   ]
 }

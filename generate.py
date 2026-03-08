@@ -55,22 +55,24 @@ env.filters["urlencode"] = urllib.parse.quote
 
 site = json.loads((DATA / "site.json").read_text())
 
-hunts = {h["pk"]: h for h in site["hunts"]}
-rounds = {r["pk"]: r for r in site["rounds"]}
-puzzles = {p["pk"]: p for p in site["puzzles"]}
-unlockables = {u["pk"]: u for u in site["unlockables"]}
+hunts = {h["volume_number"]: h for h in site["hunts"]}
+rounds = {r["slug"]: r for r in site["rounds"]}
+puzzles = {p["slug"]: p for p in site["puzzles"]}
+unlockables = {u["slug"]: u for u in site["unlockables"]}
 
-# Populate intro_story_text from markdown files (overrides any value in JSON)
+# Populate intro_story_text from markdown files
 for u in site["unlockables"]:
     intro = DATA / "unlockables" / u["slug"] / "intro.md"
     if intro.exists():
         u["intro_story_text"] = intro.read_text()
+    else:
+        u.setdefault("intro_story_text", "")
 
-# Build mapping: round_pk → slug of the unlockable that introduces that round
-round_intro_slugs: dict[int, str] = {}
+# Build mapping: round_slug → slug of the unlockable that introduces that round
+round_intro_slugs: dict[str, str] = {}
 for u in site["unlockables"]:
-    if u.get("round_pk") and u.get("parent_pk") is None:
-        round_intro_slugs[u["round_pk"]] = u["slug"]
+    if u.get("round_slug") and u.get("parent_slug") is None:
+        round_intro_slugs[u["round_slug"]] = u["slug"]
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -94,32 +96,31 @@ def load_puzzle_files(slug: str) -> dict:
 
 
 def hunt_for_round(round_: dict) -> dict | None:
-    u = unlockables.get(round_["unlockable_pk"])
-    return hunts.get(u["hunt_pk"]) if u else None
+    u = unlockables.get(round_["unlockable_slug"])
+    return hunts.get(u["hunt_volume"]) if u else None
 
 
 def parent_round_for_puzzle(puzzle: dict) -> dict | None:
-    u = unlockables.get(puzzle["unlockable_pk"])
-    if not u or u.get("parent_pk") is None:
+    u = unlockables.get(puzzle["unlockable_slug"])
+    if not u or u.get("parent_slug") is None:
         return None
-    # parent_pk is a Round pk (not an Unlockable pk)
-    return rounds.get(u["parent_pk"])
+    return rounds.get(u["parent_slug"])
 
 
 def hunt_for_puzzle(puzzle: dict) -> dict | None:
-    u = unlockables.get(puzzle["unlockable_pk"])
-    return hunts.get(u["hunt_pk"]) if u else None
+    u = unlockables.get(puzzle["unlockable_slug"])
+    return hunts.get(u["hunt_volume"]) if u else None
 
 
 def hunt_for_unlockable(u: dict) -> dict | None:
-    return hunts.get(u.get("hunt_pk"))
+    return hunts.get(u.get("hunt_volume"))
 
 
 def rounds_for_hunt(hunt: dict) -> list[dict]:
     result = []
     for r in site["rounds"]:
-        u = unlockables.get(r["unlockable_pk"])
-        if u and u["hunt_pk"] == hunt["pk"]:
+        u = unlockables.get(r["unlockable_slug"])
+        if u and u["hunt_volume"] == hunt["volume_number"]:
             result.append(r)
     return sorted(result, key=lambda r: int(r["chapter_number"]))
 
@@ -168,17 +169,16 @@ for round_ in site["rounds"]:
         print(f"  Warning: no hunt found for round {round_['slug']}")
         continue
     children = sorted(
-        # parent_pk on unlockables is a Round pk, not Unlockable pk
-        [u for u in site["unlockables"] if u.get("parent_pk") == round_["pk"]],
+        [u for u in site["unlockables"] if u.get("parent_slug") == round_["slug"]],
         key=lambda u: (u["sort_order"], u["name"]),
     )
     # Find the unlockable whose purpose is introducing this round
-    # (round_pk == round pk, parent_pk is None — it's the chapter's own story page)
+    # (round_slug == round slug, parent_slug is None — it's the chapter's own story page)
     round_unlockable = next(
         (
             u
             for u in site["unlockables"]
-            if u.get("round_pk") == round_["pk"] and u.get("parent_pk") is None
+            if u.get("round_slug") == round_["slug"] and u.get("parent_slug") is None
         ),
         None,
     )
@@ -197,10 +197,10 @@ for round_ in site["rounds"]:
 print("\nGenerating unlock pages...")
 for u in site["unlockables"]:
     # Find puzzle and round for this unlockable
-    puzz = puzzles.get(u["puzzle_pk"]) if u.get("puzzle_pk") else None
-    dest_round = rounds.get(u["round_pk"]) if u.get("round_pk") else None
-    # parent_pk is a Round pk
-    parent_round = rounds.get(u["parent_pk"]) if u.get("parent_pk") else None
+    puzz = puzzles.get(u["puzzle_slug"]) if u.get("puzzle_slug") else None
+    dest_round = rounds.get(u["round_slug"]) if u.get("round_slug") else None
+    # parent_slug is a Round slug
+    parent_round = rounds.get(u["parent_slug"]) if u.get("parent_slug") else None
     write(
         OUT / "unlock" / u["slug"] / "index.html",
         env.get_template("unlockable.html").render(
@@ -222,13 +222,16 @@ for puzzle in site["puzzles"]:
             files=load_puzzle_files(puzzle["slug"]),
             parent_round=parent_round_for_puzzle(puzzle),
             hunt=hunt_for_puzzle(puzzle),
-            unlockables_by_pk=unlockables,
+            unlockables_by_slug=unlockables,
         ),
     )
 
 # 6. Solution pages
 print("\nGenerating solution pages...")
 for puzzle in site["puzzles"]:
+    unlockable = unlockables.get(puzzle["unlockable_slug"])
+    on_solve_slug = unlockable.get("on_solve_link_to") if unlockable else None
+    on_solve_unlockable = unlockables.get(on_solve_slug) if on_solve_slug else None
     write(
         OUT / "solution" / puzzle["slug"] / "index.html",
         env.get_template("solution.html").render(
@@ -236,6 +239,7 @@ for puzzle in site["puzzles"]:
             files=load_puzzle_files(puzzle["slug"]),
             parent_round=parent_round_for_puzzle(puzzle),
             hunt=hunt_for_puzzle(puzzle),
+            on_solve_unlockable=on_solve_unlockable,
         ),
     )
 

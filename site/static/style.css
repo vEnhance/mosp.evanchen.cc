@@ -111,6 +111,11 @@ body.puzzle-page #tokenname {
   color: #c8a04a;
 }
 
+/* Protagonist name in content areas (yellow, like ancient span.name rule) */
+span.name {
+  color: #d97706;
+}
+
 /* Story link below round_text on chapter pages */
 .story-link {
   font-size: 0.9rem;
@@ -816,6 +821,54 @@ a.door:hover {
 }
 .text-sm {
   font-size: 0.875rem;
+}
+
+/* ── Prize key overlay (shown centered on puzzle solve) ── */
+#prize-overlay {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+#prize-overlay a {
+  font-size: inherit;
+  text-decoration: none !important;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+#prize-overlay a:hover {
+  transform: scale(1.15);
+  text-shadow: 0 0 30px #00cca7;
+}
+
+/* ── Open-all toggle in nav ── */
+#openall {
+  cursor: default;
+  font-size: 1rem;
+}
+#openall-checkbox {
+  display: none;
+}
+#openall-label {
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.15s;
+  user-select: none;
+}
+#openall-checkbox:checked + #openall-label {
+  opacity: 1;
+}
+#openall-label:hover {
+  opacity: 0.75;
+}
+#openall-checkbox:checked + #openall-label:hover {
+  opacity: 1;
 }
 
 /* ── Responsiveness ── */

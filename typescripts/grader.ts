@@ -14,8 +14,10 @@
  *   span.icon      - icon spans toggled during checking
  *   #thinking      - shown while hashing
  *   #wrong         - shown on wrong/partial answer
- *   #correct       - shown on correct answer
+ *   #correct       - shown on correct answer (kept visible after solve)
  *   #percent       - text feedback (partial answer messages)
+ *   #prize         - small key link shown after solve
+ *   #prize-overlay - large centered key overlay shown after solve
  *   #courage_value - courage counter in site nav (from layout.html)
  */
 
@@ -82,15 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
         const cv = document.getElementById("courage_value");
         if (cv && window.MOSP_getCourage)
           cv.textContent = String(window.MOSP_getCourage());
+
+        // Show small key in the feedback row after a short delay
+        // (keep the ✅ visible — do not hide icons)
         const prize = document.getElementById(
           "prize",
         ) as HTMLAnchorElement | null;
         setTimeout(() => {
-          document.querySelectorAll("span.icon").forEach((el) => {
-            (el as HTMLElement).style.display = "none";
-          });
           if (prize) prize.style.display = "inline";
         }, 1000);
+
+        // Show large centered key overlay immediately
+        const prizeOverlay = document.getElementById(
+          "prize-overlay",
+        ) as HTMLElement | null;
+        if (prizeOverlay) prizeOverlay.style.display = "flex";
+
         return;
       }
 
@@ -98,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (partial.hash === h) {
           showIcon("wrong");
           if (pct) {
-            pct.textContent = "\uD83E\uDD14 " + partial.message;
+            pct.textContent = partial.message;
             pct.style.visibility = "visible";
           }
           input!.disabled = false;

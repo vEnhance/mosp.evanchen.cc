@@ -28,7 +28,7 @@
 
 declare const Swal: { fire: (...args: unknown[]) => Promise<unknown> };
 
-export function SetCard(value: string, month: string, day: number): string {
+function SetCard(value: string, month: string, day: number): string {
   // dark theme
   const theme = {
     palette: {
@@ -138,7 +138,7 @@ const initialized: boolean[] = Array(10).fill(false);
 let current_board = 0;
 
 // Startup
-export function createEmptyBoards() {
+function createEmptyBoards() {
   const FAKE_CARD = `<div class="card fake"><svg class="symbol" width="18" height="36" viewBox="0 0 200 400"></svg></div>`;
   $("#puzzlecontent").append(
     `<div id="taskselect">&bullet; </div>` +
@@ -215,7 +215,7 @@ export function createEmptyBoards() {
 }
 
 /* Set up the clicks and set checker */
-export function finishSetup() {
+function finishSetup() {
   $("div.card.fresh").on("click", function () {
     if ($(this).hasClass("fresh")) {
       $(this).toggleClass("selected");
