@@ -62,7 +62,7 @@ unlockables = {u["pk"]: u for u in site["unlockables"]}
 
 # Populate intro_story_text from markdown files (overrides any value in JSON)
 for u in site["unlockables"]:
-    intro = (DATA / "unlockables" / u["slug"] / "intro.md")
+    intro = DATA / "unlockables" / u["slug"] / "intro.md"
     if intro.exists():
         u["intro_story_text"] = intro.read_text()
 
@@ -84,11 +84,11 @@ def read_puzzle_file(slug: str, filename: str) -> str:
 
 def load_puzzle_files(slug: str) -> dict:
     return {
-        "content":          read_puzzle_file(slug, "content.md"),
-        "flavor_text":      read_puzzle_file(slug, "flavor.md"),
-        "puzzle_head":      read_puzzle_file(slug, "head.html"),
-        "solution_text":    read_puzzle_file(slug, "solution.md"),
-        "author_notes":     read_puzzle_file(slug, "author-notes.md"),
+        "content": read_puzzle_file(slug, "content.md"),
+        "flavor_text": read_puzzle_file(slug, "flavor.md"),
+        "puzzle_head": read_puzzle_file(slug, "head.html"),
+        "solution_text": read_puzzle_file(slug, "solution.md"),
+        "author_notes": read_puzzle_file(slug, "author-notes.md"),
         "post_solve_story": read_puzzle_file(slug, "story.md"),
     }
 
@@ -115,11 +115,6 @@ def hunt_for_unlockable(u: dict) -> dict | None:
     return hunts.get(u.get("hunt_pk"))
 
 
-def read_unlockable_intro(slug: str) -> str:
-    p = DATA / "unlockables" / slug / "intro.md"
-    return p.read_text() if p.exists() else ""
-
-
 def rounds_for_hunt(hunt: dict) -> list[dict]:
     result = []
     for r in site["rounds"]:
@@ -142,9 +137,16 @@ def write(path: Path, content: str) -> None:
 print(f"Generating static site into: {OUT}\n")
 
 # 1. Index
+index_path = DATA / "index.md"
 print("\nGenerating index...")
-write(OUT / "index.html",
-      env.get_template("index.html").render(hunts=site["hunts"]))
+write(
+    OUT / "index.html",
+    env.get_template("index.html").render(
+        hunts=site["hunts"],
+        index_text=index_path.read_text() if index_path.exists() else "",
+    ),
+)
+
 
 # 2. Volume pages
 print("\nGenerating volume pages...")
@@ -173,8 +175,11 @@ for round_ in site["rounds"]:
     # Find the unlockable whose purpose is introducing this round
     # (round_pk == round pk, parent_pk is None — it's the chapter's own story page)
     round_unlockable = next(
-        (u for u in site["unlockables"]
-         if u.get("round_pk") == round_["pk"] and u.get("parent_pk") is None),
+        (
+            u
+            for u in site["unlockables"]
+            if u.get("round_pk") == round_["pk"] and u.get("parent_pk") is None
+        ),
         None,
     )
     write(

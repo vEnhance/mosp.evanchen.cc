@@ -4,21 +4,7 @@
 {% block back_nav %}{% endblock %}
 {% block content %}
     <h1>MOSP: A Light Novel</h1>
-    <p style="text-align:center">
-        Welcome to the MOSP puzzle hunt!
-        This was a puzzle hunt we ran from MOP 2021 and 2022.
-        <ul>
-            <li>
-                The archive of the 2021 hunt is fairly complete,
-                including solutions, story text, artwork, and adaptations of puzzle content.
-                I generally recommend this one (a bit selfishly, since I wrote it).
-            </li>
-            <li>
-                For the 2022 hunt, we only have the opening story
-                and the puzzle content (but no solutions or artwork).
-            </li>
-        </ul>
-    </p>
+    {{ index_text | md }}
     <div class="volume-gallery">
         {% for hunt in hunts | sort(attribute="pk") %}
             <a class="volume-card"
