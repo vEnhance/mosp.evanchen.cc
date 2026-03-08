@@ -1,4 +1,24 @@
+[project]
+name = "mosp.evanchen.cc"
+version = "1.0"
+description = "Static archive of MOSP puzzle hunt"
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+authors = [{ name = "Evan Chen", email = "evan@evanchen.cc" }]
+license = { text = "MIT" }
+urls = { repository = "https://github.com/vEnhance/mosp.evanchen.cc" }
+dependencies = [
+    "jinja2>=3.1.6",
+    "markdown>=3.10.2",
+]
+
 [tool.djlint]
 ignore = "J018"
+
 [tool.codespell]
 ignore-words-list="GUD,Ans"
+
+[dependency-groups]
+dev = [
+    "prek>=0.3.4",
+]
