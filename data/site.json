@@ -129,8 +129,8 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/cow.png",
-        "post_solve_image_alt": "Propoganda at its finest."
+        "post_solve_image_path": "2021/flowchart.png",
+        "post_solve_image_alt": "Finding five friends?"
       },
       "unlockable_slug": "discord"
     },
@@ -144,8 +144,8 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/flowchart.png",
-        "post_solve_image_alt": "Finding five friends?"
+        "post_solve_image_path": "2021/cow.png",
+        "post_solve_image_alt": "Propoganda at its finest."
       },
       "unlockable_slug": "gradescope"
     },
