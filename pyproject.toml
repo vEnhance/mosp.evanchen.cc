@@ -1,2 +1,4 @@
 [tool.djlint]
 ignore = "J018"
+[tool.codespell]
+ignore-words-list="GUD,Ans"
