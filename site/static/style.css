@@ -890,3 +890,7 @@ p.fourthwall {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+/* ── Utilities ── */
+.text-center { text-align: center; }
+.vol-authors { text-align: center; color: #555; }

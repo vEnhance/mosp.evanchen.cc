@@ -11,7 +11,7 @@
 {% endblock page_meta %}
 {% block content %}
     <h1>Volume {{ hunt.volume_number }}: {{ hunt.name }}</h1>
-    <p style="text-align:center; color:#555">{{ hunt.authors }}</p>
+    <p class="vol-authors">{{ hunt.authors }}</p>
     <p>
         {% if hunt.orientation_text %}<div class="round-text">{{ hunt.orientation_text | md }}</div>{% endif %}
     </p>
