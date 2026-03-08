@@ -85,15 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cv && window.MOSP_getCourage)
           cv.textContent = String(window.MOSP_getCourage());
 
-        // Show small key in the feedback row after a short delay
-        // (keep the ✅ visible — do not hide icons)
-        const prize = document.getElementById(
-          "prize",
-        ) as HTMLAnchorElement | null;
-        setTimeout(() => {
-          if (prize) prize.style.display = "inline";
-        }, 1000);
-
         // Show large centered key overlay immediately
         const prizeOverlay = document.getElementById(
           "prize-overlay",
