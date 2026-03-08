@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getIndices(arr: number[], val: number): number[] {
     const indexes: number[] = [];
-    for (let i = 0; i < arr.length; i++) if (arr[i] === val) indexes.push(i + 1);
+    for (let i = 0; i < arr.length; i++)
+      if (arr[i] === val) indexes.push(i + 1);
     return indexes;
   }
 
@@ -60,7 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const indices = getIndices(extraction, i);
             if (indices.length > 0) {
               const s = indices.join(",");
-              h += s.length <= 2 ? s.padStart(3, " ") + "   " : s.padStart(4, " ") + "  ";
+              h +=
+                s.length <= 2
+                  ? s.padStart(3, " ") + "   "
+                  : s.padStart(4, " ") + "  ";
             } else {
               h += "      ";
             }
