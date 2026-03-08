@@ -628,7 +628,6 @@ body.puzzle-page #footer {
 /* Answer checker — centered (dark.css #answerchecker) */
 #answerchecker {
   text-align: center;
-  margin: 1rem 0;
 }
 
 /* Big Inconsolata input (dark.css #answer) */
@@ -694,9 +693,6 @@ span.icon {
   display: none;
   font-size: 160%;
   text-decoration: none !important;
-}
-.solved #prize {
-  display: inline;
 }
 
 /* ============================================================
