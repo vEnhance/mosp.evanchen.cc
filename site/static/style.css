@@ -466,42 +466,6 @@ div.strong-emph em {
   opacity: 1;
 }
 
-/* ── Chapter/round listing (legacy, kept as fallback) ── */
-.chapter-list {
-  margin-top: 1rem;
-}
-.chapter-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  background: #fafaf2;
-}
-.chapter-card h2 {
-  text-align: left;
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-/* ── Buttons ── */
-.btn {
-  display: inline-block;
-  background: #1e40af;
-  color: #fff;
-  padding: 0.35rem 1rem;
-  border-radius: 4px;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-.btn:hover {
-  background: #1e3a8a;
-  color: #fff;
-  text-shadow: none;
-}
-
 /* ── Round intro text ── */
 .round-text {
   background: #f0f4ec;
@@ -739,81 +703,6 @@ span.icon {
   color: #dfdfdf;
   visibility: hidden;
 }
-#prize {
-  display: none;
-  font-size: 160%;
-  text-decoration: none !important;
-}
-
-/* ============================================================
-   Pygments syntax highlighting (from original common.css)
-   ============================================================ */
-div.codehilite pre {
-  padding: 5px;
-}
-div.codehilite code {
-  font-weight: normal;
-  color: #007755;
-}
-.codehilite {
-  background: #f0f0f0;
-}
-.codehilite .hll {
-  background-color: #ffffcc;
-}
-.codehilite .c {
-  color: #60a0b0;
-  font-style: italic;
-}
-.codehilite .k {
-  color: #007020;
-  font-weight: bold;
-}
-.codehilite .o {
-  color: #666;
-}
-.codehilite .s {
-  color: #4070a0;
-}
-.codehilite .m {
-  color: #40a070;
-}
-.codehilite .nf {
-  color: #06287e;
-}
-.codehilite .nc {
-  color: #0e84b5;
-  font-weight: bold;
-}
-.codehilite .nt {
-  color: #062873;
-  font-weight: bold;
-}
-.codehilite .nb {
-  color: #007020;
-}
-.codehilite .nn {
-  color: #0e84b5;
-  font-weight: bold;
-}
-.codehilite .kd {
-  color: #007020;
-  font-weight: bold;
-}
-.codehilite .kn {
-  color: #007020;
-  font-weight: bold;
-}
-.codehilite .err {
-  border: 1px solid #ff0000;
-}
-.codehilite .gi {
-  color: #00a000;
-}
-.codehilite .gd {
-  color: #a00000;
-}
-
 /* ── Unlock / story intro pages ── */
 .story-text {
   max-width: 40rem;
