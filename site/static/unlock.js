@@ -252,7 +252,11 @@
         // The location cell already links to the unlock page for navigation.
         const cell = row.querySelector(".col-title");
         if (cell) {
-          cell.textContent = "???";
+          const span = document.createElement("span");
+          span.className = "new-puzzle";
+          span.textContent = "New puzzle found!";
+          cell.textContent = "";
+          cell.appendChild(span);
         }
       }
       // else: visible and opened — the template already rendered the puzzle title

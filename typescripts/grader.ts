@@ -16,7 +16,6 @@
  *   #wrong         - shown on wrong/partial answer
  *   #correct       - shown on correct answer (kept visible after solve)
  *   #percent       - text feedback (partial answer messages)
- *   #prize         - small key link shown after solve
  *   #prize-overlay - large centered key overlay shown after solve
  *   #courage_value - courage counter in site nav (from layout.html)
  */

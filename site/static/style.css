@@ -235,21 +235,31 @@ pre {
   margin: 10px;
 }
 
-/* Glowing image links */
+/* Glowing image links (generic) */
 @keyframes glow-blue {
-  from {
-    box-shadow: 0px 0px 15px #55ffff;
-  }
-  to {
-    box-shadow: 0px 0px 20px #6666dd;
-  }
+  from { box-shadow: 0px 0px 15px #55ffff; }
+  to   { box-shadow: 0px 0px 20px #6666dd; }
 }
 @keyframes glow-yellow {
-  from {
-    box-shadow: 0px 0px 35px #bbbb33;
+  from { box-shadow: 0px 0px 35px #bbbb33; }
+  to   { box-shadow: 0px 0px 45px #eeeecc; }
+}
+
+/* ── "Proceed" glow animations (door, solve key, on-solve images) ── */
+@keyframes proceed-emoji-pulse {
+  0%, 100% {
+    text-shadow: 0 0 6px #00cca7, 0 0 12px #00cca7;
   }
-  to {
-    box-shadow: 0px 0px 45px #eeeecc;
+  50% {
+    text-shadow: 0 0 16px #00ffcc, 0 0 32px #00cca7, 0 0 50px #007755;
+  }
+}
+@keyframes proceed-image-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px #00cca7, 0 0 18px #00cca7;
+  }
+  50% {
+    box-shadow: 0 0 20px #00ffcc, 0 0 42px #00cca7, 0 0 64px #007755;
   }
 }
 #container a.img-link > img {
@@ -257,6 +267,12 @@ pre {
 }
 #container a.img-link:hover > img {
   animation: glow-yellow 2s linear infinite alternate both;
+}
+#container a.proceed-link > img {
+  animation: proceed-image-pulse 2.5s ease-in-out infinite;
+}
+#container a.proceed-link:hover > img {
+  animation: proceed-image-pulse 1s ease-in-out infinite;
 }
 
 /* ── Tables ── */
@@ -548,6 +564,13 @@ div.strong-emph em {
   color: #aaa;
 }
 
+/* Unlockable opened but puzzle not yet visited */
+.new-puzzle {
+  font-style: italic;
+  font-size: 0.9em;
+  color: #cc3333;
+}
+
 /* ── Flavor text ── */
 .flavor-text {
   font-style: italic;
@@ -794,10 +817,11 @@ a.door {
   font-size: 5rem;
   display: inline-block;
   transition: transform 0.2s;
+  animation: proceed-emoji-pulse 2.5s ease-in-out infinite;
 }
 a.door:hover {
   transform: scale(1.15);
-  text-shadow: 0 0 20px #00cca7;
+  animation-duration: 1s;
 }
 
 /* puzzle-nav-links (breadcrumb line under puzzle title) */
@@ -842,10 +866,11 @@ a.door:hover {
   text-decoration: none !important;
   display: inline-block;
   transition: transform 0.2s;
+  animation: proceed-emoji-pulse 2.5s ease-in-out infinite;
 }
 #prize-overlay a:hover {
   transform: scale(1.15);
-  text-shadow: 0 0 30px #00cca7;
+  animation-duration: 1s;
 }
 
 /* ── Open-all toggle in nav ── */

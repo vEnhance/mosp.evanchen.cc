@@ -33,7 +33,7 @@ MathJax = { tex: { inlineMath: [['$','$'], ['\\(','\\)']] } };
     {% if puzzle.solution.post_solve_image_path %}
         <p style="text-align:center">
             {% if on_solve_url %}
-                <a class="img-link" href="{{ on_solve_url }}">
+                <a class="proceed-link" href="{{ on_solve_url }}">
                     <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
                          alt="{{ puzzle.solution.post_solve_image_alt }}" />
                 </a>
