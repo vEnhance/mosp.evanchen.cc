@@ -684,7 +684,7 @@ span.icon {
 #wrong {
   transition: all 2s;
 }
-#percent {
+#feedback-text {
   font-size: 120%;
   font-family: sans-serif;
   color: #dfdfdf;

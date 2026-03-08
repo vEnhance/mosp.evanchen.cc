@@ -47,7 +47,9 @@ function showIcon(id: string): void {
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("answer") as HTMLInputElement | null;
   const btn = document.getElementById("check-btn") as HTMLButtonElement | null;
-  const pct = document.getElementById("feedback-text") as HTMLElement | null;
+  const feedback = document.getElementById(
+    "feedback-text",
+  ) as HTMLElement | null;
 
   if (!input) return;
 
@@ -58,14 +60,17 @@ document.addEventListener("DOMContentLoaded", () => {
     input!.disabled = true;
     if (btn) btn.disabled = true;
     showIcon("thinking");
-    if (pct) { pct.textContent = ""; pct.style.visibility = "hidden"; }
+    if (feedback) {
+      feedback.textContent = "";
+      feedback.style.visibility = "hidden";
+    }
 
     for (let salt = 0; salt < 10000; salt++) {
       const h = await sha256("MOSP_LIGHT_NOVEL_" + normalized + salt);
 
       if (MOSP_HASHES.includes(h)) {
         showIcon("correct");
-        if (pct) pct.style.visibility = "hidden";
+        if (feedback) feedback.style.visibility = "hidden";
         document.body.classList.add("solved");
         const firstSolve =
           !window.MOSP_isSolved || !window.MOSP_isSolved(MOSP_SLUG);
@@ -89,9 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
       for (const partial of MOSP_PARTIAL) {
         if (partial.hash === h) {
           showIcon("wrong");
-          if (pct) {
-            pct.textContent = partial.message;
-            pct.style.visibility = "visible";
+          if (feedback) {
+            feedback.textContent = partial.message;
+            feedback.style.visibility = "visible";
           }
           input!.disabled = false;
           if (btn) btn.disabled = false;
@@ -101,9 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     showIcon("wrong");
-    if (pct) {
-      pct.textContent = "";
-      pct.style.visibility = "hidden";
+    if (feedback) {
+      feedback.textContent = "";
+      feedback.style.visibility = "hidden";
     }
     input!.disabled = false;
     if (btn) btn.disabled = false;
