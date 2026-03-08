@@ -128,7 +128,7 @@ function createEmptyBoards() {
     // Trigger when board link is clicked
     qid(`${i + 1}`).addEventListener("click", () => {
       current_board = i;
-      qa("div.board").forEach(el => {
+      qa("div.board").forEach((el) => {
         el.style.display = "none";
         el.classList.remove("showing");
       });
@@ -169,9 +169,9 @@ function createEmptyBoards() {
     showing.insertAdjacentHTML("afterbegin", FAKE_CARD);
     const fakes = showing.querySelectorAll("div.card.fake");
     if (fakes.length >= 7) {
-      fakes.forEach(f => f.remove());
+      fakes.forEach((f) => f.remove());
     }
-    showing.querySelectorAll<HTMLElement>("div.card.gotten").forEach(el => {
+    showing.querySelectorAll<HTMLElement>("div.card.gotten").forEach((el) => {
       const is_ok = Number(el.getAttribute("data-break")) != fakes.length % 7;
       el.classList.toggle("ok", is_ok);
       el.classList.toggle("bad", !is_ok);
@@ -191,7 +191,7 @@ function createEmptyBoards() {
 
 /* Set up the clicks and set checker */
 function finishSetup() {
-  qa("div.card.fresh").forEach(card => {
+  qa("div.card.fresh").forEach((card) => {
     card.addEventListener("click", () => {
       if (card.classList.contains("fresh")) {
         card.classList.toggle("selected");
@@ -201,7 +201,7 @@ function finishSetup() {
         if (selected.length <= 2) {
           return;
         } else if (selected.length >= 4) {
-          selected.forEach(el => el.classList.remove("selected"));
+          selected.forEach((el) => el.classList.remove("selected"));
           card.classList.add("selected");
           return;
         }
@@ -253,7 +253,7 @@ function finishSetup() {
         const offset = fakes.length;
 
         const now = Date.now();
-        selected.forEach(el => {
+        selected.forEach((el) => {
           el.classList.remove("selected");
           el.classList.remove("fresh");
           el.classList.add(
@@ -266,7 +266,7 @@ function finishSetup() {
           "div.board.showing > div.card.gotten",
         );
         if (gotten.length == 24) {
-          qa("div.board.showing > div.card.fresh").forEach(el =>
+          qa("div.board.showing > div.card.fresh").forEach((el) =>
             el.classList.remove("fresh"),
           );
         }
@@ -287,16 +287,16 @@ function finishSetup() {
     }
   }
 
-  qa("div.card.fresh").forEach(card => {
+  qa("div.card.fresh").forEach((card) => {
     card.addEventListener("mouseenter", () => {
-      getFriends(card).forEach(el => el.classList.add("highlight"));
+      getFriends(card).forEach((el) => el.classList.add("highlight"));
     });
     card.addEventListener("mouseleave", () => {
-      getFriends(card).forEach(el => el.classList.remove("highlight"));
+      getFriends(card).forEach((el) => el.classList.remove("highlight"));
     });
   });
 
-  qa("div.board").forEach(el => {
+  qa("div.board").forEach((el) => {
     el.style.display = "none";
   });
   if (window.location.hash) {
