@@ -659,6 +659,7 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem, c
     .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     .replace(/`([^`]+)`/g,"<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/_([^_]+)_/g,"<em>$1</em>")
     .replace(/\n/g,"<br>")
     .replace(/#kindergarten/g,'<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>');
 
@@ -1186,6 +1187,17 @@ function afterCorrect() {
   if (score === 42 && !creoState.active) {
     creoActivate();
     return; // don't fire other trolls at same time
+  }
+
+  // Creodont extraction hint after 17th haiku (score 51)
+  if (score === 51 && creoState.active) {
+    setTimeout(function() { if (creoState.active) showTyping("Singing Creodont 🦕🎵"); }, 1500);
+    setTimeout(function() {
+      if (!creoState.active) return;
+      hideTyping();
+      addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
+        text: "Wow you passed 50!🥇\nYou made seventeen haikus 🤔\nEmoji haiku? 🤯\nYou _could_ extract now 🔥\nBut I suggest you go on 💪\nThere are six more hints 💡\n_This message is not a puzzle, so please don't read too much into it._" });
+    }, 3500);
   }
 
   // Only one troll at a time; don't fire if owl or firefly already active
