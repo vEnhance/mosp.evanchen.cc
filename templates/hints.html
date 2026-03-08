@@ -4,14 +4,14 @@
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
 {% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
-{% block title %}Hints: {{ puzzle.name }}{% endblock %}
+{% block title %}Hints: {{ puzzle.name }}{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
-{% endblock %}
-{% block back_nav %}<a class="emoji-link" href="{{ puzzle_url }}">&#x1F199;</a>{% endblock %}
-{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock %}
+{% endblock page_meta %}
+{% block back_nav %}<a class="emoji-link" href="{{ puzzle_url }}">🔙</a>{% endblock back_nav %}
+{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock southeast %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <p style="text-align:center">
@@ -19,9 +19,9 @@
     </p>
     <div class="text-sm puzzle-nav-links">
         {% if parent_round %}
-            <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
+            <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> •
         {% endif %}
-        {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
+        {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> •{% endif %}
         <a href="{{ puzzle_url }}">Back to puzzle</a>
     </div>
     <p class="fourthwall">
@@ -41,4 +41,4 @@
         {% endfor %}
     </div>
     <script src="{{ root }}js/hints.js" defer></script>
-{% endblock %}
+{% endblock content %}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set root = "" %}
-{% block title %}Home{% endblock %}
-{% block back_nav %}{% endblock %}
+{% block title %}Home{% endblock title %}
+{% block back_nav %}{% endblock back_nav %}
 {% block content %}
     <h1>MOSP: A Light Novel</h1>
     {{ index_text | md }}
@@ -25,4 +25,4 @@
             </a>
         {% endfor %}
     </div>
-{% endblock %}
+{% endblock content %}

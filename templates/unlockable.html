@@ -16,18 +16,18 @@
 {% else %}
     {% set back_url = "../../index.html" %}
 {% endif %}
-{% block title %}{{ unlockable.name }}{% endblock %}
+{% block title %}{{ unlockable.name }}{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
     <script>window.MOSP_UNLOCK_SLUG={{ unlockable.slug | tojson }};</script>
-{% endblock %}
-{% block back_nav %}<a class="emoji-link" href="{{ back_url }}">&#x1F199;</a>{% endblock %}
+{% endblock page_meta %}
+{% block back_nav %}<a class="emoji-link" href="{{ back_url }}">🔙</a>{% endblock back_nav %}
 {% block content %}
     <h1>{{ unlockable.icon }} {{ unlockable.name }}</h1>
     {% if unlockable.intro_story_text %}<div class="story-text">{{ unlockable.intro_story_text | md }}</div>{% endif %}
     <div class="door-link">
-        <a class="emoji-link door" href="{{ dest_url }}">&#x1F6AA;</a>
+        <a class="emoji-link door" href="{{ dest_url }}">🚪</a>
     </div>
-{% endblock %}
+{% endblock content %}

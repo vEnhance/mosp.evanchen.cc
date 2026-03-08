@@ -4,22 +4,22 @@
     {% if round.show_chapter_number %}Chapter {{ round.chapter_number }}:{% endif %}
     {{ round.name }}
 {% endset %}
-{% block title %}{{ chapter_label | trim }}{% endblock %}
+{% block title %}{{ chapter_label | trim }}{% endblock title %}
 {% block page_meta %}
     {% if hunt %}
         <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
     {% endif %}
-{% endblock %}
+{% endblock page_meta %}
 {% block back_nav %}
     <a class="emoji-link"
-       href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">&#x1F199;</a>
-{% endblock %}
+       href="../../vol/{{ hunt.volume_number | urlencode }}/index.html">🔙</a>
+{% endblock back_nav %}
 {% block content %}
     <h1>{{ chapter_label | trim }}</h1>
     {% if round.round_text %}<div class="round-text">{{ round.round_text | md }}</div>{% endif %}
     {% if round_unlockable %}
         <p class="story-link">
-            <a href="../../unlock/{{ round_unlockable.slug | urlencode }}/index.html">&#x1F4D6; View story for this chapter</a>
+            <a href="../../unlock/{{ round_unlockable.slug | urlencode }}/index.html">📖 View story for this chapter</a>
         </p>
     {% endif %}
     {% if children %}
@@ -65,4 +65,4 @@
             <em>No puzzles in this chapter.</em>
         </p>
     {% endif %}
-{% endblock %}
+{% endblock content %}
