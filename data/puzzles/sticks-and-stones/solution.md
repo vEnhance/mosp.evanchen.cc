@@ -10,7 +10,8 @@ which we give below sorted first by length and then alphabetically.
 - `FILESPECIALFORMAT`
 - `TEAMSELECTIONEXAM`
 
-It's also necessary to find the puzzle itself:
+During the actual 2021 hunt,
+it was also necessary to find the puzzle itself:
 it's hidden in the same place that the hunt itself was,
 behind the world map (this time behind the MOSP world map).
 
