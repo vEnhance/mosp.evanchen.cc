@@ -390,7 +390,7 @@
       "unlock_courage_threshold": 0,
       "unlock_needs_slug": null,
       "force_visibility": true,
-      "on_solve_link_to": "mop-intro",
+      "on_solve_link_to": "mosp-world-map",
       "puzzle_slug": "K",
       "round_slug": null
     },
