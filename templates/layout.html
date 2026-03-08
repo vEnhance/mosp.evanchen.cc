@@ -29,9 +29,22 @@
                     <span id="status">
                         <span class="relative navitem" id="openall">
                             <input type="checkbox" id="openall-checkbox" />
-                            <label for="openall-checkbox"
-                                   id="openall-label"
-                                   title="Open all unlockables regardless of courage">&#x1F513;</label>
+                            <label for="openall-checkbox" id="openall-label">
+                                <span id="openall-icon-off">&#x1F512;</span>
+                                <span id="openall-icon-on">&#x1F513;</span>
+                            </label>
+                            <div id="openall-tooltip">
+                                <span id="openall-state-off">
+                                    <strong>Gated mode</strong><br>
+                                    Puzzles locked by courage.<br>
+                                    <em>Click to open all</em>
+                                </span>
+                                <span id="openall-state-on">
+                                    <strong>Open mode</strong><br>
+                                    All unlockables visible.<br>
+                                    <em>Click to restore gating</em>
+                                </span>
+                            </div>
                         </span>
                         <span class="relative navitem" id="courage">
                             <span id="courage_heart">&#x1F49C;</span><span id="courage_value">0</span>

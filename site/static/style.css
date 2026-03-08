@@ -849,6 +849,7 @@ a.door:hover {
 
 /* ── Open-all toggle in nav ── */
 #openall {
+  position: relative;
   cursor: default;
   font-size: 1rem;
 }
@@ -857,18 +858,48 @@ a.door:hover {
 }
 #openall-label {
   cursor: pointer;
-  opacity: 0.45;
-  transition: opacity 0.15s;
   user-select: none;
 }
-#openall-checkbox:checked + #openall-label {
-  opacity: 1;
+
+/* Icon swap: show lock when gated, open-lock when all-open */
+#openall-icon-on {
+  display: none;
 }
-#openall-label:hover {
-  opacity: 0.75;
+#openall-checkbox:checked + #openall-label #openall-icon-off {
+  display: none;
 }
-#openall-checkbox:checked + #openall-label:hover {
-  opacity: 1;
+#openall-checkbox:checked + #openall-label #openall-icon-on {
+  display: inline;
+}
+
+/* Tooltip (same style as #courage-tooltip) */
+#openall-tooltip {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 2rem;
+  background: #bbf7d0;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  color: #111;
+}
+#openall:hover #openall-tooltip {
+  display: block;
+}
+
+/* State text swap inside tooltip */
+#openall-state-on {
+  display: none;
+}
+#openall-checkbox:checked ~ #openall-tooltip #openall-state-off {
+  display: none;
+}
+#openall-checkbox:checked ~ #openall-tooltip #openall-state-on {
+  display: inline;
 }
 
 /* ── Responsiveness ── */
