@@ -5,7 +5,13 @@
    ============================================================ */
 
 /* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 /* ── Base / light-cream theme (matches original #f7f7e9) ── */
 body {
@@ -17,10 +23,15 @@ body {
   flex-direction: column;
 }
 
-strong { font-style: normal; font-weight: bold; }
+strong {
+  font-style: normal;
+  font-weight: bold;
+}
 
 /* Teal glow on hover, no underline (original a:hover) */
-a { color: #1a56a0; }
+a {
+  color: #1a56a0;
+}
 a:hover {
   text-shadow: 0 0 12px #00cca7;
   text-decoration: none;
@@ -33,7 +44,10 @@ a.emoji-link:hover,
 a.emoji-link:active {
   text-decoration: none;
 }
-a.noshadow, a.noshadow:hover { text-shadow: none; }
+a.noshadow,
+a.noshadow:hover {
+  text-shadow: none;
+}
 
 /* ── Container: wide outer shell (nav + footer span full width of this) ── */
 #container {
@@ -45,10 +59,14 @@ a.noshadow, a.noshadow:hover { text-shadow: none; }
   flex-direction: column;
 }
 @media (min-width: 1280px) {
-  #container { max-width: 64rem; }
+  #container {
+    max-width: 64rem;
+  }
 }
 
-#content { flex: 1; }
+#content {
+  flex: 1;
+}
 
 /* ── Inner content column: narrower, centered ── */
 /* Mirrors original's "max-w-2xl mx-auto" content div */
@@ -63,13 +81,20 @@ nav.site-nav {
   justify-content: space-between;
   align-items: center;
   font-size: 1.25rem;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   padding: 0.25rem 0;
 }
-#back { font-size: 1rem; display: flex; align-items: baseline; gap: 0.4rem; }
+#back {
+  font-size: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
 
 /* Protagonist name in nav (italic yellow, like original "span.name") */
-#setname { text-decoration: none !important; }
+#setname {
+  text-decoration: none !important;
+}
 #tokenname {
   font-style: italic;
   color: #92600a;
@@ -78,12 +103,23 @@ nav.site-nav {
   display: inline-block;
   transform: translateY(-2px);
 }
-#tokenname:hover { text-decoration: underline; }
-body.puzzle-page #tokenname { color: #c8a04a; }
+#tokenname:hover {
+  text-decoration: underline;
+}
+body.puzzle-page #tokenname {
+  color: #c8a04a;
+}
 
 /* Story link below round_text on chapter pages */
-.story-link { font-size: 0.9rem; margin: 0.5rem 0 0.75rem; }
-#status { display: flex; align-items: center; gap: 0.5rem; }
+.story-link {
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.75rem;
+}
+#status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
 /* Dotted nav item borders (dark.css span.navitem) */
 span.navitem {
@@ -92,7 +128,9 @@ span.navitem {
 }
 
 /* Courage counter with tooltip */
-#courage { position: relative; }
+#courage {
+  position: relative;
+}
 #courage-tooltip {
   display: none;
   position: absolute;
@@ -103,11 +141,13 @@ span.navitem {
   padding: 0.4rem 0.6rem;
   font-size: 0.8rem;
   white-space: nowrap;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   z-index: 10;
   color: #111;
 }
-#courage:hover #courage-tooltip { display: block; }
+#courage:hover #courage-tooltip {
+  display: block;
+}
 
 /* ── Footer ── */
 #footer {
@@ -116,30 +156,64 @@ span.navitem {
   color: #9ca3af;
   font-size: 0.95rem;
 }
-#footer hr { border: none; border-top: 1px solid #d1d5db; margin-bottom: 0.25rem; }
-#footer-inner { display: flex; justify-content: space-between; }
+#footer hr {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  margin-bottom: 0.25rem;
+}
+#footer-inner {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* ── Typography ── */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: Georgia, serif;
   font-weight: bold;
   text-align: center;
 }
-h1 { font-size: 2rem; margin: 0.75rem 0; }
-h2 { font-size: 1.5rem; margin: 0.75rem 0 0.5rem; }
-h3 { font-size: 1.2rem; margin: 0.6rem 0 0.3rem; }
-p  { line-height: 1.65; margin-bottom: 0.75rem; }
-hr { border: none; border-top: 1px solid #ccc; margin: 1rem 0; }
+h1 {
+  font-size: 2rem;
+  margin: 0.75rem 0;
+}
+h2 {
+  font-size: 1.5rem;
+  margin: 0.75rem 0 0.5rem;
+}
+h3 {
+  font-size: 1.2rem;
+  margin: 0.6rem 0 0.3rem;
+}
+p {
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1rem 0;
+}
 
-ul, ol { margin: 0.5rem 0 0.75rem 2rem; line-height: 1.65; }
+ul,
+ol {
+  margin: 0.5rem 0 0.75rem 2rem;
+  line-height: 1.65;
+}
 blockquote {
   border-left: 4px solid #ccc;
   padding-left: 1rem;
   color: #555;
   margin: 0.75rem 0;
 }
-code { color: #cc0000; }
-pre { line-height: 125%; }
+code {
+  color: #cc0000;
+}
+pre {
+  line-height: 125%;
+}
 
 /* ── Images in container (original: 512px, centered, #bbb border) ── */
 #container img {
@@ -157,12 +231,20 @@ pre { line-height: 125%; }
 
 /* Glowing image links */
 @keyframes glow-blue {
-  from { box-shadow: 0px 0px 15px #55ffff; }
-  to   { box-shadow: 0px 0px 20px #6666dd; }
+  from {
+    box-shadow: 0px 0px 15px #55ffff;
+  }
+  to {
+    box-shadow: 0px 0px 20px #6666dd;
+  }
 }
 @keyframes glow-yellow {
-  from { box-shadow: 0px 0px 35px #bbbb33; }
-  to   { box-shadow: 0px 0px 45px #eeeecc; }
+  from {
+    box-shadow: 0px 0px 35px #bbbb33;
+  }
+  to {
+    box-shadow: 0px 0px 45px #eeeecc;
+  }
 }
 #container a.img-link > img {
   animation: glow-blue 8s linear infinite alternate both;
@@ -172,9 +254,17 @@ pre { line-height: 125%; }
 }
 
 /* ── Tables ── */
-table { margin: 0 auto; }
-table td, table th { padding: 3px 8px; vertical-align: bottom; }
-table.table th { text-align: left; }
+table {
+  margin: 0 auto;
+}
+table td,
+table th {
+  padding: 3px 8px;
+  vertical-align: bottom;
+}
+table.table th {
+  text-align: left;
+}
 table.table {
   width: 100%;
   margin-bottom: 10px;
@@ -206,11 +296,13 @@ div.strong-emph em {
   height: 200px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   display: block;
   outline: 4px solid #d1d5db;
-  transition: outline-color 0.15s, transform 0.15s;
+  transition:
+    outline-color 0.15s,
+    transform 0.15s;
 }
 .volume-card:hover {
   outline-color: #00cca7;
@@ -224,8 +316,12 @@ div.strong-emph em {
   background-position: center;
   transition: filter 0.2s;
 }
-.volume-thumb-fallback { background: #9ca3af; }
-.volume-card:hover .volume-thumb { filter: brightness(0.45) grayscale(0.3); }
+.volume-thumb-fallback {
+  background: #9ca3af;
+}
+.volume-card:hover .volume-thumb {
+  filter: brightness(0.45) grayscale(0.3);
+}
 .volume-overlay {
   position: absolute;
   inset: 0;
@@ -236,7 +332,9 @@ div.strong-emph em {
   opacity: 0;
   transition: opacity 0.2s;
 }
-.volume-card:hover .volume-overlay { opacity: 1; }
+.volume-card:hover .volume-overlay {
+  opacity: 1;
+}
 .volume-label {
   display: flex;
   flex-direction: column;
@@ -245,9 +343,19 @@ div.strong-emph em {
   text-align: center;
   gap: 0.3rem;
 }
-.volume-num { font-size: 1.3rem; font-weight: 700; font-family: Georgia, serif; }
-.volume-name { font-size: 0.9rem; }
-.volume-authors { font-size: 0.75rem; color: #ccc; font-style: italic; }
+.volume-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: Georgia, serif;
+}
+.volume-name {
+  font-size: 0.9rem;
+}
+.volume-authors {
+  font-size: 0.75rem;
+  color: #ccc;
+  font-style: italic;
+}
 
 /* ── Chapter gallery (vol page) ── */
 .chapter-gallery {
@@ -263,11 +371,13 @@ div.strong-emph em {
   height: 160px;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   display: block;
   outline: 3px solid #d1d5db;
-  transition: outline-color 0.15s, transform 0.15s;
+  transition:
+    outline-color 0.15s,
+    transform 0.15s;
 }
 .chapter-card-art:hover {
   outline-color: #00cca7;
@@ -281,8 +391,12 @@ div.strong-emph em {
   background-position: center;
   transition: filter 0.2s;
 }
-.chapter-thumb-fallback { background: linear-gradient(135deg, #8b9eb5 0%, #5a6f8a 100%); }
-.chapter-card-art:hover .chapter-thumb { filter: brightness(0.4); }
+.chapter-thumb-fallback {
+  background: linear-gradient(135deg, #8b9eb5 0%, #5a6f8a 100%);
+}
+.chapter-card-art:hover .chapter-thumb {
+  filter: brightness(0.4);
+}
 .chapter-overlay {
   position: absolute;
   inset: 0;
@@ -290,24 +404,30 @@ div.strong-emph em {
   align-items: center;
   justify-content: center;
   padding: 0.75rem;
-  background: rgba(0,0,0,0);
+  background: rgba(0, 0, 0, 0);
   transition: background 0.2s;
 }
-.chapter-card-art:hover .chapter-overlay { background: rgba(0,0,0,0.15); }
+.chapter-card-art:hover .chapter-overlay {
+  background: rgba(0, 0, 0, 0.15);
+}
 .chapter-label {
   color: #fff;
   font-family: Georgia, serif;
   font-size: 1rem;
   font-weight: 700;
   text-align: center;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
   opacity: 0;
   transition: opacity 0.2s;
 }
-.chapter-card-art:hover .chapter-label { opacity: 1; }
+.chapter-card-art:hover .chapter-label {
+  opacity: 1;
+}
 
 /* ── Chapter/round listing (legacy, kept as fallback) ── */
-.chapter-list { margin-top: 1rem; }
+.chapter-list {
+  margin-top: 1rem;
+}
 .chapter-card {
   display: flex;
   align-items: center;
@@ -318,7 +438,11 @@ div.strong-emph em {
   margin-bottom: 0.5rem;
   background: #fafaf2;
 }
-.chapter-card h2 { text-align: left; margin: 0; font-size: 1.1rem; }
+.chapter-card h2 {
+  text-align: left;
+  margin: 0;
+  font-size: 1.1rem;
+}
 
 /* ── Buttons ── */
 .btn {
@@ -330,7 +454,11 @@ div.strong-emph em {
   text-decoration: none;
   font-size: 0.9rem;
 }
-.btn:hover { background: #1e3a8a; color: #fff; text-shadow: none; }
+.btn:hover {
+  background: #1e3a8a;
+  color: #fff;
+  text-shadow: none;
+}
 
 /* ── Round intro text ── */
 .round-text {
@@ -340,7 +468,10 @@ div.strong-emph em {
   margin: 1rem 0;
   border-radius: 0 4px 4px 0;
 }
-.round-text img { max-width: 100%; border: none; }
+.round-text img {
+  max-width: 100%;
+  border: none;
+}
 
 /* ── Puzzle table (chapter page) ── */
 .puzzle-table {
@@ -349,22 +480,45 @@ div.strong-emph em {
   font-size: 18px;
   margin-top: 1rem;
 }
-.puzzle-table th, .puzzle-table td {
+.puzzle-table th,
+.puzzle-table td {
   text-align: left;
   padding: 4px 8px;
   vertical-align: bottom;
   border-bottom: 1px solid #ddd;
 }
-.puzzle-table th { background: #eeeedd; font-weight: bold; }
-.puzzle-table .col-location { width: 25%; }
-.puzzle-table .col-title    { width: 40%; }
-.puzzle-table .col-answer   { width: 35%; font-family: Inconsolata, monospace; }
-.story-title { font-variant: small-caps; color: #4a4a9a; }
+.puzzle-table th {
+  background: #eeeedd;
+  font-weight: bold;
+}
+.puzzle-table .col-location {
+  width: 25%;
+}
+.puzzle-table .col-title {
+  width: 40%;
+}
+.puzzle-table .col-answer {
+  width: 35%;
+  font-family: Inconsolata, monospace;
+}
+.story-title {
+  font-variant: small-caps;
+  color: #4a4a9a;
+}
 
 /* Locked puzzle rows */
-.puzzle-row.locked { opacity: 0.45; }
-.puzzle-row.locked .col-title a { pointer-events: none; color: #888; }
-.lock-msg { font-size: 0.75rem; color: #888; display: block; }
+.puzzle-row.locked {
+  opacity: 0.45;
+}
+.puzzle-row.locked .col-title a {
+  pointer-events: none;
+  color: #888;
+}
+.lock-msg {
+  font-size: 0.75rem;
+  color: #888;
+  display: block;
+}
 
 /* Show-all toggle button */
 #show-all-btn {
@@ -378,15 +532,18 @@ div.strong-emph em {
   color: #555;
   font-family: inherit;
 }
-#show-all-btn:hover { background: #eee; }
+#show-all-btn:hover {
+  background: #eee;
+}
 
 /* Answer hidden until puzzle is solved (revealed by unlock.js) */
-.answer-hidden { color: #aaa; }
+.answer-hidden {
+  color: #aaa;
+}
 
 /* ── Flavor text ── */
 .flavor-text {
   font-style: italic;
-  color: #444;
   margin-bottom: 1rem;
 }
 
@@ -433,17 +590,32 @@ div.strong-emph em {
    Applied when <body class="puzzle-page"> is set.
    ============================================================ */
 
-body.puzzle-page { background-color: #121212; }
+body.puzzle-page {
+  background-color: #121212;
+}
 body.puzzle-page.solved {
   transition: all 6s;
   background-color: #dfdfdf;
 }
-body.puzzle-page #content { color: #dfdfdf; }
-body.puzzle-page #content a { color: #7eb8f7; }
-body.puzzle-page #content a:hover { color: #b0d4ff; }
-body.puzzle-page nav.site-nav { color: #dfdfdf; box-shadow: none; }
-body.puzzle-page nav.site-nav a { color: #aac4e8; }
-body.puzzle-page #footer { color: #555; }
+body.puzzle-page #content {
+  color: #dfdfdf;
+}
+body.puzzle-page #content a {
+  color: #7eb8f7;
+}
+body.puzzle-page #content a:hover {
+  color: #b0d4ff;
+}
+body.puzzle-page nav.site-nav {
+  color: #dfdfdf;
+  box-shadow: none;
+}
+body.puzzle-page nav.site-nav a {
+  color: #aac4e8;
+}
+body.puzzle-page #footer {
+  color: #555;
+}
 
 /* Puzzle-specific head section (dashed box, from dark.css #puzzlehead) */
 #puzzlehead {
@@ -454,7 +626,10 @@ body.puzzle-page #footer { color: #555; }
 }
 
 /* Answer checker — centered (dark.css #answerchecker) */
-#answerchecker { text-align: center; margin: 1rem 0; }
+#answerchecker {
+  text-align: center;
+  margin: 1rem 0;
+}
 
 /* Big Inconsolata input (dark.css #answer) */
 #answer {
@@ -470,7 +645,9 @@ body.puzzle-page #footer { color: #555; }
   margin: 0 auto;
   display: block;
 }
-.solved #answer { background-color: #565656; }
+.solved #answer {
+  background-color: #565656;
+}
 
 #check-btn {
   margin-top: 0.4rem;
@@ -483,39 +660,113 @@ body.puzzle-page #footer { color: #555; }
   font-size: 1rem;
   font-family: Inconsolata, monospace;
 }
-#check-btn:hover { background: #3d5a8a; }
-#check-btn:disabled, #answer:disabled { opacity: 0.6; cursor: default; }
+#check-btn:hover {
+  background: #3d5a8a;
+}
+#check-btn:disabled,
+#answer:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
 
 /* Feedback row above answer input */
-div.feedback { min-height: 2.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-span.icon { display: none; font-size: 160%; }
-#wrong { transition: all 2s; }
-#percent { font-size: 120%; font-family: sans-serif; color: #dfdfdf; visibility: hidden; }
-#prize { display: none; font-size: 160%; text-decoration: none !important; }
-.solved #prize { display: inline; }
+div.feedback {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+span.icon {
+  display: none;
+  font-size: 160%;
+}
+#wrong {
+  transition: all 2s;
+}
+#percent {
+  font-size: 120%;
+  font-family: sans-serif;
+  color: #dfdfdf;
+  visibility: hidden;
+}
+#prize {
+  display: none;
+  font-size: 160%;
+  text-decoration: none !important;
+}
+.solved #prize {
+  display: inline;
+}
 
 /* ============================================================
    Pygments syntax highlighting (from original common.css)
    ============================================================ */
-div.codehilite pre { padding: 5px; }
-div.codehilite code { font-weight: normal; color: #007755; }
-.codehilite { background: #f0f0f0; }
-.codehilite .hll { background-color: #ffffcc; }
-.codehilite .c  { color: #60a0b0; font-style: italic; }
-.codehilite .k  { color: #007020; font-weight: bold; }
-.codehilite .o  { color: #666; }
-.codehilite .s  { color: #4070a0; }
-.codehilite .m  { color: #40a070; }
-.codehilite .nf { color: #06287e; }
-.codehilite .nc { color: #0e84b5; font-weight: bold; }
-.codehilite .nt { color: #062873; font-weight: bold; }
-.codehilite .nb { color: #007020; }
-.codehilite .nn { color: #0e84b5; font-weight: bold; }
-.codehilite .kd { color: #007020; font-weight: bold; }
-.codehilite .kn { color: #007020; font-weight: bold; }
-.codehilite .err { border: 1px solid #ff0000; }
-.codehilite .gi { color: #00a000; }
-.codehilite .gd { color: #a00000; }
+div.codehilite pre {
+  padding: 5px;
+}
+div.codehilite code {
+  font-weight: normal;
+  color: #007755;
+}
+.codehilite {
+  background: #f0f0f0;
+}
+.codehilite .hll {
+  background-color: #ffffcc;
+}
+.codehilite .c {
+  color: #60a0b0;
+  font-style: italic;
+}
+.codehilite .k {
+  color: #007020;
+  font-weight: bold;
+}
+.codehilite .o {
+  color: #666;
+}
+.codehilite .s {
+  color: #4070a0;
+}
+.codehilite .m {
+  color: #40a070;
+}
+.codehilite .nf {
+  color: #06287e;
+}
+.codehilite .nc {
+  color: #0e84b5;
+  font-weight: bold;
+}
+.codehilite .nt {
+  color: #062873;
+  font-weight: bold;
+}
+.codehilite .nb {
+  color: #007020;
+}
+.codehilite .nn {
+  color: #0e84b5;
+  font-weight: bold;
+}
+.codehilite .kd {
+  color: #007020;
+  font-weight: bold;
+}
+.codehilite .kn {
+  color: #007020;
+  font-weight: bold;
+}
+.codehilite .err {
+  border: 1px solid #ff0000;
+}
+.codehilite .gi {
+  color: #00a000;
+}
+.codehilite .gd {
+  color: #a00000;
+}
 
 /* ── Unlock / story intro pages ── */
 .story-text {
@@ -523,8 +774,14 @@ div.codehilite code { font-weight: normal; color: #007755; }
   line-height: 1.7;
   margin-bottom: 2rem;
 }
-.story-text p { margin-bottom: 1rem; }
-.story-text img { max-width: 100%; display: block; margin: 1rem auto; }
+.story-text p {
+  margin-bottom: 1rem;
+}
+.story-text img {
+  max-width: 100%;
+  display: block;
+  margin: 1rem auto;
+}
 
 .door-link {
   text-align: center;
@@ -535,7 +792,10 @@ a.door {
   display: inline-block;
   transition: transform 0.2s;
 }
-a.door:hover { transform: scale(1.15); text-shadow: 0 0 20px #00cca7; }
+a.door:hover {
+  transform: scale(1.15);
+  text-shadow: 0 0 20px #00cca7;
+}
 
 /* puzzle-nav-links (breadcrumb line under puzzle title) */
 .puzzle-nav-links {
@@ -543,16 +803,30 @@ a.door:hover { transform: scale(1.15); text-shadow: 0 0 20px #00cca7; }
   color: #aaa;
   margin-bottom: 1rem;
 }
-.puzzle-nav-links a { color: #7eb8f7; }
+.puzzle-nav-links a {
+  color: #7eb8f7;
+}
 
 /* ── Utility classes (used in puzzle content.md files) ── */
-.font-mono { font-family: 'Courier New', Courier, monospace; }
-.whitespace-pre { white-space: pre; }
-.relative { position: relative; }
-.text-sm { font-size: 0.875rem; }
+.font-mono {
+  font-family: "Courier New", Courier, monospace;
+}
+.whitespace-pre {
+  white-space: pre;
+}
+.relative {
+  position: relative;
+}
+.text-sm {
+  font-size: 0.875rem;
+}
 
 /* ── Responsiveness ── */
 @media (max-width: 600px) {
-  .puzzle-table .col-answer { display: none; }
-  #answer { font-size: 110%; }
+  .puzzle-table .col-answer {
+    display: none;
+  }
+  #answer {
+    font-size: 110%;
+  }
 }
