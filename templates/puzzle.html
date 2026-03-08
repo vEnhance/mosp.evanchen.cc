@@ -14,9 +14,9 @@
 {% block extra_head %}{{ files.puzzle_head | safe }}{% endblock %}
 {% block back_nav %}
     <a class="emoji-link"
-       href="{{ unlock_url if unlock_url else ('../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html') }}">&#x1F5FA;&#xFE0F;</a>
+       href="{{ '../../chapter/' ~ (parent_round.slug | urlencode) ~ '/index.html' if parent_round else '../../index.html' }}">&#x1F5FA;&#xFE0F;</a>
 {% endblock %}
-{% block southeast %}{% endblock %}
+{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <div class="text-sm puzzle-nav-links">
@@ -24,8 +24,11 @@
             <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
         {% endif %}
         {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
-        {% if puzzle.hints %}<a href="../../hints/{{ puzzle.slug | urlencode }}/index.html">View hints</a> &bull;{% endif %}
-        <a href="{{ solution_url }}">View solution</a>
+        {% if puzzle.hints %}
+            <a href="../../hints/{{ puzzle.slug | urlencode }}/index.html">View hints</a>
+        {% else %}
+            No hints available
+        {% endif %}
     </div>
     {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}
     <script>

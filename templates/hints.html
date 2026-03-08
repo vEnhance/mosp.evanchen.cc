@@ -11,7 +11,7 @@
     {% endif %}
 {% endblock %}
 {% block back_nav %}<a class="emoji-link" href="{{ puzzle_url }}">&#x1F199;</a>{% endblock %}
-{% block southeast %}<a href="{{ puzzle_url }}">Back to puzzle</a>{% endblock %}
+{% block southeast %}<a href="{{ solution_url }}">View solution</a>{% endblock %}
 {% block content %}
     <h1>{{ puzzle.name }}</h1>
     <p style="text-align:center">
@@ -22,8 +22,7 @@
             <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
         {% endif %}
         {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
-        <a href="{{ puzzle_url }}">Back to puzzle</a> &bull;
-        <a href="{{ solution_url }}">View solution</a>
+        <a href="{{ puzzle_url }}">Back to puzzle</a>
     </div>
     <p class="fourthwall">
         During the actual 2021 hunt, teams could spend <em>patience</em> tokens to
