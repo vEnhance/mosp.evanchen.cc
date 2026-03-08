@@ -13,7 +13,7 @@
 
   // Per-volume localStorage keys; falls back to "all" on pages without a volume
   function getKey() {
-    var vol =
+    const vol =
       typeof globalThis.MOSP_VOLUME !== "undefined"
         ? globalThis.MOSP_VOLUME
         : null;
@@ -28,9 +28,9 @@
 
   function getProgress() {
     try {
-      var raw = localStorage.getItem(getKey());
+      const raw = localStorage.getItem(getKey());
       if (raw) {
-        var p = JSON.parse(raw);
+        const p = JSON.parse(raw);
         return { courage: p.courage || 0, solved: new Set(p.solved || []) };
       }
     } catch (_) {}
@@ -97,9 +97,9 @@
 
   /** Update the courage display in the nav (heart emoji + count). */
   function refreshCourageDisplay() {
-    var el = document.getElementById("courage_value");
+    const el = document.getElementById("courage_value");
     if (el) el.textContent = String(getProgress().courage);
-    var heartEl = document.getElementById("courage_heart");
+    const heartEl = document.getElementById("courage_heart");
     if (heartEl) heartEl.textContent = getHeart();
   }
 
@@ -160,7 +160,7 @@
       }
 
       // Apply lock styling for courage-gated puzzles
-      var u;
+      let u;
       try {
         u = JSON.parse(row.getAttribute("data-unlockable"));
       } catch (_) {
