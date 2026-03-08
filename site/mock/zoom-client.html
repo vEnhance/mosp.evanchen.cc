@@ -1,238 +1,280 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zoom</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #1c1c1c;
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoom</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #1c1c1c;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
 
-    /* ── Lobby ── */
-    #lobby {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-    .lobby-logo {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #2d8cff;
-      letter-spacing: -1px;
-    }
-    .lobby-logo span { color: #fff; }
-    #lobby form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 320px;
-    }
-    #lobby label { color: #ccc; font-size: 0.9rem; }
-    #meeting-id-input {
-      background: #2a2a2a;
-      border: 1px solid #444;
-      border-radius: 6px;
-      color: #fff;
-      padding: 0.6rem 0.8rem;
-      font-size: 1rem;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 1px;
-    }
-    #meeting-id-input:focus { outline: none; border-color: #2d8cff; }
-    .btn-primary {
-      background: #2d8cff;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      padding: 0.65rem 1.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .btn-primary:hover { background: #1a7ae0; }
-    .btn-danger {
-      background: #e03f3f;
-      border: none;
-      border-radius: 6px;
-      color: #fff;
-      padding: 0.5rem 1.2rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .btn-danger:hover { background: #c02020; }
-    #error-msg { color: #ff6060; font-size: 0.85rem; min-height: 1.2rem; }
+      /* ── Lobby ── */
+      #lobby {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+      .lobby-logo {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2d8cff;
+        letter-spacing: -1px;
+      }
+      .lobby-logo span {
+        color: #fff;
+      }
+      #lobby form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 320px;
+      }
+      #lobby label {
+        color: #ccc;
+        font-size: 0.9rem;
+      }
+      #meeting-id-input {
+        background: #2a2a2a;
+        border: 1px solid #444;
+        border-radius: 6px;
+        color: #fff;
+        padding: 0.6rem 0.8rem;
+        font-size: 1rem;
+        font-family: "Courier New", monospace;
+        letter-spacing: 1px;
+      }
+      #meeting-id-input:focus {
+        outline: none;
+        border-color: #2d8cff;
+      }
+      .btn-primary {
+        background: #2d8cff;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        padding: 0.65rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .btn-primary:hover {
+        background: #1a7ae0;
+      }
+      .btn-danger {
+        background: #e03f3f;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .btn-danger:hover {
+        background: #c02020;
+      }
+      #error-msg {
+        color: #ff6060;
+        font-size: 0.85rem;
+        min-height: 1.2rem;
+      }
 
-    /* ── Meeting ── */
-    #meeting {
-      display: none;
-      flex-direction: column;
-      height: 100vh;
-    }
-    #meeting-header {
-      background: #262626;
-      border-bottom: 1px solid #333;
-      padding: 0.6rem 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-    #meeting-header .logo { color: #2d8cff; font-weight: 700; font-size: 1.1rem; }
-    #meeting-id-display { font-family: monospace; color: #aaa; font-size: 0.85rem; }
-    #meeting-body {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      background: #1c1c1c;
-    }
-    .waiting-icon {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #2a2a2a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-    }
-    .waiting-title {
-      font-size: 1.15rem;
-      color: #ddd;
-      text-align: center;
-    }
-    .waiting-subtitle {
-      font-size: 0.9rem;
-      color: #888;
-      text-align: center;
-    }
-    #meeting-topic {
-      background: #2a2a2a;
-      border: 1px solid #3a3a3a;
-      border-radius: 8px;
-      padding: 0.75rem 1.25rem;
-      font-family: 'Courier New', monospace;
-      font-size: 0.95rem;
-      color: #bbb;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-  </style>
-</head>
-<body>
-
-<!-- Lobby -->
-<div id="lobby">
-  <div class="lobby-logo">zoom<span>.</span></div>
-  <form onsubmit="joinByInput(event)">
-    <label for="meeting-id-input">Join a Meeting</label>
-    <input type="text" id="meeting-id-input"
-           placeholder="Meeting ID"
-           autocomplete="off" spellcheck="false" />
-    <div id="error-msg"></div>
-    <button type="submit" class="btn-primary">Join</button>
-  </form>
-</div>
-
-<!-- Meeting -->
-<div id="meeting">
-  <div id="meeting-header">
-    <span class="logo">zoom.</span>
-    <span id="meeting-id-display" class="font-mono"></span>
-    <button class="btn-danger" onclick="leaveMeeting()">Leave Meeting</button>
-  </div>
-  <div id="meeting-body">
-    <div class="waiting-icon">⏳</div>
-    <div>
-      <div class="waiting-title">Please wait, the meeting host will let you in soon.</div>
-      <div class="waiting-subtitle" style="margin-top:0.4rem">Steve's Personal Meeting Room</div>
+      /* ── Meeting ── */
+      #meeting {
+        display: none;
+        flex-direction: column;
+        height: 100vh;
+      }
+      #meeting-header {
+        background: #262626;
+        border-bottom: 1px solid #333;
+        padding: 0.6rem 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+      #meeting-header .logo {
+        color: #2d8cff;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      #meeting-id-display {
+        font-family: monospace;
+        color: #aaa;
+        font-size: 0.85rem;
+      }
+      #meeting-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        background: #1c1c1c;
+      }
+      .waiting-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #2a2a2a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+      }
+      .waiting-title {
+        font-size: 1.15rem;
+        color: #ddd;
+        text-align: center;
+      }
+      .waiting-subtitle {
+        font-size: 0.9rem;
+        color: #888;
+        text-align: center;
+      }
+      #meeting-topic {
+        background: #2a2a2a;
+        border: 1px solid #3a3a3a;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+        color: #bbb;
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Lobby -->
+    <div id="lobby">
+      <div class="lobby-logo">zoom<span>.</span></div>
+      <form onsubmit="joinByInput(event)">
+        <label for="meeting-id-input">Join a Meeting</label>
+        <input
+          type="text"
+          id="meeting-id-input"
+          placeholder="Meeting ID"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div id="error-msg"></div>
+        <button type="submit" class="btn-primary">Join</button>
+      </form>
     </div>
-    <div id="meeting-topic"></div>
-  </div>
-</div>
+    <!-- Meeting -->
+    <div id="meeting">
+      <div id="meeting-header">
+        <span class="logo">zoom.</span>
+        <span id="meeting-id-display" class="font-mono"></span>
+        <button class="btn-danger" onclick="leaveMeeting()">
+          Leave Meeting
+        </button>
+      </div>
+      <div id="meeting-body">
+        <div class="waiting-icon">⏳</div>
+        <div>
+          <div class="waiting-title">
+            Please wait, the meeting host will let you in soon.
+          </div>
+          <div class="waiting-subtitle" style="margin-top: 0.4rem">
+            Steve's Personal Meeting Room
+          </div>
+        </div>
+        <div id="meeting-topic"></div>
+      </div>
+    </div>
+    <script>
+      "use strict";
 
-<script>
-"use strict";
+      // Meeting data: room letter → { id (digits only for matching), display, neighbors, description }
+      // Description format: {neighbor}@{first3digits} for each neighbor
+      const ROOMS = {
+        A: { id: "953 1568 0293", neighbors: ["B", "C", "H"] },
+        B: { id: "917 2317 1185", neighbors: ["A", "D", "E"] },
+        C: { id: "979 8057 1394", neighbors: ["A", "D", "L"] },
+        D: { id: "916 5829 3170", neighbors: ["B", "C", "I"] },
+        E: { id: "993 4079 3458", neighbors: ["B", "F", "G"] },
+        F: { id: "956 5490 5821", neighbors: ["E", "G", "I"] },
+        G: { id: "996 4027 5827", neighbors: ["E", "F", "H"] },
+        H: { id: "945 2459 6096", neighbors: ["A", "G", "K"] },
+        I: { id: "936 7406 6683", neighbors: ["D", "F", "J"] },
+        J: { id: "926 6188 9072", neighbors: ["I", "K", "L"] },
+        K: { id: "940 3325 9359", neighbors: ["H", "J", "L"] },
+        L: { id: "947 9797 9524", neighbors: ["C", "J", "K"] },
+      };
 
-// Meeting data: room letter → { id (digits only for matching), display, neighbors, description }
-// Description format: {neighbor}@{first3digits} for each neighbor
-const ROOMS = {
-  A: { id: "953 1568 0293", neighbors: ["B", "C", "H"] },
-  B: { id: "917 2317 1185", neighbors: ["A", "D", "E"] },
-  C: { id: "979 8057 1394", neighbors: ["A", "D", "L"] },
-  D: { id: "916 5829 3170", neighbors: ["B", "C", "I"] },
-  E: { id: "993 4079 3458", neighbors: ["B", "F", "G"] },
-  F: { id: "956 5490 5821", neighbors: ["E", "G", "I"] },
-  G: { id: "996 4027 5827", neighbors: ["E", "F", "H"] },
-  H: { id: "945 2459 6096", neighbors: ["A", "G", "K"] },
-  I: { id: "936 7406 6683", neighbors: ["D", "F", "J"] },
-  J: { id: "926 6188 9072", neighbors: ["I", "K", "L"] },
-  K: { id: "940 3325 9359", neighbors: ["H", "J", "L"] },
-  L: { id: "947 9797 9524", neighbors: ["C", "J", "K"] },
-};
+      function digitsOnly(s) {
+        return s.replace(/\D/g, "");
+      }
 
-function digitsOnly(s) {
-  return s.replace(/\D/g, "");
-}
+      function buildDescription(room) {
+        return ROOMS[room].neighbors
+          .map(function (n) {
+            var prefix = digitsOnly(ROOMS[n].id).slice(0, 3);
+            return n + "@" + prefix;
+          })
+          .join("  ");
+      }
 
-function buildDescription(room) {
-  return ROOMS[room].neighbors.map(function (n) {
-    var prefix = digitsOnly(ROOMS[n].id).slice(0, 3);
-    return n + "@" + prefix;
-  }).join("  ");
-}
+      function roomByMeetingId(input) {
+        var norm = digitsOnly(input);
+        if (!norm) return null;
+        for (var name in ROOMS) {
+          if (digitsOnly(ROOMS[name].id) === norm) return name;
+        }
+        return null;
+      }
 
-function roomByMeetingId(input) {
-  var norm = digitsOnly(input);
-  if (!norm) return null;
-  for (var name in ROOMS) {
-    if (digitsOnly(ROOMS[name].id) === norm) return name;
-  }
-  return null;
-}
+      function joinByInput(e) {
+        e.preventDefault();
+        var val = document.getElementById("meeting-id-input").value;
+        var errEl = document.getElementById("error-msg");
+        var room = roomByMeetingId(val);
+        if (!room) {
+          errEl.textContent = "Meeting not found. Check the ID and try again.";
+          return;
+        }
+        errEl.textContent = "";
+        showMeeting(room);
+      }
 
-function joinByInput(e) {
-  e.preventDefault();
-  var val = document.getElementById("meeting-id-input").value;
-  var errEl = document.getElementById("error-msg");
-  var room = roomByMeetingId(val);
-  if (!room) {
-    errEl.textContent = "Meeting not found. Check the ID and try again.";
-    return;
-  }
-  errEl.textContent = "";
-  showMeeting(room);
-}
+      function showMeeting(room) {
+        document.getElementById("lobby").style.display = "none";
+        var meetingEl = document.getElementById("meeting");
+        meetingEl.style.display = "flex";
 
-function showMeeting(room) {
-  document.getElementById("lobby").style.display = "none";
-  var meetingEl = document.getElementById("meeting");
-  meetingEl.style.display = "flex";
+        document.getElementById("meeting-id-display").textContent =
+          ROOMS[room].id;
+        document.getElementById("meeting-topic").textContent =
+          buildDescription(room);
+      }
 
-  document.getElementById("meeting-id-display").textContent = ROOMS[room].id;
-  document.getElementById("meeting-topic").textContent = buildDescription(room);
-}
-
-function leaveMeeting() {
-  document.getElementById("meeting").style.display = "none";
-  document.getElementById("lobby").style.display = "flex";
-  document.getElementById("meeting-id-input").value = "";
-  document.getElementById("error-msg").textContent = "";
-}
-</script>
-</body>
+      function leaveMeeting() {
+        document.getElementById("meeting").style.display = "none";
+        document.getElementById("lobby").style.display = "flex";
+        document.getElementById("meeting-id-input").value = "";
+        document.getElementById("error-msg").textContent = "";
+      }
+    </script>
+  </body>
 </html>

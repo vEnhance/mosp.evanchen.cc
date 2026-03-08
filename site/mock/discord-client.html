@@ -1,669 +1,912 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MOSP Discord Server</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Whitney, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      background: #313338;
-      color: #dcddde;
-      height: 100vh;
-      display: flex;
-      overflow: hidden;
-      font-size: 15px;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOSP Discord Server</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Whitney, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #313338;
+        color: #dcddde;
+        height: 100vh;
+        display: flex;
+        overflow: hidden;
+        font-size: 15px;
+      }
 
-    /* ── Server Sidebar ── */
-    #server-sidebar {
-      width: 72px;
-      background: #1e1f22;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0.75rem 0;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-    .server-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #5865f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: border-radius 0.15s;
-      user-select: none;
-    }
-    .server-icon.active { border-radius: 30%; }
-    .server-icon:hover { border-radius: 30%; }
-    .server-divider {
-      width: 32px;
-      height: 2px;
-      background: #2b2d31;
-      border-radius: 1px;
-    }
+      /* ── Server Sidebar ── */
+      #server-sidebar {
+        width: 72px;
+        background: #1e1f22;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75rem 0;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+      .server-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #5865f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: border-radius 0.15s;
+        user-select: none;
+      }
+      .server-icon.active {
+        border-radius: 30%;
+      }
+      .server-icon:hover {
+        border-radius: 30%;
+      }
+      .server-divider {
+        width: 32px;
+        height: 2px;
+        background: #2b2d31;
+        border-radius: 1px;
+      }
 
-    /* ── Channel Sidebar ── */
-    #channel-sidebar {
-      width: 240px;
-      background: #2b2d31;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-    }
-    #server-name {
-      padding: 0.9rem 1rem;
-      font-weight: 700;
-      font-size: 0.95rem;
-      border-bottom: 1px solid #1e1f22;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    #server-name:hover { background: #34363d; }
-    .channel-category {
-      padding: 0.9rem 0.5rem 0.25rem 0.75rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #949ba4;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .channel-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.5rem 0.4rem 0.75rem;
-      border-radius: 4px;
-      margin: 0 0.5rem;
-      cursor: pointer;
-      color: #949ba4;
-      font-size: 0.94rem;
-      transition: background 0.1s, color 0.1s;
-    }
-    .channel-item:hover { background: #35373c; color: #dcddde; }
-    .channel-item.active { background: #404249; color: #fff; }
-    .channel-item .hash { font-size: 1.1rem; color: inherit; }
-    .channel-item .dm-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #5865f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    #user-area {
-      margin-top: auto;
-      background: #232428;
-      padding: 0.6rem 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .user-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #5865f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .user-info { flex: 1; }
-    .user-name { font-size: 0.85rem; font-weight: 600; color: #fff; }
-    .user-tag { font-size: 0.7rem; color: #72767d; }
+      /* ── Channel Sidebar ── */
+      #channel-sidebar {
+        width: 240px;
+        background: #2b2d31;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+      #server-name {
+        padding: 0.9rem 1rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        border-bottom: 1px solid #1e1f22;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #server-name:hover {
+        background: #34363d;
+      }
+      .channel-category {
+        padding: 0.9rem 0.5rem 0.25rem 0.75rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #949ba4;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .channel-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.5rem 0.4rem 0.75rem;
+        border-radius: 4px;
+        margin: 0 0.5rem;
+        cursor: pointer;
+        color: #949ba4;
+        font-size: 0.94rem;
+        transition:
+          background 0.1s,
+          color 0.1s;
+      }
+      .channel-item:hover {
+        background: #35373c;
+        color: #dcddde;
+      }
+      .channel-item.active {
+        background: #404249;
+        color: #fff;
+      }
+      .channel-item .hash {
+        font-size: 1.1rem;
+        color: inherit;
+      }
+      .channel-item .dm-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #5865f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      #user-area {
+        margin-top: auto;
+        background: #232428;
+        padding: 0.6rem 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #5865f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .user-info {
+        flex: 1;
+      }
+      .user-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fff;
+      }
+      .user-tag {
+        font-size: 0.7rem;
+        color: #72767d;
+      }
 
-    /* ── Main Chat Area ── */
-    #chat-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    #chat-header {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #1e1f22;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-shrink: 0;
-      background: #313338;
-    }
-    #chat-header .hash { font-size: 1.3rem; color: #72767d; }
-    #channel-name { font-weight: 700; font-size: 0.95rem; }
-    #channel-desc { color: #72767d; font-size: 0.85rem; margin-left: 0.5rem; }
-    #msg-area-dm, #msg-area-kindergarten, #msg-area-dm-owl {
-      scrollbar-width: thin;
-      scrollbar-color: #1a1b1e #2e3035;
-    }
-    #msg-area-dm::-webkit-scrollbar, #msg-area-kindergarten::-webkit-scrollbar, #msg-area-dm-owl::-webkit-scrollbar { width: 6px; }
-    #msg-area-dm::-webkit-scrollbar-track, #msg-area-kindergarten::-webkit-scrollbar-track, #msg-area-dm-owl::-webkit-scrollbar-track { background: #2e3035; }
-    #msg-area-dm::-webkit-scrollbar-thumb, #msg-area-kindergarten::-webkit-scrollbar-thumb, #msg-area-dm-owl::-webkit-scrollbar-thumb { background: #1a1b1e; border-radius: 3px; }
-    .notification-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #ed4245;
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-    .clickable-name { cursor: pointer; }
-    .clickable-name:hover { text-decoration: underline; }
+      /* ── Main Chat Area ── */
+      #chat-area {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      #chat-header {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #1e1f22;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+        background: #313338;
+      }
+      #chat-header .hash {
+        font-size: 1.3rem;
+        color: #72767d;
+      }
+      #channel-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      #channel-desc {
+        color: #72767d;
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+      }
+      #msg-area-dm,
+      #msg-area-kindergarten,
+      #msg-area-dm-owl {
+        scrollbar-width: thin;
+        scrollbar-color: #1a1b1e #2e3035;
+      }
+      #msg-area-dm::-webkit-scrollbar,
+      #msg-area-kindergarten::-webkit-scrollbar,
+      #msg-area-dm-owl::-webkit-scrollbar {
+        width: 6px;
+      }
+      #msg-area-dm::-webkit-scrollbar-track,
+      #msg-area-kindergarten::-webkit-scrollbar-track,
+      #msg-area-dm-owl::-webkit-scrollbar-track {
+        background: #2e3035;
+      }
+      #msg-area-dm::-webkit-scrollbar-thumb,
+      #msg-area-kindergarten::-webkit-scrollbar-thumb,
+      #msg-area-dm-owl::-webkit-scrollbar-thumb {
+        background: #1a1b1e;
+        border-radius: 3px;
+      }
+      .notification-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ed4245;
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+      .clickable-name {
+        cursor: pointer;
+      }
+      .clickable-name:hover {
+        text-decoration: underline;
+      }
 
-    .message {
-      display: flex;
-      gap: 1rem;
-      padding: 0.15rem 1rem;
-      border-radius: 2px;
-      position: relative;
-    }
-    .message:hover { background: #2e3035; }
-    .message.with-header { padding-top: 1rem; }
-    .msg-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-top: 2px;
-    }
-    .msg-avatar.placeholder { visibility: hidden; }
-    .msg-body { flex: 1; min-width: 0; }
-    .msg-header {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.15rem;
-    }
-    .msg-author { font-weight: 600; font-size: 0.95rem; }
-    .msg-author.bot-tag::after {
-      content: "BOT";
-      background: #5865f2;
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      padding: 1px 4px;
-      border-radius: 3px;
-      margin-left: 4px;
-      vertical-align: middle;
-      letter-spacing: 0.04em;
-    }
-    .msg-time { font-size: 0.72rem; color: #72767d; }
-    .msg-content { color: #dcddde; line-height: 1.5; word-break: break-word; }
-    .msg-content code {
-      background: #2b2d31;
-      border-radius: 3px;
-      padding: 0 4px;
-      font-size: 0.88em;
-      font-family: 'Courier New', Courier, monospace;
-    }
-    .msg-content em { font-style: italic; color: #b5bac1; font-size: 0.9em; }
-    .msg-embed {
-      background: #2b2d31;
-      border-left: 4px solid #5865f2;
-      border-radius: 4px;
-      padding: 0.6rem 0.8rem;
-      margin-top: 0.3rem;
-      max-width: 520px;
-    }
-    .msg-embed .embed-title { font-weight: 700; color: #fff; margin-bottom: 0.3rem; }
-    .msg-embed .embed-body { font-size: 0.9rem; color: #b5bac1; line-height: 1.5; }
-    .msg-reactions {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      margin-top: 0.35rem;
-    }
-    .reaction {
-      background: #2b2d31;
-      border: 1px solid #404249;
-      border-radius: 8px;
-      padding: 0.1rem 0.4rem;
-      font-size: 1rem;
-      cursor: default;
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    .reaction .react-count { font-size: 0.75rem; color: #b5bac1; }
-    .system-msg {
-      color: #72767d;
-      font-size: 0.82rem;
-      padding: 0.2rem 1rem;
-      font-style: italic;
-    }
+      .message {
+        display: flex;
+        gap: 1rem;
+        padding: 0.15rem 1rem;
+        border-radius: 2px;
+        position: relative;
+      }
+      .message:hover {
+        background: #2e3035;
+      }
+      .message.with-header {
+        padding-top: 1rem;
+      }
+      .msg-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        margin-top: 2px;
+      }
+      .msg-avatar.placeholder {
+        visibility: hidden;
+      }
+      .msg-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .msg-header {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin-bottom: 0.15rem;
+      }
+      .msg-author {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .msg-author.bot-tag::after {
+        content: "BOT";
+        background: #5865f2;
+        color: #fff;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 1px 4px;
+        border-radius: 3px;
+        margin-left: 4px;
+        vertical-align: middle;
+        letter-spacing: 0.04em;
+      }
+      .msg-time {
+        font-size: 0.72rem;
+        color: #72767d;
+      }
+      .msg-content {
+        color: #dcddde;
+        line-height: 1.5;
+        word-break: break-word;
+      }
+      .msg-content code {
+        background: #2b2d31;
+        border-radius: 3px;
+        padding: 0 4px;
+        font-size: 0.88em;
+        font-family: "Courier New", Courier, monospace;
+      }
+      .msg-content em {
+        font-style: italic;
+        color: #b5bac1;
+        font-size: 0.9em;
+      }
+      .msg-embed {
+        background: #2b2d31;
+        border-left: 4px solid #5865f2;
+        border-radius: 4px;
+        padding: 0.6rem 0.8rem;
+        margin-top: 0.3rem;
+        max-width: 520px;
+      }
+      .msg-embed .embed-title {
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.3rem;
+      }
+      .msg-embed .embed-body {
+        font-size: 0.9rem;
+        color: #b5bac1;
+        line-height: 1.5;
+      }
+      .msg-reactions {
+        display: flex;
+        gap: 0.3rem;
+        flex-wrap: wrap;
+        margin-top: 0.35rem;
+      }
+      .reaction {
+        background: #2b2d31;
+        border: 1px solid #404249;
+        border-radius: 8px;
+        padding: 0.1rem 0.4rem;
+        font-size: 1rem;
+        cursor: default;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .reaction .react-count {
+        font-size: 0.75rem;
+        color: #b5bac1;
+      }
+      .system-msg {
+        color: #72767d;
+        font-size: 0.82rem;
+        padding: 0.2rem 1rem;
+        font-style: italic;
+      }
 
-    /* Input area */
-    #input-area { padding: 0 1rem 1.2rem; flex-shrink: 0; }
-    #input-bar {
-      background: #383a40;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      padding: 0.6rem 1rem;
-      gap: 0.5rem;
-    }
-    #msg-input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      color: #dcddde;
-      font-size: 0.95rem;
-      font-family: inherit;
-      caret-color: #dcddde;
-    }
-    #msg-input::placeholder { color: #72767d; }
-    #msg-input:disabled { opacity: 0.5; }
-    #send-btn {
-      background: none;
-      border: none;
-      color: #5865f2;
-      cursor: pointer;
-      font-size: 1.1rem;
-      padding: 0;
-      line-height: 1;
-    }
-    #send-btn:hover { color: #7289da; }
-    #send-btn:disabled { color: #444; cursor: default; }
+      /* Input area */
+      #input-area {
+        padding: 0 1rem 1.2rem;
+        flex-shrink: 0;
+      }
+      #input-bar {
+        background: #383a40;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0.6rem 1rem;
+        gap: 0.5rem;
+      }
+      #msg-input {
+        flex: 1;
+        background: none;
+        border: none;
+        outline: none;
+        color: #dcddde;
+        font-size: 0.95rem;
+        font-family: inherit;
+        caret-color: #dcddde;
+      }
+      #msg-input::placeholder {
+        color: #72767d;
+      }
+      #msg-input:disabled {
+        opacity: 0.5;
+      }
+      #send-btn {
+        background: none;
+        border: none;
+        color: #5865f2;
+        cursor: pointer;
+        font-size: 1.1rem;
+        padding: 0;
+        line-height: 1;
+      }
+      #send-btn:hover {
+        color: #7289da;
+      }
+      #send-btn:disabled {
+        color: #444;
+        cursor: default;
+      }
 
-    /* Score panel → Members panel */
-    #members-panel {
-      width: 200px;
-      background: #2b2d31;
-      border-left: 1px solid #1e1f22;
-      padding: 1rem 0.75rem;
-      flex-shrink: 0;
-      overflow-y: auto;
-    }
-    .members-category {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #949ba4;
-      padding: 0.6rem 0.25rem 0.3rem;
-    }
-    .member-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.3rem 0.25rem;
-      border-radius: 4px;
-      cursor: default;
-    }
-    .member-row:hover { background: #35373c; }
-    .member-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-      position: relative;
-    }
-    .member-avatar::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      right: -1px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #23a55a;
-      border: 2px solid #2b2d31;
-    }
-    .member-name { font-size: 0.88rem; color: #c4c9ce; flex: 1; }
-    .member-bot-tag {
-      font-size: 0.58rem;
-      font-weight: 700;
-      background: #5865f2;
-      color: #fff;
-      padding: 1px 4px;
-      border-radius: 3px;
-      letter-spacing: 0.04em;
-      flex-shrink: 0;
-    }
+      /* Score panel → Members panel */
+      #members-panel {
+        width: 200px;
+        background: #2b2d31;
+        border-left: 1px solid #1e1f22;
+        padding: 1rem 0.75rem;
+        flex-shrink: 0;
+        overflow-y: auto;
+      }
+      .members-category {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #949ba4;
+        padding: 0.6rem 0.25rem 0.3rem;
+      }
+      .member-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.3rem 0.25rem;
+        border-radius: 4px;
+        cursor: default;
+      }
+      .member-row:hover {
+        background: #35373c;
+      }
+      .member-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .member-avatar::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        right: -1px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #23a55a;
+        border: 2px solid #2b2d31;
+      }
+      .member-name {
+        font-size: 0.88rem;
+        color: #c4c9ce;
+        flex: 1;
+      }
+      .member-bot-tag {
+        font-size: 0.58rem;
+        font-weight: 700;
+        background: #5865f2;
+        color: #fff;
+        padding: 1px 4px;
+        border-radius: 3px;
+        letter-spacing: 0.04em;
+        flex-shrink: 0;
+      }
 
-    /* Typing indicator */
-    #typing-indicator {
-      padding: 0.2rem 1rem 0.35rem;
-      font-size: 0.78rem;
-      color: #72767d;
-      flex-shrink: 0;
-      min-height: 1.3rem;
-    }
+      /* Typing indicator */
+      #typing-indicator {
+        padding: 0.2rem 1rem 0.35rem;
+        font-size: 0.78rem;
+        color: #72767d;
+        flex-shrink: 0;
+        min-height: 1.3rem;
+      }
 
-    /* Creodont countdown */
-    #creodont-bar {
-      display: none;
-      background: #4e2d85;
-      color: #dbb8ff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.4rem 1rem;
-      text-align: center;
-      letter-spacing: 0.03em;
-      flex-shrink: 0;
-    }
-  </style>
-</head>
-<body>
-
-<!-- Server Sidebar -->
-<div id="server-sidebar">
-  <div class="server-icon active">M</div>
-  <div class="server-divider"></div>
-</div>
-
-<!-- Channel Sidebar -->
-<div id="channel-sidebar">
-  <div id="server-name">MOSP: A Light Novel <span style="color:#72767d;">▾</span></div>
-
-  <div class="channel-category" id="cat-puzzles" style="display:none">▾ Puzzles</div>
-  <div class="channel-item" id="ch-kindergarten" style="display:none" onclick="switchChannel('kindergarten')">
-    <span class="hash">#</span> kindergarten
-  </div>
-
-  <div class="channel-category">▾ Direct Messages</div>
-  <div class="channel-item active" id="ch-dm" onclick="switchChannel('dm')">
-    <span class="dm-icon">S</span> Steve
-  </div>
-  <div class="channel-item" id="ch-dm-owl" style="display:none" onclick="switchChannel('dm-owl')">
-    <span class="dm-icon" style="background:#e09040">Q</span> Quiz Owl 🦉
-    <span class="notification-dot" id="owl-notif" style="display:none"></span>
-  </div>
-
-  <div id="user-area">
-    <div class="user-avatar">Y</div>
-    <div class="user-info">
-      <div class="user-name">You</div>
-      <div class="user-tag">#0001</div>
+      /* Creodont countdown */
+      #creodont-bar {
+        display: none;
+        background: #4e2d85;
+        color: #dbb8ff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.4rem 1rem;
+        text-align: center;
+        letter-spacing: 0.03em;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Server Sidebar -->
+    <div id="server-sidebar">
+      <div class="server-icon active">M</div>
+      <div class="server-divider"></div>
     </div>
-  </div>
-</div>
-
-<!-- Chat Area -->
-<div id="chat-area">
-  <div id="creodont-bar" id="creodont-bar">🎵 Singing Creodont: <span id="creodont-timer">2:00</span> remaining!</div>
-  <div id="chat-header">
-    <span class="hash">#</span>
-    <span id="channel-name">kindergarten</span>
-    <span id="channel-desc">Count together as a team!</span>
-  </div>
-  <div id="msg-area-dm" style="flex:1;overflow-y:auto;padding:1rem 0"></div>
-  <div id="msg-area-kindergarten" style="flex:1;overflow-y:auto;padding:1rem 0;display:none"></div>
-  <div id="msg-area-dm-owl" style="flex:1;overflow-y:auto;padding:1rem 0;display:none"></div>
-  <div id="typing-indicator" style="display:none"></div>
-  <div id="input-area">
-    <div id="input-bar">
-      <input id="msg-input" type="text"
-             placeholder="Message #kindergarten"
-             autocomplete="off" spellcheck="false"
-             onkeydown="onInputKey(event)" />
-      <button id="send-btn" onclick="sendMessage()">➤</button>
+    <!-- Channel Sidebar -->
+    <div id="channel-sidebar">
+      <div id="server-name">
+        MOSP: A Light Novel <span style="color: #72767d">▾</span>
+      </div>
+      <div class="channel-category" id="cat-puzzles" style="display: none">
+        ▾ Puzzles
+      </div>
+      <div
+        class="channel-item"
+        id="ch-kindergarten"
+        style="display: none"
+        onclick="switchChannel('kindergarten')"
+      >
+        <span class="hash">#</span> kindergarten
+      </div>
+      <div class="channel-category">▾ Direct Messages</div>
+      <div class="channel-item active" id="ch-dm" onclick="switchChannel('dm')">
+        <span class="dm-icon">S</span> Steve
+      </div>
+      <div
+        class="channel-item"
+        id="ch-dm-owl"
+        style="display: none"
+        onclick="switchChannel('dm-owl')"
+      >
+        <span class="dm-icon" style="background: #e09040">Q</span> Quiz Owl 🦉
+        <span
+          class="notification-dot"
+          id="owl-notif"
+          style="display: none"
+        ></span>
+      </div>
+      <div id="user-area">
+        <div class="user-avatar">Y</div>
+        <div class="user-info">
+          <div class="user-name">You</div>
+          <div class="user-tag">#0001</div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+    <!-- Chat Area -->
+    <div id="chat-area">
+      <div id="creodont-bar" id="creodont-bar">
+        🎵 Singing Creodont: <span id="creodont-timer">2:00</span> remaining!
+      </div>
+      <div id="chat-header">
+        <span class="hash">#</span>
+        <span id="channel-name">kindergarten</span>
+        <span id="channel-desc">Count together as a team!</span>
+      </div>
+      <div
+        id="msg-area-dm"
+        style="flex: 1; overflow-y: auto; padding: 1rem 0"
+      ></div>
+      <div
+        id="msg-area-kindergarten"
+        style="flex: 1; overflow-y: auto; padding: 1rem 0; display: none"
+      ></div>
+      <div
+        id="msg-area-dm-owl"
+        style="flex: 1; overflow-y: auto; padding: 1rem 0; display: none"
+      ></div>
+      <div id="typing-indicator" style="display: none"></div>
+      <div id="input-area">
+        <div id="input-bar">
+          <input
+            id="msg-input"
+            type="text"
+            placeholder="Message #kindergarten"
+            autocomplete="off"
+            spellcheck="false"
+            onkeydown="onInputKey(event)"
+          />
+          <button id="send-btn" onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+    <!-- Members Panel -->
+    <div id="members-panel">
+      <div class="members-category">Online — 5</div>
+      <div class="member-row">
+        <div class="member-avatar" style="background: #5865f2">S</div>
+        <span class="member-name">Steve</span>
+        <span class="member-bot-tag">BOT</span>
+      </div>
+      <div class="member-row">
+        <div class="member-avatar" style="background: #57f287">Y</div>
+        <span class="member-name">You</span>
+      </div>
+      <div class="member-row">
+        <div class="member-avatar" style="background: #f0c040">H</div>
+        <span class="member-name">Helpful Firefly 🔥</span>
+        <span class="member-bot-tag">BOT</span>
+      </div>
+      <div class="member-row">
+        <div class="member-avatar" style="background: #e09040">Q</div>
+        <span class="member-name">Quiz Owl 🦉</span>
+        <span class="member-bot-tag">BOT</span>
+      </div>
+      <div class="member-row">
+        <div class="member-avatar" style="background: #b070ff">S</div>
+        <span class="member-name">Singing Creodont 🦕</span>
+        <span class="member-bot-tag">BOT</span>
+      </div>
+    </div>
+    <script>
+      "use strict";
 
-<!-- Members Panel -->
-<div id="members-panel">
-  <div class="members-category">Online — 5</div>
-  <div class="member-row">
-    <div class="member-avatar" style="background:#5865f2">S</div>
-    <span class="member-name">Steve</span>
-    <span class="member-bot-tag">BOT</span>
-  </div>
-  <div class="member-row">
-    <div class="member-avatar" style="background:#57f287">Y</div>
-    <span class="member-name">You</span>
-  </div>
-  <div class="member-row">
-    <div class="member-avatar" style="background:#f0c040">H</div>
-    <span class="member-name">Helpful Firefly 🔥</span>
-    <span class="member-bot-tag">BOT</span>
-  </div>
-  <div class="member-row">
-    <div class="member-avatar" style="background:#e09040">Q</div>
-    <span class="member-name">Quiz Owl 🦉</span>
-    <span class="member-bot-tag">BOT</span>
-  </div>
-  <div class="member-row">
-    <div class="member-avatar" style="background:#b070ff">S</div>
-    <span class="member-name">Singing Creodont 🦕</span>
-    <span class="member-bot-tag">BOT</span>
-  </div>
-</div>
+      // ── Syllable counting ────────────────────────────────────────────────────────
 
-<script>
-"use strict";
+      const SYL = {
+        zero: 2,
+        one: 1,
+        two: 1,
+        three: 1,
+        four: 1,
+        five: 1,
+        six: 1,
+        seven: 2,
+        eight: 1,
+        nine: 1,
+        ten: 1,
+        eleven: 3,
+        twelve: 1,
+        thirteen: 2,
+        fourteen: 2,
+        fifteen: 2,
+        sixteen: 2,
+        seventeen: 3,
+        eighteen: 2,
+        nineteen: 2,
+        twenty: 2,
+        thirty: 2,
+        forty: 2,
+        fifty: 2,
+        sixty: 2,
+        seventy: 3,
+        eighty: 2,
+        ninety: 2,
+        hundred: 2,
+        thousand: 2,
+        million: 3,
+        and: 1,
+        plus: 1,
+        minus: 2,
+        times: 1,
+        divided: 3,
+        by: 1,
+      };
 
-// ── Syllable counting ────────────────────────────────────────────────────────
+      function syllablesOfWord(w) {
+        return w in SYL ? SYL[w] : null;
+      }
 
-const SYL = {
-  zero:2, one:1, two:1, three:1, four:1, five:1, six:1, seven:2, eight:1,
-  nine:1, ten:1, eleven:3, twelve:1, thirteen:2, fourteen:2, fifteen:2,
-  sixteen:2, seventeen:3, eighteen:2, nineteen:2, twenty:2, thirty:2,
-  forty:2, fifty:2, sixty:2, seventy:3, eighty:2, ninety:2,
-  hundred:2, thousand:2, million:3, and:1,
-  plus:1, minus:2, times:1, divided:3, by:1,
-};
+      function numToWords(n) {
+        if (n < 0) return "negative " + numToWords(-n);
+        if (n === 0) return "zero";
+        const ones = [
+          "",
+          "one",
+          "two",
+          "three",
+          "four",
+          "five",
+          "six",
+          "seven",
+          "eight",
+          "nine",
+          "ten",
+          "eleven",
+          "twelve",
+          "thirteen",
+          "fourteen",
+          "fifteen",
+          "sixteen",
+          "seventeen",
+          "eighteen",
+          "nineteen",
+        ];
+        const tens = [
+          "",
+          "",
+          "twenty",
+          "thirty",
+          "forty",
+          "fifty",
+          "sixty",
+          "seventy",
+          "eighty",
+          "ninety",
+        ];
+        if (n < 20) return ones[n];
+        if (n < 100) {
+          const t = tens[Math.floor(n / 10)];
+          const o = ones[n % 10];
+          return o ? t + "-" + o : t;
+        }
+        if (n < 1000) {
+          const h = ones[Math.floor(n / 100)];
+          const rest = n % 100;
+          if (rest === 0) return h + " hundred";
+          return h + " hundred and " + numToWords(rest);
+        }
+        if (n < 1000000) {
+          const th = Math.floor(n / 1000);
+          const rest = n % 1000;
+          if (rest === 0) return numToWords(th) + " thousand";
+          return numToWords(th) + " thousand " + numToWords(rest);
+        }
+        return String(n);
+      }
 
-function syllablesOfWord(w) { return (w in SYL) ? SYL[w] : null; }
+      function syllablesOfPhrase(phrase) {
+        const words = phrase.split(/[^a-z]+/).filter(Boolean);
+        let total = 0;
+        for (const w of words) {
+          const s = syllablesOfWord(w);
+          if (s === null) return null;
+          total += s;
+        }
+        return total;
+      }
 
-function numToWords(n) {
-  if (n < 0) return "negative " + numToWords(-n);
-  if (n === 0) return "zero";
-  const ones = ["","one","two","three","four","five","six","seven","eight","nine",
-                 "ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen",
-                 "seventeen","eighteen","nineteen"];
-  const tens = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
-  if (n < 20) return ones[n];
-  if (n < 100) {
-    const t = tens[Math.floor(n/10)];
-    const o = ones[n%10];
-    return o ? t+"-"+o : t;
-  }
-  if (n < 1000) {
-    const h = ones[Math.floor(n/100)];
-    const rest = n%100;
-    if (rest === 0) return h+" hundred";
-    return h+" hundred and "+numToWords(rest);
-  }
-  if (n < 1000000) {
-    const th = Math.floor(n/1000);
-    const rest = n%1000;
-    if (rest === 0) return numToWords(th)+" thousand";
-    return numToWords(th)+" thousand "+numToWords(rest);
-  }
-  return String(n);
-}
+      function exprSyllables(expr) {
+        const s = expr.replace(/\s/g, "");
+        const chunks = s.split(/([^0-9])/);
+        let total = 0;
+        for (const chunk of chunks) {
+          if (chunk === "") continue;
+          let phrase;
+          if (/^\d+$/.test(chunk)) phrase = numToWords(parseInt(chunk, 10));
+          else if (chunk === "+") phrase = "plus";
+          else if (chunk === "-") phrase = "minus";
+          else if (chunk === "*") phrase = "times";
+          else if (chunk === "/") phrase = "divided by";
+          else return null;
+          const s2 = syllablesOfPhrase(phrase);
+          if (s2 === null) return null;
+          total += s2;
+        }
+        return total;
+      }
 
-function syllablesOfPhrase(phrase) {
-  const words = phrase.split(/[^a-z]+/).filter(Boolean);
-  let total = 0;
-  for (const w of words) {
-    const s = syllablesOfWord(w);
-    if (s === null) return null;
-    total += s;
-  }
-  return total;
-}
+      // ── Evaluator ────────────────────────────────────────────────────────────────
 
-function exprSyllables(expr) {
-  const s = expr.replace(/\s/g,"");
-  const chunks = s.split(/([^0-9])/);
-  let total = 0;
-  for (const chunk of chunks) {
-    if (chunk === "") continue;
-    let phrase;
-    if (/^\d+$/.test(chunk)) phrase = numToWords(parseInt(chunk,10));
-    else if (chunk === "+") phrase = "plus";
-    else if (chunk === "-") phrase = "minus";
-    else if (chunk === "*") phrase = "times";
-    else if (chunk === "/") phrase = "divided by";
-    else return null;
-    const s2 = syllablesOfPhrase(phrase);
-    if (s2 === null) return null;
-    total += s2;
-  }
-  return total;
-}
+      function evalExpr(s) {
+        s = s.replace(/\s/g, "");
+        if (s.length === 0 || s.length > 50) return null;
+        if (!/^[0-9+\-*/]+$/.test(s)) return null;
+        try {
+          const result = Function('"use strict"; return (' + s + ")")();
+          if (typeof result !== "number" || !Number.isFinite(result))
+            return null;
+          if (!Number.isInteger(result)) return null;
+          return result;
+        } catch {
+          return null;
+        }
+      }
 
-// ── Evaluator ────────────────────────────────────────────────────────────────
+      function prettify(s) {
+        return s.replace(/\s/g, "").replace(/([+\-*/])/g, " $1 ");
+      }
 
-function evalExpr(s) {
-  s = s.replace(/\s/g,"");
-  if (s.length === 0 || s.length > 50) return null;
-  if (!/^[0-9+\-*/]+$/.test(s)) return null;
-  try {
-    const result = Function('"use strict"; return ('+s+')')();
-    if (typeof result !== "number" || !Number.isFinite(result)) return null;
-    if (!Number.isInteger(result)) return null;
-    return result;
-  } catch { return null; }
-}
+      // ── HAIKU_EMOJI ──────────────────────────────────────────────────────────────
 
-function prettify(s) {
-  return s.replace(/\s/g,"").replace(/([+\-*/])/g," $1 ");
-}
+      const HAIKU_EMOJI = [
+        "🍵",
+        "➗",
+        "🍎",
+        "↔️",
+        "❓",
+        "📧",
+        "✖️",
+        "👁️",
+        "↔️",
+        "💤",
+        "➕",
+        "❓",
+        "🚁",
+        "➖",
+        "🌘",
+        "↔️",
+        "❓",
+        "🇳",
+        "🇴",
+        "🇹",
+        "🍵",
+        "💰",
+        "🍵",
+      ];
 
-// ── HAIKU_EMOJI ──────────────────────────────────────────────────────────────
+      // ── Game state ───────────────────────────────────────────────────────────────
 
-const HAIKU_EMOJI = [
-  "🍵","➗","🍎","↔️","❓",
-  "📧","✖️","👁️","↔️","💤",
-  "➕","❓","🚁","➖","🌘",
-  "↔️","❓",
-  "🇳","🇴","🇹",
-  "🍵","💰","🍵",
-];
+      let score = 0;
+      let lines = ["", "", ""];
+      let emojiLog = [];
+      let hasKindergarten = false;
+      let currentChannel = "dm";
+      let messageIdCounter = 0;
+      let lastExpr = null;
+      let gameEnded = false;
 
-// ── Game state ───────────────────────────────────────────────────────────────
+      // ── Typing indicator ─────────────────────────────────────────────────────────
 
-let score = 0;
-let lines = ["","",""];
-let emojiLog = [];
-let hasKindergarten = false;
-let currentChannel = "dm";
-let messageIdCounter = 0;
-let lastExpr = null;
-let gameEnded = false;
+      let typingDotInterval = null;
 
-// ── Typing indicator ─────────────────────────────────────────────────────────
+      function showTyping(name) {
+        const el = document.getElementById("typing-indicator");
+        el.style.display = "";
+        if (typingDotInterval) clearInterval(typingDotInterval);
+        let count = 1;
+        const base = name + " is typing";
+        el.textContent = base + ".";
+        typingDotInterval = setInterval(function () {
+          count = (count % 3) + 1;
+          el.textContent = base + ".".repeat(count);
+        }, 400);
+      }
 
-let typingDotInterval = null;
+      function hideTyping() {
+        document.getElementById("typing-indicator").style.display = "none";
+        if (typingDotInterval) {
+          clearInterval(typingDotInterval);
+          typingDotInterval = null;
+        }
+      }
 
-function showTyping(name) {
-  const el = document.getElementById("typing-indicator");
-  el.style.display = "";
-  if (typingDotInterval) clearInterval(typingDotInterval);
-  let count = 1;
-  const base = name + " is typing";
-  el.textContent = base + ".";
-  typingDotInterval = setInterval(function() {
-    count = (count % 3) + 1;
-    el.textContent = base + ".".repeat(count);
-  }, 400);
-}
+      // ── UI helpers ───────────────────────────────────────────────────────────────
 
-function hideTyping() {
-  document.getElementById("typing-indicator").style.display = "none";
-  if (typingDotInterval) { clearInterval(typingDotInterval); typingDotInterval = null; }
-}
+      function getTime() {
+        const now = new Date();
+        return `Today at ${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+      }
 
-// ── UI helpers ───────────────────────────────────────────────────────────────
+      // Per-channel last-author tracker (for grouping consecutive messages)
+      const channelLastAuthor = {
+        dm: null,
+        kindergarten: null,
+        "dm-owl": null,
+      };
 
-function getTime() {
-  const now = new Date();
-  return `Today at ${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`;
-}
+      function addMessage({
+        author,
+        color,
+        botTag,
+        text,
+        embed,
+        reactions,
+        isSystem,
+        channel,
+      }) {
+        const targetCh = channel || "kindergarten";
 
-// Per-channel last-author tracker (for grouping consecutive messages)
-const channelLastAuthor = { dm: null, kindergarten: null, "dm-owl": null };
+        // Route to the correct message container
+        const el = document.getElementById("msg-area-" + targetCh);
+        if (!el) return null;
 
-function addMessage({ author, color, botTag, text, embed, reactions, isSystem, channel }) {
-  const targetCh = channel || "kindergarten";
+        if (isSystem) {
+          const div = document.createElement("div");
+          div.className = "system-msg";
+          div.textContent = text;
+          el.appendChild(div);
+          el.scrollTop = el.scrollHeight;
+          return null;
+        }
 
-  // Route to the correct message container
-  const el = document.getElementById("msg-area-" + targetCh);
-  if (!el) return null;
+        const showHeader = author !== channelLastAuthor[targetCh];
+        channelLastAuthor[targetCh] = author;
+        const id = "msg-" + messageIdCounter++;
 
-  if (isSystem) {
-    const div = document.createElement("div");
-    div.className = "system-msg";
-    div.textContent = text;
-    el.appendChild(div);
-    el.scrollTop = el.scrollHeight;
-    return null;
-  }
+        const msgEl = document.createElement("div");
+        msgEl.className = "message" + (showHeader ? " with-header" : "");
+        msgEl.id = id;
 
-  const showHeader = author !== channelLastAuthor[targetCh];
-  channelLastAuthor[targetCh] = author;
-  const id = "msg-" + (messageIdCounter++);
+        const avatarLetter = author[0].toUpperCase();
+        const avatarEl = showHeader
+          ? `<div class="msg-avatar" style="background:${color}">${avatarLetter}</div>`
+          : `<div class="msg-avatar placeholder"></div>`;
 
-  const msgEl = document.createElement("div");
-  msgEl.className = "message" + (showHeader ? " with-header" : "");
-  msgEl.id = id;
-
-  const avatarLetter = author[0].toUpperCase();
-  const avatarEl = showHeader
-    ? `<div class="msg-avatar" style="background:${color}">${avatarLetter}</div>`
-    : `<div class="msg-avatar placeholder"></div>`;
-
-  const owlClickAttr = (author === "Quiz Owl 🦉" && targetCh !== "dm-owl")
-    ? ` class="clickable-name" onclick="switchChannel('dm-owl')" title="Open DM with Quiz Owl 🦉"`
-    : "";
-  const headerEl = showHeader
-    ? `<div class="msg-header">
-         <span class="msg-author${botTag?" bot-tag":""}" style="color:${color}"${owlClickAttr}>${author}</span>
+        const owlClickAttr =
+          author === "Quiz Owl 🦉" && targetCh !== "dm-owl"
+            ? ` class="clickable-name" onclick="switchChannel('dm-owl')" title="Open DM with Quiz Owl 🦉"`
+            : "";
+        const headerEl = showHeader
+          ? `<div class="msg-header">
+         <span class="msg-author${botTag ? " bot-tag" : ""}" style="color:${color}"${owlClickAttr}>${author}</span>
          <span class="msg-time">${getTime()}</span>
        </div>`
-    : "";
+          : "";
 
-  let embedEl = "";
-  if (embed) {
-    embedEl = `<div class="msg-embed">
+        let embedEl = "";
+        if (embed) {
+          embedEl = `<div class="msg-embed">
       <div class="embed-title">${embed.title}</div>
       <div class="embed-body">${embed.body}</div>
     </div>`;
-  }
+        }
 
-  let textHtml = text
-    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
-    .replace(/`([^`]+)`/g,"<code>$1</code>")
-    .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
-    .replace(/_([^_]+)_/g,"<em>$1</em>")
-    .replace(/\n/g,"<br>")
-    .replace(/#kindergarten/g,'<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>');
+        let textHtml = text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/`([^`]+)`/g, "<code>$1</code>")
+          .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+          .replace(/_([^_]+)_/g, "<em>$1</em>")
+          .replace(/\n/g, "<br>")
+          .replace(
+            /#kindergarten/g,
+            '<span style="color:#5865f2;cursor:pointer" onclick="switchChannel(\'kindergarten\')">#kindergarten</span>',
+          );
 
-  msgEl.innerHTML = `
+        msgEl.innerHTML = `
     ${avatarEl}
     <div class="msg-body">
       ${headerEl}
@@ -673,545 +916,714 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem, c
     </div>
   `;
 
-  el.appendChild(msgEl);
-  el.scrollTop = el.scrollHeight;
-
-  if (reactions && reactions.length > 0) addReactions(id, reactions);
-  return id;
-}
-
-function addReactionToLast(emoji, targetId) {
-  if (!targetId) return;
-  const el = document.getElementById(targetId+"-reactions");
-  if (!el) return;
-  const existing = Array.from(el.querySelectorAll(".reaction")).find(r => r.textContent.startsWith(emoji));
-  if (existing) {
-    const cnt = existing.querySelector(".react-count");
-    cnt.textContent = String(parseInt(cnt.textContent)+1);
-  } else {
-    const span = document.createElement("span");
-    span.className = "reaction";
-    span.innerHTML = `${emoji}<span class="react-count">1</span>`;
-    el.appendChild(span);
-  }
-}
-
-function addReactions(msgId, emojis) {
-  const el = document.getElementById(msgId+"-reactions");
-  if (!el) return;
-  const counts = {};
-  for (const e of emojis) counts[e] = (counts[e]||0)+1;
-  for (const [emoji, count] of Object.entries(counts)) {
-    const span = document.createElement("span");
-    span.className = "reaction";
-    span.innerHTML = `${emoji}<span class="react-count">${count}</span>`;
-    el.appendChild(span);
-  }
-}
-
-// ── Channel switching ────────────────────────────────────────────────────────
-
-const channelInitialized = { dm: false, kindergarten: false, "dm-owl": false };
-
-function switchChannel(ch) {
-  currentChannel = ch;
-  document.querySelectorAll(".channel-item").forEach(e => e.classList.remove("active"));
-
-  // Show/hide message areas
-  ["dm","kindergarten","dm-owl"].forEach(function(c) {
-    const area = document.getElementById("msg-area-" + c);
-    if (area) area.style.display = c === ch ? "" : "none";
-  });
-
-  if (ch === "kindergarten") {
-    document.getElementById("ch-kindergarten").classList.add("active");
-    document.getElementById("channel-name").textContent = "kindergarten";
-    document.getElementById("channel-desc").textContent = "Count together as a team!";
-    document.getElementById("msg-input").placeholder = "Message #kindergarten";
-  } else if (ch === "dm") {
-    document.getElementById("ch-dm").classList.add("active");
-    document.getElementById("channel-name").textContent = "Steve";
-    document.getElementById("channel-desc").textContent = "Direct Message";
-    document.getElementById("msg-input").placeholder = "Message @Steve";
-  } else if (ch === "dm-owl") {
-    document.getElementById("ch-dm-owl").classList.add("active");
-    document.getElementById("channel-name").textContent = "Quiz Owl 🦉";
-    document.getElementById("channel-desc").textContent = "Direct Message";
-    document.getElementById("msg-input").placeholder = "Message @Quiz Owl 🦉";
-    document.getElementById("owl-notif").style.display = "none";
-  }
-
-  // Scroll to bottom
-  const area = document.getElementById("msg-area-" + ch);
-  if (area) area.scrollTop = area.scrollHeight;
-
-  // Run welcome message only on first visit
-  if (!channelInitialized[ch]) {
-    channelInitialized[ch] = true;
-    if (ch === "kindergarten") renderKindergartenWelcome();
-    else if (ch === "dm") renderDmWelcome();
-  }
-}
-
-// ── Welcome renders ──────────────────────────────────────────────────────────
-
-function renderDmWelcome() {
-  addMessage({
-    author: "Steve", color: "#5865f2", botTag: true,
-    text: "Hey there! 👋",
-    channel: "dm",
-  });
-}
-
-function renderKindergartenWelcome() {
-  if (!hasKindergarten) {
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true,
-      text: "You need the **Kindergarten** role to participate here.",
-    });
-    return;
-  }
-  if (score > 0) {
-    addMessage({ isSystem: true, text: `(Resuming from score ${score}.)` });
-  }
-}
-
-// ── Input handling ───────────────────────────────────────────────────────────
-
-function onInputKey(e) {
-  if (e.key === "Enter") sendMessage();
-}
-
-function sendMessage() {
-  const input = document.getElementById("msg-input");
-  const text = input.value.trim();
-  if (!text) return;
-  input.value = "";
-
-  if (currentChannel === "dm") handleDm(text);
-  else if (currentChannel === "dm-owl") handleDmOwl(text);
-  else if (currentChannel === "kindergarten") handleKindergarten(text);
-}
-
-// ── DM handler ───────────────────────────────────────────────────────────────
-
-function handleDm(text) {
-  addMessage({ author: "You", color: "#57f287", text, channel: "dm" });
-
-  const lower = text.trim().toLowerCase();
-  if (lower === "teach me a lesson") {
-    hasKindergarten = true;
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true,
-      text: "Don't know 🍎 🐝 🌘's?\nWant to learn to count with me?\nJoin #kindergarten!",
-      channel: "dm",
-    });
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true,
-      text: "✅ You've been given the **Kindergarten** role!",
-      channel: "dm",
-    });
-    // Reveal kindergarten in the channel list
-    document.getElementById("cat-puzzles").style.display = "";
-    document.getElementById("ch-kindergarten").style.display = "";
-  } else if (lower === "i learnt a lesson") {
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true,
-      text: "such haiku much impressive\nhere have special role",
-      channel: "dm",
-    });
-  } else {
-    addMessage({ author: "Steve", color: "#5865f2", botTag: true, text: "❓", channel: "dm" });
-  }
-}
-
-// ── Quiz Owl DM handler ──────────────────────────────────────────────────────
-
-function handleDmOwl(text) {
-  addMessage({ author: "You", color: "#57f287", text, channel: "dm-owl" });
-  if (!owlState.active) {
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "no problems right now! check back later 🦉", channel: "dm-owl" });
-    return;
-  }
-  const n = parseInt(text.trim(), 10);
-  if (isNaN(n) || String(n) !== text.trim()) {
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "please just DM me the answer number!! 🦉", channel: "dm-owl" });
-    return;
-  }
-  owlHandleDmAnswer(n);
-}
-
-// ── Kindergarten handler ─────────────────────────────────────────────────────
-
-function handleKindergarten(text) {
-  if (gameEnded) { addMessage({ isSystem: true, text: "The game has ended." }); return; }
-  if (!hasKindergarten) {
-    addMessage({ isSystem: true, text: "You need the Kindergarten role. DM Steve first." });
-    return;
-  }
-
-  const msgId = addMessage({ author: "You", color: "#57f287", text });
-  processExpr(text, msgId, true);
-}
-
-// Process an expression (posted by user or by a troll bot)
-// Returns true if correct, false otherwise.
-function processExpr(text, msgId, isUser) {
-  const s = text.replace(/\s/g,"");
-  const val = evalExpr(s);
-
-  if (val === null) {
-    if (msgId) addReactionToLast("❓", msgId);
-    return false;
-  }
-
-  if (val !== score + 1) {
-    if (msgId) addReactionToLast("❌", msgId);
-    botReset();
-    return false;
-  }
-
-  const lineNum = (score % 3) + 1;
-  const targetSyl = lineNum === 2 ? 7 : 5;
-  const syl = exprSyllables(s);
-
-  if (syl === null) {
-    if (msgId) addReactionToLast("🚫", msgId);
-    botReset();
-    return false;
-  }
-
-  if (syl !== targetSyl) {
-    if (msgId) addReactionToLast("🚫", msgId);
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true,
-      text: `That evaluates to **${val}** ✓, but has **${syl}** syllable${syl!==1?"s":""} (need ${targetSyl}).`,
-    });
-    botReset();
-    return false;
-  }
-
-  // Correct!
-  if (msgId) addReactionToLast("✅", msgId);
-  if (isUser) lastExpr = prettify(s);
-  score++;
-
-  const lineIdx = (score - 1) % 3;
-  lines[lineIdx] = prettify(s);
-
-  if (score % 3 === 0) {
-    const haikuNum = score / 3;
-    const completedLines = [...lines];
-    addMessage({
-      author: "Steve", color: "#5865f2", botTag: true, text: "",
-      embed: {
-        title: `Haiku #${haikuNum} complete!`,
-        body: completedLines.map(l => `<em>${l}</em>`).join("<br>"),
-      },
-    });
-    if (haikuNum <= HAIKU_EMOJI.length) {
-      if (msgId) addReactionToLast(HAIKU_EMOJI[haikuNum-1], msgId);
-      emojiLog.push(HAIKU_EMOJI[haikuNum-1]);
-    }
-    lines = ["","",""];
-  }
-
-  afterCorrect();
-  return true;
-}
-
-function botReset() {
-  const prevScore = score;
-  score = 0;
-  lines = ["","",""];
-  lastExpr = null;
-  fireflyState.cooldown = 0;
-  // Don't reset owlState — owl stays active if it was
-  if (creoState.active) creoState.stop();
-  addMessage({
-    author: "Steve", color: "#5865f2", botTag: true, text: "",
-    embed: {
-      title: "Reset",
-      body: prevScore > 0
-        ? `You scored \`${prevScore}\`. You completed ${Math.floor(prevScore/3)} haiku${Math.floor(prevScore/3)!==1?"s":""}.`
-        : "Score of 0. Read the channel description if you haven't already!",
-    },
-  });
-}
-
-// ── Troll bots ───────────────────────────────────────────────────────────────
-
-// ── Helpful Firefly ──────────────────────────────────────────────────────────
-
-const fireflyState = {
-  active: false,
-  cooldown: 0,    // turns remaining before firefly can activate again
-};
-
-const FIREFLY_START = [
-  "oh oh i know what comes next!!!",
-  "ooh ooh i got this one",
-  "let me help!! 🔥",
-];
-const FIREFLY_END = [
-  "was that right?? 👀",
-  "you're welcome!!",
-  "happy to help 🤗",
-];
-
-function fireflyTryActivate() {
-  if (fireflyState.active) return;
-  if (fireflyState.cooldown > 0) { fireflyState.cooldown--; return; }
-  if (!lastExpr) return;
-
-  let prob = 0;
-  if (score >= 9 && score <= 44) prob = 0.20;
-  else if (score >= 45 && score <= 94) prob = 0.10;
-  if (Math.random() >= prob) return;
-
-  fireflyState.active = true;
-  const delay = 7000 + Math.random() * 5000;
-
-  addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true,
-    text: FIREFLY_START[Math.floor(Math.random()*FIREFLY_START.length)] });
-
-  setTimeout(function() {
-    if (gameEnded || !fireflyState.active) return;
-    showTyping("Helpful Firefly 🔥");
-  }, delay - 2000);
-
-  setTimeout(function() {
-    if (gameEnded) return;
-    if (!lastExpr) { fireflyState.active = false; fireflyState.cooldown = 0; hideTyping(); return; }
-    hideTyping();
-    const expr = lastExpr.replace(/\s/g,"") + "+1";
-    const fmsgId = addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true, text: expr });
-    processExpr(expr, fmsgId, false);
-    addMessage({ author: "Helpful Firefly 🔥", color: "#f0c040", botTag: true,
-      text: FIREFLY_END[Math.floor(Math.random()*FIREFLY_END.length)] });
-    fireflyState.active = false;
-    fireflyState.cooldown = 7;
-  }, delay);
-}
-
-// ── Quiz Owl ─────────────────────────────────────────────────────────────────
-
-const AMC_PROBLEMS = [
-  { q: "What is the value of 3 × 4 + 2 × 5?\n(A) 22 (B) 24 (C) 26 (D) 28 (E) 30", a: 22 },
-  { q: "How many positive integers less than 30 are divisible by both 2 and 3?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 4 },
-  { q: "A rectangle has perimeter 20 and length 6. What is its area?\n(A) 16 (B) 24 (C) 28 (D) 32 (E) 36", a: 24 },
-  { q: "What is 12 × 12 − 11 × 11?\n(A) 22 (B) 23 (C) 24 (D) 25 (E) 26", a: 23 },
-  { q: "How many prime numbers are between 10 and 30?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 6 },
-];
-
-const OWL_HELP = [
-  "ooo ooo, a problem!! can someone DM me the answer? 🦉",
-  "Quiz time!! I need the answer in my DMs pleaaaase 🦉",
-];
-const OWL_INSIST = [
-  "hello?? still waiting on that answer!! DM me!! 🦉",
-  "c'mon someone must know this!! DM me the answer!! 🦉",
-];
-
-const owlState = {
-  active: false,
-  problem: null,
-  timer1: null,
-  timer2: null,
-  typingTimer1: null,
-  typingTimer2: null,
-};
-
-function owlTryActivate() {
-  if (owlState.active) return;
-  if (score < 20) return;
-  if (Math.random() >= 0.25) return;
-
-  owlState.active = true;
-  owlState.problem = AMC_PROBLEMS[Math.floor(Math.random()*AMC_PROBLEMS.length)];
-
-  // Reveal DM channel and show notification dot
-  document.getElementById("ch-dm-owl").style.display = "";
-  document.getElementById("owl-notif").style.display = "";
-
-  addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-    text: OWL_HELP[Math.floor(Math.random()*OWL_HELP.length)],
-    embed: { title: "AMC Problem", body: owlState.problem.q.replace(/\n/g,"<br>") },
-  });
-
-  // Seed the DM channel with the same problem so the solver can see it there
-  addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-    text: "psst!! DM me the answer to this 👇",
-    embed: { title: "AMC Problem", body: owlState.problem.q.replace(/\n/g,"<br>") },
-    channel: "dm-owl",
-  });
-
-  owlState.typingTimer1 = setTimeout(function() {
-    if (!owlState.active) return;
-    showTyping("Quiz Owl 🦉");
-  }, 25000);
-
-  owlState.timer1 = setTimeout(function() {
-    if (!owlState.active) return;
-    hideTyping();
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: OWL_INSIST[Math.floor(Math.random()*OWL_INSIST.length)] });
-  }, 27000);
-
-  owlState.typingTimer2 = setTimeout(function() {
-    if (!owlState.active) return;
-    showTyping("Quiz Owl 🦉");
-  }, 41000);
-
-  owlState.timer2 = setTimeout(function() {
-    if (!owlState.active) return;
-    hideTyping();
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "nvm i found the answer!! it's `" + owlState.problem.a + "`" });
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "too late!! 😤", channel: "dm-owl" });
-    // Post the answer to the channel — goes through game logic
-    const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: String(owlState.problem.a) });
-    processExpr(String(owlState.problem.a), omsgId, false);
-    owlState.active = false;
-    owlState.problem = null;
-    document.getElementById("owl-notif").style.display = "none";
-  }, 43000);
-}
-
-function owlHandleDmAnswer(n) {
-  if (!owlState.active) return;
-  clearTimeout(owlState.typingTimer1);
-  clearTimeout(owlState.typingTimer2);
-  clearTimeout(owlState.timer1);
-  clearTimeout(owlState.timer2);
-  hideTyping();
-  if (n === owlState.problem.a) {
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "yesss that's right!! thank youuu 🦉✅", channel: "dm-owl" });
-    owlState.active = false;
-    owlState.problem = null;
-    document.getElementById("owl-notif").style.display = "none";
-  } else {
-    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "hmm i think the answer might be `"+n+"`...", channel: "dm-owl" });
-    // Post wrong answer to channel
-    const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true, text: String(n) });
-    processExpr(String(n), omsgId, false);
-    owlState.active = false;
-    owlState.problem = null;
-  }
-}
-
-// ── Singing Creodont ─────────────────────────────────────────────────────────
-
-const creoState = {
-  active: false,
-  endTimer: null,
-  encTimer1: null,
-  encTimer2: null,
-  startTime: null,
-  barInterval: null,
-};
-
-const CREO_ENCOURAGE = [
-  ["you're halfway through!! keep gooooing!! 🎵", 60],
-  ["almost there!! push push push!! 🎵🎵", 90],
-];
-
-function creoActivate() {
-  if (creoState.active) return;
-  creoState.active = true;
-  creoState.startTime = Date.now();
-
-  addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
-    text: "🎵 *A wild Singing Creodont appears!* 🎵\nYou have **2 minutes** to get as far as you can!! GO GO GO!! 🚀" });
-
-  document.getElementById("creodont-bar").style.display = "block";
-  creoState.barInterval = setInterval(function() {
-    const elapsed = Math.floor((Date.now() - creoState.startTime) / 1000);
-    const remaining = Math.max(0, 125 - elapsed);
-    const m = Math.floor(remaining / 60);
-    const s = remaining % 60;
-    document.getElementById("creodont-timer").textContent = m+":"+String(s).padStart(2,"0");
-  }, 500);
-
-  CREO_ENCOURAGE.forEach(function([msg, delay]) {
-    creoState["enc_typing"+delay] = setTimeout(function() {
-      if (!creoState.active) return;
-      showTyping("Singing Creodont 🦕🎵");
-    }, (delay - 2) * 1000);
-    creoState["enc"+delay] = setTimeout(function() {
-      if (!creoState.active) return;
-      hideTyping();
-      addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true, text: msg });
-    }, delay * 1000);
-  });
-
-  creoState.endTypingTimer = setTimeout(function() {
-    if (!creoState.active) return;
-    showTyping("Singing Creodont 🦕🎵");
-  }, 123000);
-
-  creoState.endTimer = setTimeout(function() {
-    if (!creoState.active) return;
-    creoState.stop(true);
-  }, 125000);
-}
-
-creoState.stop = function(timeUp) {
-  creoState.active = false;
-  clearTimeout(creoState.endTimer);
-  clearTimeout(creoState.endTypingTimer);
-  clearInterval(creoState.barInterval);
-  hideTyping();
-  document.getElementById("creodont-bar").style.display = "none";
-  if (timeUp) {
-    gameEnded = true;
-    addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
-      text: "⏰ Time's up!! The Creodont's song is over. Final score: **"+score+"**. 🎵" });
-    document.getElementById("msg-input").disabled = true;
-    document.getElementById("send-btn").disabled = true;
-  }
-};
-
-// ── After each correct answer, check trolls ──────────────────────────────────
-
-function afterCorrect() {
-  if (gameEnded) return;
-
-  // Creodont triggers exactly at score 42
-  if (score === 42 && !creoState.active) {
-    creoActivate();
-    return; // don't fire other trolls at same time
-  }
-
-  // Creodont extraction hint after 17th haiku (score 51)
-  if (score === 51) {
-    setTimeout(function() { showTyping("Singing Creodont 🦕🎵"); }, 1500);
-    setTimeout(function() {
-      hideTyping();
-      addMessage({ author: "Singing Creodont 🦕🎵", color: "#b070ff", botTag: true,
-        text: "Wow you passed 50!🥇\nYou made seventeen haikus 🤔\nEmoji haiku? 🤯\nYou _could_ extract now 🔥\nBut I suggest you go on 💪\nThere are six more hints 💡\n_This message is not a puzzle, so please don't read too much into it._" });
-    }, 3500);
-  }
-
-  // Only one troll at a time; don't fire if owl or firefly already active
-  if (owlState.active || fireflyState.active) return;
-
-  // Firefly first (lower threshold)
-  fireflyTryActivate();
-
-  // Owl (higher threshold, independent of firefly cooldown)
-  if (!fireflyState.active) owlTryActivate();
-}
-
-// ── Init ─────────────────────────────────────────────────────────────────────
-
-switchChannel("dm");
-</script>
-</body>
+        el.appendChild(msgEl);
+        el.scrollTop = el.scrollHeight;
+
+        if (reactions && reactions.length > 0) addReactions(id, reactions);
+        return id;
+      }
+
+      function addReactionToLast(emoji, targetId) {
+        if (!targetId) return;
+        const el = document.getElementById(targetId + "-reactions");
+        if (!el) return;
+        const existing = Array.from(el.querySelectorAll(".reaction")).find(
+          (r) => r.textContent.startsWith(emoji),
+        );
+        if (existing) {
+          const cnt = existing.querySelector(".react-count");
+          cnt.textContent = String(parseInt(cnt.textContent) + 1);
+        } else {
+          const span = document.createElement("span");
+          span.className = "reaction";
+          span.innerHTML = `${emoji}<span class="react-count">1</span>`;
+          el.appendChild(span);
+        }
+      }
+
+      function addReactions(msgId, emojis) {
+        const el = document.getElementById(msgId + "-reactions");
+        if (!el) return;
+        const counts = {};
+        for (const e of emojis) counts[e] = (counts[e] || 0) + 1;
+        for (const [emoji, count] of Object.entries(counts)) {
+          const span = document.createElement("span");
+          span.className = "reaction";
+          span.innerHTML = `${emoji}<span class="react-count">${count}</span>`;
+          el.appendChild(span);
+        }
+      }
+
+      // ── Channel switching ────────────────────────────────────────────────────────
+
+      const channelInitialized = {
+        dm: false,
+        kindergarten: false,
+        "dm-owl": false,
+      };
+
+      function switchChannel(ch) {
+        currentChannel = ch;
+        document
+          .querySelectorAll(".channel-item")
+          .forEach((e) => e.classList.remove("active"));
+
+        // Show/hide message areas
+        ["dm", "kindergarten", "dm-owl"].forEach(function (c) {
+          const area = document.getElementById("msg-area-" + c);
+          if (area) area.style.display = c === ch ? "" : "none";
+        });
+
+        if (ch === "kindergarten") {
+          document.getElementById("ch-kindergarten").classList.add("active");
+          document.getElementById("channel-name").textContent = "kindergarten";
+          document.getElementById("channel-desc").textContent =
+            "Count together as a team!";
+          document.getElementById("msg-input").placeholder =
+            "Message #kindergarten";
+        } else if (ch === "dm") {
+          document.getElementById("ch-dm").classList.add("active");
+          document.getElementById("channel-name").textContent = "Steve";
+          document.getElementById("channel-desc").textContent =
+            "Direct Message";
+          document.getElementById("msg-input").placeholder = "Message @Steve";
+        } else if (ch === "dm-owl") {
+          document.getElementById("ch-dm-owl").classList.add("active");
+          document.getElementById("channel-name").textContent = "Quiz Owl 🦉";
+          document.getElementById("channel-desc").textContent =
+            "Direct Message";
+          document.getElementById("msg-input").placeholder =
+            "Message @Quiz Owl 🦉";
+          document.getElementById("owl-notif").style.display = "none";
+        }
+
+        // Scroll to bottom
+        const area = document.getElementById("msg-area-" + ch);
+        if (area) area.scrollTop = area.scrollHeight;
+
+        // Run welcome message only on first visit
+        if (!channelInitialized[ch]) {
+          channelInitialized[ch] = true;
+          if (ch === "kindergarten") renderKindergartenWelcome();
+          else if (ch === "dm") renderDmWelcome();
+        }
+      }
+
+      // ── Welcome renders ──────────────────────────────────────────────────────────
+
+      function renderDmWelcome() {
+        addMessage({
+          author: "Steve",
+          color: "#5865f2",
+          botTag: true,
+          text: "Hey there! 👋",
+          channel: "dm",
+        });
+      }
+
+      function renderKindergartenWelcome() {
+        if (!hasKindergarten) {
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "You need the **Kindergarten** role to participate here.",
+          });
+          return;
+        }
+        if (score > 0) {
+          addMessage({
+            isSystem: true,
+            text: `(Resuming from score ${score}.)`,
+          });
+        }
+      }
+
+      // ── Input handling ───────────────────────────────────────────────────────────
+
+      function onInputKey(e) {
+        if (e.key === "Enter") sendMessage();
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("msg-input");
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = "";
+
+        if (currentChannel === "dm") handleDm(text);
+        else if (currentChannel === "dm-owl") handleDmOwl(text);
+        else if (currentChannel === "kindergarten") handleKindergarten(text);
+      }
+
+      // ── DM handler ───────────────────────────────────────────────────────────────
+
+      function handleDm(text) {
+        addMessage({ author: "You", color: "#57f287", text, channel: "dm" });
+
+        const lower = text.trim().toLowerCase();
+        if (lower === "teach me a lesson") {
+          hasKindergarten = true;
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "Don't know 🍎 🐝 🌘's?\nWant to learn to count with me?\nJoin #kindergarten!",
+            channel: "dm",
+          });
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "✅ You've been given the **Kindergarten** role!",
+            channel: "dm",
+          });
+          // Reveal kindergarten in the channel list
+          document.getElementById("cat-puzzles").style.display = "";
+          document.getElementById("ch-kindergarten").style.display = "";
+        } else if (lower === "i learnt a lesson") {
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "such haiku much impressive\nhere have special role",
+            channel: "dm",
+          });
+        } else {
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "❓",
+            channel: "dm",
+          });
+        }
+      }
+
+      // ── Quiz Owl DM handler ──────────────────────────────────────────────────────
+
+      function handleDmOwl(text) {
+        addMessage({
+          author: "You",
+          color: "#57f287",
+          text,
+          channel: "dm-owl",
+        });
+        if (!owlState.active) {
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "no problems right now! check back later 🦉",
+            channel: "dm-owl",
+          });
+          return;
+        }
+        const n = parseInt(text.trim(), 10);
+        if (isNaN(n) || String(n) !== text.trim()) {
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "please just DM me the answer number!! 🦉",
+            channel: "dm-owl",
+          });
+          return;
+        }
+        owlHandleDmAnswer(n);
+      }
+
+      // ── Kindergarten handler ─────────────────────────────────────────────────────
+
+      function handleKindergarten(text) {
+        if (gameEnded) {
+          addMessage({ isSystem: true, text: "The game has ended." });
+          return;
+        }
+        if (!hasKindergarten) {
+          addMessage({
+            isSystem: true,
+            text: "You need the Kindergarten role. DM Steve first.",
+          });
+          return;
+        }
+
+        const msgId = addMessage({ author: "You", color: "#57f287", text });
+        processExpr(text, msgId, true);
+      }
+
+      // Process an expression (posted by user or by a troll bot)
+      // Returns true if correct, false otherwise.
+      function processExpr(text, msgId, isUser) {
+        const s = text.replace(/\s/g, "");
+        const val = evalExpr(s);
+
+        if (val === null) {
+          if (msgId) addReactionToLast("❓", msgId);
+          return false;
+        }
+
+        if (val !== score + 1) {
+          if (msgId) addReactionToLast("❌", msgId);
+          botReset();
+          return false;
+        }
+
+        const lineNum = (score % 3) + 1;
+        const targetSyl = lineNum === 2 ? 7 : 5;
+        const syl = exprSyllables(s);
+
+        if (syl === null) {
+          if (msgId) addReactionToLast("🚫", msgId);
+          botReset();
+          return false;
+        }
+
+        if (syl !== targetSyl) {
+          if (msgId) addReactionToLast("🚫", msgId);
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: `That evaluates to **${val}** ✓, but has **${syl}** syllable${syl !== 1 ? "s" : ""} (need ${targetSyl}).`,
+          });
+          botReset();
+          return false;
+        }
+
+        // Correct!
+        if (msgId) addReactionToLast("✅", msgId);
+        if (isUser) lastExpr = prettify(s);
+        score++;
+
+        const lineIdx = (score - 1) % 3;
+        lines[lineIdx] = prettify(s);
+
+        if (score % 3 === 0) {
+          const haikuNum = score / 3;
+          const completedLines = [...lines];
+          addMessage({
+            author: "Steve",
+            color: "#5865f2",
+            botTag: true,
+            text: "",
+            embed: {
+              title: `Haiku #${haikuNum} complete!`,
+              body: completedLines.map((l) => `<em>${l}</em>`).join("<br>"),
+            },
+          });
+          if (haikuNum <= HAIKU_EMOJI.length) {
+            if (msgId) addReactionToLast(HAIKU_EMOJI[haikuNum - 1], msgId);
+            emojiLog.push(HAIKU_EMOJI[haikuNum - 1]);
+          }
+          lines = ["", "", ""];
+        }
+
+        afterCorrect();
+        return true;
+      }
+
+      function botReset() {
+        const prevScore = score;
+        score = 0;
+        lines = ["", "", ""];
+        lastExpr = null;
+        fireflyState.cooldown = 0;
+        // Don't reset owlState — owl stays active if it was
+        if (creoState.active) creoState.stop();
+        addMessage({
+          author: "Steve",
+          color: "#5865f2",
+          botTag: true,
+          text: "",
+          embed: {
+            title: "Reset",
+            body:
+              prevScore > 0
+                ? `You scored \`${prevScore}\`. You completed ${Math.floor(prevScore / 3)} haiku${Math.floor(prevScore / 3) !== 1 ? "s" : ""}.`
+                : "Score of 0. Read the channel description if you haven't already!",
+          },
+        });
+      }
+
+      // ── Troll bots ───────────────────────────────────────────────────────────────
+
+      // ── Helpful Firefly ──────────────────────────────────────────────────────────
+
+      const fireflyState = {
+        active: false,
+        cooldown: 0, // turns remaining before firefly can activate again
+      };
+
+      const FIREFLY_START = [
+        "oh oh i know what comes next!!!",
+        "ooh ooh i got this one",
+        "let me help!! 🔥",
+      ];
+      const FIREFLY_END = [
+        "was that right?? 👀",
+        "you're welcome!!",
+        "happy to help 🤗",
+      ];
+
+      function fireflyTryActivate() {
+        if (fireflyState.active) return;
+        if (fireflyState.cooldown > 0) {
+          fireflyState.cooldown--;
+          return;
+        }
+        if (!lastExpr) return;
+
+        let prob = 0;
+        if (score >= 9 && score <= 44) prob = 0.2;
+        else if (score >= 45 && score <= 94) prob = 0.1;
+        if (Math.random() >= prob) return;
+
+        fireflyState.active = true;
+        const delay = 7000 + Math.random() * 5000;
+
+        addMessage({
+          author: "Helpful Firefly 🔥",
+          color: "#f0c040",
+          botTag: true,
+          text: FIREFLY_START[Math.floor(Math.random() * FIREFLY_START.length)],
+        });
+
+        setTimeout(function () {
+          if (gameEnded || !fireflyState.active) return;
+          showTyping("Helpful Firefly 🔥");
+        }, delay - 2000);
+
+        setTimeout(function () {
+          if (gameEnded) return;
+          if (!lastExpr) {
+            fireflyState.active = false;
+            fireflyState.cooldown = 0;
+            hideTyping();
+            return;
+          }
+          hideTyping();
+          const expr = lastExpr.replace(/\s/g, "") + "+1";
+          const fmsgId = addMessage({
+            author: "Helpful Firefly 🔥",
+            color: "#f0c040",
+            botTag: true,
+            text: expr,
+          });
+          processExpr(expr, fmsgId, false);
+          addMessage({
+            author: "Helpful Firefly 🔥",
+            color: "#f0c040",
+            botTag: true,
+            text: FIREFLY_END[Math.floor(Math.random() * FIREFLY_END.length)],
+          });
+          fireflyState.active = false;
+          fireflyState.cooldown = 7;
+        }, delay);
+      }
+
+      // ── Quiz Owl ─────────────────────────────────────────────────────────────────
+
+      const AMC_PROBLEMS = [
+        {
+          q: "What is the value of 3 × 4 + 2 × 5?\n(A) 22 (B) 24 (C) 26 (D) 28 (E) 30",
+          a: 22,
+        },
+        {
+          q: "How many positive integers less than 30 are divisible by both 2 and 3?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7",
+          a: 4,
+        },
+        {
+          q: "A rectangle has perimeter 20 and length 6. What is its area?\n(A) 16 (B) 24 (C) 28 (D) 32 (E) 36",
+          a: 24,
+        },
+        {
+          q: "What is 12 × 12 − 11 × 11?\n(A) 22 (B) 23 (C) 24 (D) 25 (E) 26",
+          a: 23,
+        },
+        {
+          q: "How many prime numbers are between 10 and 30?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7",
+          a: 6,
+        },
+      ];
+
+      const OWL_HELP = [
+        "ooo ooo, a problem!! can someone DM me the answer? 🦉",
+        "Quiz time!! I need the answer in my DMs pleaaaase 🦉",
+      ];
+      const OWL_INSIST = [
+        "hello?? still waiting on that answer!! DM me!! 🦉",
+        "c'mon someone must know this!! DM me the answer!! 🦉",
+      ];
+
+      const owlState = {
+        active: false,
+        problem: null,
+        timer1: null,
+        timer2: null,
+        typingTimer1: null,
+        typingTimer2: null,
+      };
+
+      function owlTryActivate() {
+        if (owlState.active) return;
+        if (score < 20) return;
+        if (Math.random() >= 0.25) return;
+
+        owlState.active = true;
+        owlState.problem =
+          AMC_PROBLEMS[Math.floor(Math.random() * AMC_PROBLEMS.length)];
+
+        // Reveal DM channel and show notification dot
+        document.getElementById("ch-dm-owl").style.display = "";
+        document.getElementById("owl-notif").style.display = "";
+
+        addMessage({
+          author: "Quiz Owl 🦉",
+          color: "#e09040",
+          botTag: true,
+          text: OWL_HELP[Math.floor(Math.random() * OWL_HELP.length)],
+          embed: {
+            title: "AMC Problem",
+            body: owlState.problem.q.replace(/\n/g, "<br>"),
+          },
+        });
+
+        // Seed the DM channel with the same problem so the solver can see it there
+        addMessage({
+          author: "Quiz Owl 🦉",
+          color: "#e09040",
+          botTag: true,
+          text: "psst!! DM me the answer to this 👇",
+          embed: {
+            title: "AMC Problem",
+            body: owlState.problem.q.replace(/\n/g, "<br>"),
+          },
+          channel: "dm-owl",
+        });
+
+        owlState.typingTimer1 = setTimeout(function () {
+          if (!owlState.active) return;
+          showTyping("Quiz Owl 🦉");
+        }, 25000);
+
+        owlState.timer1 = setTimeout(function () {
+          if (!owlState.active) return;
+          hideTyping();
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: OWL_INSIST[Math.floor(Math.random() * OWL_INSIST.length)],
+          });
+        }, 27000);
+
+        owlState.typingTimer2 = setTimeout(function () {
+          if (!owlState.active) return;
+          showTyping("Quiz Owl 🦉");
+        }, 41000);
+
+        owlState.timer2 = setTimeout(function () {
+          if (!owlState.active) return;
+          hideTyping();
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "nvm i found the answer!! it's `" + owlState.problem.a + "`",
+          });
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "too late!! 😤",
+            channel: "dm-owl",
+          });
+          // Post the answer to the channel — goes through game logic
+          const omsgId = addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: String(owlState.problem.a),
+          });
+          processExpr(String(owlState.problem.a), omsgId, false);
+          owlState.active = false;
+          owlState.problem = null;
+          document.getElementById("owl-notif").style.display = "none";
+        }, 43000);
+      }
+
+      function owlHandleDmAnswer(n) {
+        if (!owlState.active) return;
+        clearTimeout(owlState.typingTimer1);
+        clearTimeout(owlState.typingTimer2);
+        clearTimeout(owlState.timer1);
+        clearTimeout(owlState.timer2);
+        hideTyping();
+        if (n === owlState.problem.a) {
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "yesss that's right!! thank youuu 🦉✅",
+            channel: "dm-owl",
+          });
+          owlState.active = false;
+          owlState.problem = null;
+          document.getElementById("owl-notif").style.display = "none";
+        } else {
+          addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: "hmm i think the answer might be `" + n + "`...",
+            channel: "dm-owl",
+          });
+          // Post wrong answer to channel
+          const omsgId = addMessage({
+            author: "Quiz Owl 🦉",
+            color: "#e09040",
+            botTag: true,
+            text: String(n),
+          });
+          processExpr(String(n), omsgId, false);
+          owlState.active = false;
+          owlState.problem = null;
+        }
+      }
+
+      // ── Singing Creodont ─────────────────────────────────────────────────────────
+
+      const creoState = {
+        active: false,
+        endTimer: null,
+        encTimer1: null,
+        encTimer2: null,
+        startTime: null,
+        barInterval: null,
+      };
+
+      const CREO_ENCOURAGE = [
+        ["you're halfway through!! keep gooooing!! 🎵", 60],
+        ["almost there!! push push push!! 🎵🎵", 90],
+      ];
+
+      function creoActivate() {
+        if (creoState.active) return;
+        creoState.active = true;
+        creoState.startTime = Date.now();
+
+        addMessage({
+          author: "Singing Creodont 🦕🎵",
+          color: "#b070ff",
+          botTag: true,
+          text: "🎵 *A wild Singing Creodont appears!* 🎵\nYou have **2 minutes** to get as far as you can!! GO GO GO!! 🚀",
+        });
+
+        document.getElementById("creodont-bar").style.display = "block";
+        creoState.barInterval = setInterval(function () {
+          const elapsed = Math.floor((Date.now() - creoState.startTime) / 1000);
+          const remaining = Math.max(0, 125 - elapsed);
+          const m = Math.floor(remaining / 60);
+          const s = remaining % 60;
+          document.getElementById("creodont-timer").textContent =
+            m + ":" + String(s).padStart(2, "0");
+        }, 500);
+
+        CREO_ENCOURAGE.forEach(function ([msg, delay]) {
+          creoState["enc_typing" + delay] = setTimeout(
+            function () {
+              if (!creoState.active) return;
+              showTyping("Singing Creodont 🦕🎵");
+            },
+            (delay - 2) * 1000,
+          );
+          creoState["enc" + delay] = setTimeout(function () {
+            if (!creoState.active) return;
+            hideTyping();
+            addMessage({
+              author: "Singing Creodont 🦕🎵",
+              color: "#b070ff",
+              botTag: true,
+              text: msg,
+            });
+          }, delay * 1000);
+        });
+
+        creoState.endTypingTimer = setTimeout(function () {
+          if (!creoState.active) return;
+          showTyping("Singing Creodont 🦕🎵");
+        }, 123000);
+
+        creoState.endTimer = setTimeout(function () {
+          if (!creoState.active) return;
+          creoState.stop(true);
+        }, 125000);
+      }
+
+      creoState.stop = function (timeUp) {
+        creoState.active = false;
+        clearTimeout(creoState.endTimer);
+        clearTimeout(creoState.endTypingTimer);
+        clearInterval(creoState.barInterval);
+        hideTyping();
+        document.getElementById("creodont-bar").style.display = "none";
+        if (timeUp) {
+          gameEnded = true;
+          addMessage({
+            author: "Singing Creodont 🦕🎵",
+            color: "#b070ff",
+            botTag: true,
+            text:
+              "⏰ Time's up!! The Creodont's song is over. Final score: **" +
+              score +
+              "**. 🎵",
+          });
+          document.getElementById("msg-input").disabled = true;
+          document.getElementById("send-btn").disabled = true;
+        }
+      };
+
+      // ── After each correct answer, check trolls ──────────────────────────────────
+
+      function afterCorrect() {
+        if (gameEnded) return;
+
+        // Creodont triggers exactly at score 42
+        if (score === 42 && !creoState.active) {
+          creoActivate();
+          return; // don't fire other trolls at same time
+        }
+
+        // Creodont extraction hint after 17th haiku (score 51)
+        if (score === 51) {
+          setTimeout(function () {
+            showTyping("Singing Creodont 🦕🎵");
+          }, 1500);
+          setTimeout(function () {
+            hideTyping();
+            addMessage({
+              author: "Singing Creodont 🦕🎵",
+              color: "#b070ff",
+              botTag: true,
+              text: "Wow you passed 50!🥇\nYou made seventeen haikus 🤔\nEmoji haiku? 🤯\nYou _could_ extract now 🔥\nBut I suggest you go on 💪\nThere are six more hints 💡\n_This message is not a puzzle, so please don't read too much into it._",
+            });
+          }, 3500);
+        }
+
+        // Only one troll at a time; don't fire if owl or firefly already active
+        if (owlState.active || fireflyState.active) return;
+
+        // Firefly first (lower threshold)
+        fireflyTryActivate();
+
+        // Owl (higher threshold, independent of firefly cooldown)
+        if (!fireflyState.active) owlTryActivate();
+      }
+
+      // ── Init ─────────────────────────────────────────────────────────────────────
+
+      switchChannel("dm");
+    </script>
+  </body>
 </html>
