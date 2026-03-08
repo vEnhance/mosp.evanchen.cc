@@ -502,7 +502,7 @@
       "unlock_courage_threshold": 100,
       "unlock_needs_slug": null,
       "force_visibility": null,
-      "on_solve_link_to": null,
+      "on_solve_link_to": "chapter-1-epilogue",
       "puzzle_slug": "sticks-and-stones",
       "round_slug": null
     },
