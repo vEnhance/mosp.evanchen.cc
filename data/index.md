@@ -9,6 +9,3 @@ This was a puzzle hunt we ran from MOP 2021 and 2022.
   Also, not all puzzles here may be post-solvable.
 
 I generally recommend looking at the 2021 hunt.
-
-The protagonist's name in the story is in the upper left.
-You can edit it to replace it with your name.
