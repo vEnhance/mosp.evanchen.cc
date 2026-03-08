@@ -151,13 +151,23 @@
     #chat-header .hash { font-size: 1.3rem; color: #72767d; }
     #channel-name { font-weight: 700; font-size: 0.95rem; }
     #channel-desc { color: #72767d; font-size: 0.85rem; margin-left: 0.5rem; }
-    #msg-area-dm, #msg-area-kindergarten {
+    #msg-area-dm, #msg-area-kindergarten, #msg-area-dm-owl {
       scrollbar-width: thin;
       scrollbar-color: #1a1b1e #2e3035;
     }
-    #msg-area-dm::-webkit-scrollbar, #msg-area-kindergarten::-webkit-scrollbar { width: 6px; }
-    #msg-area-dm::-webkit-scrollbar-track, #msg-area-kindergarten::-webkit-scrollbar-track { background: #2e3035; }
-    #msg-area-dm::-webkit-scrollbar-thumb, #msg-area-kindergarten::-webkit-scrollbar-thumb { background: #1a1b1e; border-radius: 3px; }
+    #msg-area-dm::-webkit-scrollbar, #msg-area-kindergarten::-webkit-scrollbar, #msg-area-dm-owl::-webkit-scrollbar { width: 6px; }
+    #msg-area-dm::-webkit-scrollbar-track, #msg-area-kindergarten::-webkit-scrollbar-track, #msg-area-dm-owl::-webkit-scrollbar-track { background: #2e3035; }
+    #msg-area-dm::-webkit-scrollbar-thumb, #msg-area-kindergarten::-webkit-scrollbar-thumb, #msg-area-dm-owl::-webkit-scrollbar-thumb { background: #1a1b1e; border-radius: 3px; }
+    .notification-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ed4245;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .clickable-name { cursor: pointer; }
+    .clickable-name:hover { text-decoration: underline; }
 
     .message {
       display: flex;
@@ -385,6 +395,10 @@
   <div class="channel-item active" id="ch-dm" onclick="switchChannel('dm')">
     <span class="dm-icon">S</span> Steve
   </div>
+  <div class="channel-item" id="ch-dm-owl" style="display:none" onclick="switchChannel('dm-owl')">
+    <span class="dm-icon" style="background:#e09040">Q</span> Quiz Owl 🦉
+    <span class="notification-dot" id="owl-notif" style="display:none"></span>
+  </div>
 
   <div id="user-area">
     <div class="user-avatar">Y</div>
@@ -405,6 +419,7 @@
   </div>
   <div id="msg-area-dm" style="flex:1;overflow-y:auto;padding:1rem 0"></div>
   <div id="msg-area-kindergarten" style="flex:1;overflow-y:auto;padding:1rem 0;display:none"></div>
+  <div id="msg-area-dm-owl" style="flex:1;overflow-y:auto;padding:1rem 0;display:none"></div>
   <div id="typing-indicator" style="display:none"></div>
   <div id="input-area">
     <div id="input-bar">
@@ -591,7 +606,7 @@ function getTime() {
 }
 
 // Per-channel last-author tracker (for grouping consecutive messages)
-const channelLastAuthor = { dm: null, kindergarten: null };
+const channelLastAuthor = { dm: null, kindergarten: null, "dm-owl": null };
 
 function addMessage({ author, color, botTag, text, embed, reactions, isSystem, channel }) {
   const targetCh = channel || "kindergarten";
@@ -622,9 +637,12 @@ function addMessage({ author, color, botTag, text, embed, reactions, isSystem, c
     ? `<div class="msg-avatar" style="background:${color}">${avatarLetter}</div>`
     : `<div class="msg-avatar placeholder"></div>`;
 
+  const owlClickAttr = (author === "Quiz Owl 🦉" && targetCh !== "dm-owl")
+    ? ` class="clickable-name" onclick="switchChannel('dm-owl')" title="Open DM with Quiz Owl 🦉"`
+    : "";
   const headerEl = showHeader
     ? `<div class="msg-header">
-         <span class="msg-author${botTag?" bot-tag":""}" style="color:${color}">${author}</span>
+         <span class="msg-author${botTag?" bot-tag":""}" style="color:${color}"${owlClickAttr}>${author}</span>
          <span class="msg-time">${getTime()}</span>
        </div>`
     : "";
@@ -692,14 +710,14 @@ function addReactions(msgId, emojis) {
 
 // ── Channel switching ────────────────────────────────────────────────────────
 
-const channelInitialized = { dm: false, kindergarten: false };
+const channelInitialized = { dm: false, kindergarten: false, "dm-owl": false };
 
 function switchChannel(ch) {
   currentChannel = ch;
   document.querySelectorAll(".channel-item").forEach(e => e.classList.remove("active"));
 
-  // Show/hide the two message areas
-  ["dm","kindergarten"].forEach(function(c) {
+  // Show/hide message areas
+  ["dm","kindergarten","dm-owl"].forEach(function(c) {
     const area = document.getElementById("msg-area-" + c);
     if (area) area.style.display = c === ch ? "" : "none";
   });
@@ -714,6 +732,12 @@ function switchChannel(ch) {
     document.getElementById("channel-name").textContent = "Steve";
     document.getElementById("channel-desc").textContent = "Direct Message";
     document.getElementById("msg-input").placeholder = "Message @Steve";
+  } else if (ch === "dm-owl") {
+    document.getElementById("ch-dm-owl").classList.add("active");
+    document.getElementById("channel-name").textContent = "Quiz Owl 🦉";
+    document.getElementById("channel-desc").textContent = "Direct Message";
+    document.getElementById("msg-input").placeholder = "Message @Quiz Owl 🦉";
+    document.getElementById("owl-notif").style.display = "none";
   }
 
   // Scroll to bottom
@@ -764,6 +788,7 @@ function sendMessage() {
   input.value = "";
 
   if (currentChannel === "dm") handleDm(text);
+  else if (currentChannel === "dm-owl") handleDmOwl(text);
   else if (currentChannel === "kindergarten") handleKindergarten(text);
 }
 
@@ -771,15 +796,6 @@ function sendMessage() {
 
 function handleDm(text) {
   addMessage({ author: "You", color: "#57f287", text, channel: "dm" });
-
-  // Owl intercept: if Owl is active and input looks like a number, treat as answer
-  if (owlState.active) {
-    const n = parseInt(text.trim(), 10);
-    if (!isNaN(n) && String(n) === text.trim()) {
-      owlHandleDmAnswer(n);
-      return;
-    }
-  }
 
   const lower = text.trim().toLowerCase();
   if (lower === "teach me a lesson") {
@@ -806,6 +822,24 @@ function handleDm(text) {
   } else {
     addMessage({ author: "Steve", color: "#5865f2", botTag: true, text: "❓", channel: "dm" });
   }
+}
+
+// ── Quiz Owl DM handler ──────────────────────────────────────────────────────
+
+function handleDmOwl(text) {
+  addMessage({ author: "You", color: "#57f287", text, channel: "dm-owl" });
+  if (!owlState.active) {
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "no problems right now! check back later 🦉", channel: "dm-owl" });
+    return;
+  }
+  const n = parseInt(text.trim(), 10);
+  if (isNaN(n) || String(n) !== text.trim()) {
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "please just DM me the answer number!! 🦉", channel: "dm-owl" });
+    return;
+  }
+  owlHandleDmAnswer(n);
 }
 
 // ── Kindergarten handler ─────────────────────────────────────────────────────
@@ -968,7 +1002,7 @@ const AMC_PROBLEMS = [
   { q: "How many positive integers less than 30 are divisible by both 2 and 3?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 4 },
   { q: "A rectangle has perimeter 20 and length 6. What is its area?\n(A) 16 (B) 24 (C) 28 (D) 32 (E) 36", a: 24 },
   { q: "What is 12 × 12 − 11 × 11?\n(A) 22 (B) 23 (C) 24 (D) 25 (E) 26", a: 23 },
-  { q: "How many prime numbers are between 10 and 30?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 5 },
+  { q: "How many prime numbers are between 10 and 30?\n(A) 3 (B) 4 (C) 5 (D) 6 (E) 7", a: 6 },
 ];
 
 const OWL_HELP = [
@@ -997,9 +1031,20 @@ function owlTryActivate() {
   owlState.active = true;
   owlState.problem = AMC_PROBLEMS[Math.floor(Math.random()*AMC_PROBLEMS.length)];
 
+  // Reveal DM channel and show notification dot
+  document.getElementById("ch-dm-owl").style.display = "";
+  document.getElementById("owl-notif").style.display = "";
+
   addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
     text: OWL_HELP[Math.floor(Math.random()*OWL_HELP.length)],
     embed: { title: "AMC Problem", body: owlState.problem.q.replace(/\n/g,"<br>") },
+  });
+
+  // Seed the DM channel with the same problem so the solver can see it there
+  addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+    text: "psst!! DM me the answer to this 👇",
+    embed: { title: "AMC Problem", body: owlState.problem.q.replace(/\n/g,"<br>") },
+    channel: "dm-owl",
   });
 
   owlState.typingTimer1 = setTimeout(function() {
@@ -1024,12 +1069,15 @@ function owlTryActivate() {
     hideTyping();
     addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
       text: "nvm i found the answer!! it's `" + owlState.problem.a + "`" });
+    addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
+      text: "too late!! 😤", channel: "dm-owl" });
     // Post the answer to the channel — goes through game logic
     const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
       text: String(owlState.problem.a) });
     processExpr(String(owlState.problem.a), omsgId, false);
     owlState.active = false;
     owlState.problem = null;
+    document.getElementById("owl-notif").style.display = "none";
   }, 43000);
 }
 
@@ -1042,12 +1090,13 @@ function owlHandleDmAnswer(n) {
   hideTyping();
   if (n === owlState.problem.a) {
     addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "yesss that's right!! thank youuu 🦉✅", channel: "dm" });
+      text: "yesss that's right!! thank youuu 🦉✅", channel: "dm-owl" });
     owlState.active = false;
     owlState.problem = null;
+    document.getElementById("owl-notif").style.display = "none";
   } else {
     addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true,
-      text: "hmm i think the answer might be `"+n+"`...", channel: "dm" });
+      text: "hmm i think the answer might be `"+n+"`...", channel: "dm-owl" });
     // Post wrong answer to channel
     const omsgId = addMessage({ author: "Quiz Owl 🦉", color: "#e09040", botTag: true, text: String(n) });
     processExpr(String(n), omsgId, false);
