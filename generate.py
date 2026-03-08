@@ -243,4 +243,18 @@ for puzzle in site["puzzles"]:
         ),
     )
 
+# 7. Hints pages
+print("\nGenerating hints pages...")
+for puzzle in site["puzzles"]:
+    if puzzle.get("hints"):
+        write(
+            OUT / "hints" / puzzle["slug"] / "index.html",
+            env.get_template("hints.html").render(
+                puzzle=puzzle,
+                parent_round=parent_round_for_puzzle(puzzle),
+                hunt=hunt_for_puzzle(puzzle),
+                unlockables_by_slug=unlockables,
+            ),
+        )
+
 print("\nDone!")

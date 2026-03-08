@@ -24,6 +24,7 @@
             <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
         {% endif %}
         {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
+        {% if puzzle.hints %}<a href="../../hints/{{ puzzle.slug | urlencode }}/index.html">View hints</a> &bull;{% endif %}
         <a href="{{ solution_url }}">View solution</a>
     </div>
     {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}

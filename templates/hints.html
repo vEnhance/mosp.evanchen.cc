@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% set root = "../../" %}
+{% set puzzle_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+{% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
+{% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
+{% set unlock_url = "../../unlock/" ~ (unlockable.slug | urlencode) ~ "/index.html" if unlockable else "" %}
+{% block title %}Hints: {{ puzzle.name }}{% endblock %}
+{% block page_meta %}
+    {% if hunt %}
+        <script>window.MOSP_VOLUME={{ hunt.volume_number | tojson }};window.MOSP_HEART={{ hunt.heart | tojson }};</script>
+    {% endif %}
+{% endblock %}
+{% block back_nav %}<a class="emoji-link" href="{{ puzzle_url }}">&#x1F199;</a>{% endblock %}
+{% block southeast %}<a href="{{ puzzle_url }}">Back to puzzle</a>{% endblock %}
+{% block content %}
+    <h1>{{ puzzle.name }}</h1>
+    <p style="text-align:center">
+        <em>Hints</em>
+    </p>
+    <div class="text-sm puzzle-nav-links">
+        {% if parent_round %}
+            <a href="../../chapter/{{ parent_round.slug | urlencode }}/index.html">Back to round</a> &bull;
+        {% endif %}
+        {% if unlock_url %}<a href="{{ unlock_url }}">Back to story</a> &bull;{% endif %}
+        <a href="{{ puzzle_url }}">Back to puzzle</a> &bull;
+        <a href="{{ solution_url }}">View solution</a>
+    </div>
+    <p class="fourthwall">
+        During the actual 2021 hunt, teams could spend <em>patience</em> tokens to
+        purchase hints. The costs are shown below for historical interest, but they
+        have no effect here. Click any answer to reveal it.
+    </p>
+    <div id="hints-list">
+        {% for hint in puzzle.hints %}
+            <div class="hint-item">
+                <p class="hint-question">
+                    <strong>Q{{ loop.index }}.</strong> {{ hint.question }}
+                    <span class="hint-cost">(cost: {{ hint.cost }})</span>
+                </p>
+                <p class="hint-answer blurred" title="Click to reveal">{{ hint.answer }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="{{ root }}js/hints.js" defer></script>
+{% endblock %}

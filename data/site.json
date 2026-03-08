@@ -69,7 +69,19 @@
         "post_solve_image_path": "2021/bridge.png",
         "post_solve_image_alt": "Cross the bridge..."
       },
-      "unlockable_slug": "bridge"
+      "unlockable_slug": "bridge",
+      "hints": [
+        {
+          "question": "How long is the answer?",
+          "answer": "The answer is 12 letters long.",
+          "cost": 4
+        },
+        {
+          "question": "What should I fill the asterisks with?",
+          "answer": "Try to form a hex color code and then search the color matching it.",
+          "cost": 10
+        }
+      ]
     },
     {
       "name": "Lost In Translation",
@@ -97,7 +109,24 @@
         "post_solve_image_path": "2021/gfriend.png",
         "post_solve_image_alt": "Farewell GFRIEND, we will miss you <3"
       },
-      "unlockable_slug": "handbook"
+      "unlockable_slug": "handbook",
+      "hints": [
+        {
+          "question": "I have no idea what do with the given strings.",
+          "answer": "All the strings are in the same foreign language. Translate them.",
+          "cost": 10
+        },
+        {
+          "question": "I figured out what the given strings mean but don't know what to do with them.",
+          "answer": "All the band names have something in common. Index that into the original section titles.",
+          "cost": 15
+        },
+        {
+          "question": "I extracted one word but everything else is gibberish.",
+          "answer": "Translate the given text again.",
+          "cost": 20
+        }
+      ]
     },
     {
       "name": "The IMO Begins",
@@ -112,7 +141,24 @@
         "post_solve_image_path": "2021/calendar.png",
         "post_solve_image_alt": "Date tetris, colorized."
       },
-      "unlockable_slug": "calendar"
+      "unlockable_slug": "calendar",
+      "hints": [
+        {
+          "question": "How long is the answer?",
+          "answer": "The answer is 10 letters long.",
+          "cost": 15
+        },
+        {
+          "question": "Which day in each calendar should I be looking at?",
+          "answer": "There is exactly one filled row and one filled column, so think about where they meet.",
+          "cost": 25
+        },
+        {
+          "question": "What is up with the months?",
+          "answer": "Think about the title, and the flavor text.",
+          "cost": 25
+        }
+      ]
     },
     {
       "name": "Kindergarten",
@@ -132,7 +178,34 @@
         "post_solve_image_path": "2021/flowchart.png",
         "post_solve_image_alt": "Finding five friends?"
       },
-      "unlockable_slug": "discord"
+      "unlockable_slug": "discord",
+      "hints": [
+        {
+          "question": "I can't get a score higher than 1.",
+          "answer": "For the second line, try \"7 - 5 * 1\".",
+          "cost": 20
+        },
+        {
+          "question": "I got past 50 but didn't get the extra hint. Can I just have it?",
+          "answer": "The six extra emojis say N O T :tea: :moneybag: :tea:.",
+          "cost": 60
+        },
+        {
+          "question": "How should the emojis I get be arranged for extraction?",
+          "answer": "Each line is an equation with one question mark. You don't need to re-order them.",
+          "cost": 30
+        },
+        {
+          "question": "How do I convert the emojis?",
+          "answer": "Use A=1, ..., Z=26 (reread the DM you got from Steve).",
+          "cost": 50
+        },
+        {
+          "question": "How long is the answer?",
+          "answer": "The answer is 3 words long, word lengths are 4 9 4.",
+          "cost": 30
+        }
+      ]
     },
     {
       "name": "P53GZ7",
@@ -147,7 +220,19 @@
         "post_solve_image_path": "2021/cow.png",
         "post_solve_image_alt": "Propoganda at its finest."
       },
-      "unlockable_slug": "gradescope"
+      "unlockable_slug": "gradescope",
+      "hints": [
+        {
+          "question": "I don't know what to do with the title.",
+          "answer": "Try joining Gradescope with it.",
+          "cost": 15
+        },
+        {
+          "question": "I finished the relay and don't know what to do with the numbers that appeared.",
+          "answer": "Take the continued fractions.",
+          "cost": 50
+        }
+      ]
     },
     {
       "name": "Zoom Network Park",
@@ -167,7 +252,29 @@
         "post_solve_image_path": "2021/towers.png",
         "post_solve_image_alt": "A scenic sunset from Zoom HQ."
       },
-      "unlockable_slug": "zoom"
+      "unlockable_slug": "zoom",
+      "hints": [
+        {
+          "question": "I don't understand what the symbols in the diagram are for.",
+          "answer": "Look at the list of common puzzle encodings.",
+          "cost": 40
+        },
+        {
+          "question": "I don't know how to use the three digit numbers.",
+          "answer": "There's a Zoom meeting for each point and this is part of the ID.",
+          "cost": 40
+        },
+        {
+          "question": "Why is the asy source file provided?",
+          "answer": "Look at A = 953 1568 0293 as an example, and check coordinates.",
+          "cost": 40
+        },
+        {
+          "question": "What do I do with the network I found?",
+          "answer": "Think about this year's USAMO problems.",
+          "cost": 40
+        }
+      ]
     },
     {
       "name": "mtbcupg",
@@ -187,7 +294,29 @@
         "post_solve_image_path": "2021/lincoln.jpg",
         "post_solve_image_alt": "Lincoln, NE."
       },
-      "unlockable_slug": "classroom"
+      "unlockable_slug": "classroom",
+      "hints": [
+        {
+          "question": "I don't know what to do with the title.",
+          "answer": "Try joining Google Classroom.",
+          "cost": 15
+        },
+        {
+          "question": "How long is the answer?",
+          "answer": "The answer is 10 letters long, but it comes from a 6-letter cluephrase.",
+          "cost": 30
+        },
+        {
+          "question": "What do I do with answers?",
+          "answer": "Only six problems matter. Treat the answers as years in 2000-2020.",
+          "cost": 30
+        },
+        {
+          "question": "What do the three boxes mean?",
+          "answer": "Country codes.",
+          "cost": 50
+        }
+      ]
     },
     {
       "name": "Sticks And Stones",
@@ -202,7 +331,39 @@
         "post_solve_image_path": "2021/ending.png",
         "post_solve_image_alt": "Don't think too hard about it."
       },
-      "unlockable_slug": "map"
+      "unlockable_slug": "map",
+      "hints": [
+        {
+          "question": "What do the green cells mean?",
+          "answer": "Think about common puzzle encodings.",
+          "cost": 20
+        },
+        {
+          "question": "What do the blue numbers mean?",
+          "answer": "They correspond to the ordered sequence in the JMO solution.",
+          "cost": 40
+        },
+        {
+          "question": "What are the strokes the flavor text refers to?",
+          "answer": "The seven answers, which should be placed crossword style.",
+          "cost": 30
+        },
+        {
+          "question": "What are the stones the flavor text refers to?",
+          "answer": "Doesn't the flavor text sound somewhat strange when said?",
+          "cost": 30
+        },
+        {
+          "question": "I still can't tell where the stones are.",
+          "answer": "Notice that each answer has the letter S exactly once.",
+          "cost": 80
+        },
+        {
+          "question": "What do I do after placing the words?",
+          "answer": "Trace out the symbol and look at green letters.",
+          "cost": 40
+        }
+      ]
     },
     {
       "name": "Data Connection",

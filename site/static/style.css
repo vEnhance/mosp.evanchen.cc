@@ -621,6 +621,7 @@ body.puzzle-page #footer {
 /* Puzzle-specific head section (dashed box, from dark.css #puzzlehead) */
 #puzzlehead {
   margin-top: 3px;
+  margin-bottom: 16px;
   border: 2px dashed #aaaaaa;
   border-radius: 12px;
   padding: 20px 15px 25px;
@@ -726,7 +727,7 @@ a.door:hover {
   color: #aaa;
   margin-bottom: 1rem;
 }
-.puzzle-nav-links a {
+.puzzle-page .puzzle-nav-links a {
   color: #7eb8f7;
 }
 
@@ -837,11 +838,55 @@ a.door:hover {
   }
 }
 
-p.fourthwall {
+/* ── Hints page ── */
+.hint-item {
+  margin: 1.2rem 0;
+}
+
+.hint-question {
+  margin-bottom: 0.3rem;
+}
+
+.hint-cost {
+  font-size: 0.85em;
+  color: #888;
+  font-style: italic;
+}
+
+.hint-answer {
+  margin-left: 1.5rem;
+  padding: 0.3rem 0.5rem;
+  background: #ddd;
+  border-radius: 4px;
+  display: inline-block;
+  white-space: pre-wrap;
+}
+
+.hint-answer.blurred {
+  filter: blur(5px);
+  background: #222;
+  cursor: pointer;
+  user-select: none;
+  transition: filter 0.2s;
+}
+
+.hint-answer.blurred:hover {
+  filter: blur(3px);
+}
+
+.puzzle-page p.fourthwall {
   border: 3px #dd9999 dotted;
   padding: 6px;
   border-radius: 6px;
   background: #330000;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+p.fourthwall {
+  border: 3px #aa5555 dotted;
+  padding: 6px;
+  border-radius: 6px;
+  background: #ff9999;
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
