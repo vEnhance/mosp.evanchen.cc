@@ -28,8 +28,8 @@
       "chapter_number": "1",
       "show_chapter_number": true,
       "slug": "mosp-world-map",
-      "thumbnail_path": "2021/map-sm.png",
-      "round_text": "![MOSP 2021 Online Map](/static/2021/map-sm.png)\r\n\r\nSince the hunt has ended, all the puzzles are now unlocked, so you can solve them in any order."
+      "thumbnail_path": "2021/map.png",
+      "round_text": "![MOSP 2021 Online Map](/static/2021/map.png)\r\n\r\nSince the hunt has ended, all the puzzles are now unlocked, so you can solve them in any order."
     },
     {
       "unlockable_slug": "mop-intro",
@@ -37,8 +37,8 @@
       "chapter_number": "0",
       "show_chapter_number": true,
       "slug": "welcome",
-      "thumbnail_path": "2021/ch0map-sm.png",
-      "round_text": "![Online Map 2021](/static/2021/ch0map-sm.png){.w-5/6 .mx-auto}"
+      "thumbnail_path": "2021/ch0map.png",
+      "round_text": "![Online Map 2021](/static/2021/ch0map.png){.w-5/6 .mx-auto}"
     },
     {
       "unlockable_slug": "reversed",
@@ -129,7 +129,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/cow-sm.png",
+        "post_solve_image_path": "2021/cow.png",
         "post_solve_image_alt": "Propoganda at its finest."
       },
       "unlockable_slug": "discord"
@@ -144,7 +144,7 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/flowchart-sm.png",
+        "post_solve_image_path": "2021/flowchart.png",
         "post_solve_image_alt": "Finding five friends?"
       },
       "unlockable_slug": "gradescope"
@@ -164,7 +164,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/towers-sm.png",
+        "post_solve_image_path": "2021/towers.png",
         "post_solve_image_alt": "A scenic sunset from Zoom HQ."
       },
       "unlockable_slug": "zoom"
@@ -184,7 +184,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/lincoln-sm.jpg",
+        "post_solve_image_path": "2021/lincoln.jpg",
         "post_solve_image_alt": "Lincoln, NE."
       },
       "unlockable_slug": "classroom"
@@ -199,7 +199,7 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/ending-sm.png",
+        "post_solve_image_path": "2021/ending.png",
         "post_solve_image_alt": "Don't think too hard about it."
       },
       "unlockable_slug": "map"
