@@ -1,9 +1,9 @@
-During the actual 2021 hunt, solvers had to dial into real Zoom meetings
-to traverse the network. For the archival version, use the
-**[Zoom client simulator](../../static/zoom-client.html)** (opens in this tab)
-instead of a real Zoom client — it faithfully recreates the meeting navigation.
-
----
+<p class="fourthwall" markdown="1">
+During the actual 2021 hunt,
+solvers had to dial into real Zoom meetings.
+An archival adaptation is available at the
+**[Zoom client simulator](../../mock/zoom-client.html)**.
+</p>
 
 You find the following email from Steve.
 
@@ -28,6 +28,7 @@ One tap mobile
 +16699006833,,95315680293# US (San Jose)
 
 Meeting ID: 953 1568 0293
+
 </div>
 </div>
 

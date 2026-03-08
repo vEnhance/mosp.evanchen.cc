@@ -237,29 +237,49 @@ pre {
 
 /* Glowing image links (generic) */
 @keyframes glow-blue {
-  from { box-shadow: 0px 0px 15px #55ffff; }
-  to   { box-shadow: 0px 0px 20px #6666dd; }
+  from {
+    box-shadow: 0px 0px 15px #55ffff;
+  }
+  to {
+    box-shadow: 0px 0px 20px #6666dd;
+  }
 }
 @keyframes glow-yellow {
-  from { box-shadow: 0px 0px 35px #bbbb33; }
-  to   { box-shadow: 0px 0px 45px #eeeecc; }
+  from {
+    box-shadow: 0px 0px 35px #bbbb33;
+  }
+  to {
+    box-shadow: 0px 0px 45px #eeeecc;
+  }
 }
 
 /* ── "Proceed" glow animations (door, solve key, on-solve images) ── */
 @keyframes proceed-emoji-pulse {
-  0%, 100% {
-    text-shadow: 0 0 6px #00cca7, 0 0 12px #00cca7;
+  0%,
+  100% {
+    text-shadow:
+      0 0 6px #00cca7,
+      0 0 12px #00cca7;
   }
   50% {
-    text-shadow: 0 0 16px #00ffcc, 0 0 32px #00cca7, 0 0 50px #007755;
+    text-shadow:
+      0 0 16px #00ffcc,
+      0 0 32px #00cca7,
+      0 0 50px #007755;
   }
 }
 @keyframes proceed-image-pulse {
-  0%, 100% {
-    box-shadow: 0 0 8px #00cca7, 0 0 18px #00cca7;
+  0%,
+  100% {
+    box-shadow:
+      0 0 8px #00cca7,
+      0 0 18px #00cca7;
   }
   50% {
-    box-shadow: 0 0 20px #00ffcc, 0 0 42px #00cca7, 0 0 64px #007755;
+    box-shadow:
+      0 0 20px #00ffcc,
+      0 0 42px #00cca7,
+      0 0 64px #007755;
   }
 }
 #container a.img-link > img {
@@ -939,4 +959,13 @@ a.door:hover {
   #answer {
     font-size: 110%;
   }
+}
+
+p.fourthwall {
+  border: 3px #dd9999 dotted;
+  padding: 6px;
+  border-radius: 6px;
+  background: #330000;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

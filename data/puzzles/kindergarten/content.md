@@ -1,13 +1,9 @@
-During the actual 2021 hunt, this puzzle ran on a live Discord server where
-a bot called Steve managed a cooperative haiku-counting game. Since that server
-is no longer active, use the
-**[Discord client simulator](../../static/discord-client.html)** (opens in this tab)
-to interact with the archival version of Steve.
+<p class="fourthwall" markdown="1">
+During the actual 2021 hunt,
+solvers had to interact with Steve on a real Discord server
+to play a cooperative counting game (for 3-6 people).
+A single-player adaptation is hosted at
+**[Discord client simulator](../../mock/discord-client.html)**.
+</p>
 
----
-
-This is a cooperative puzzle for 3-6 people,
-and you are welcome/encouraged to work with people in other clans.
-
-To start, open the Discord simulator above and send Steve a direct message
-`teach me a lesson` in the **Steve** DM channel.
+To start, send Steve a direct message “teach me a lesson”!
