@@ -891,12 +891,44 @@ p.fourthwall {
   margin-bottom: 1rem;
 }
 
-/* ── Full-resolution download link injected by imgfullres.ts ── */
+/* ── Post-solve image caption (solution page, above the image) ── */
+p.post-solve-caption {
+  margin-bottom: 0.25rem;
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+}
+
+/* ── Alt-text caption injected below block images by imgfullres.ts ── */
+p.img-caption {
+  text-align: center;
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+  color: #aaa;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* ── Full-resolution download button injected by imgfullres.ts ── */
 p.fullres-download {
   text-align: center;
   margin-top: 2.5rem;
   margin-bottom: 0;
-  font-size: 0.85em;
+}
+p.fullres-download a {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  background: #1a1a2e;
+  color: #ccc;
+  border: 1px solid #555;
+  border-radius: 6px;
+  font-size: 0.8em;
+  text-decoration: none;
+}
+p.fullres-download a:hover {
+  background: #2a2a40;
+  color: #eee;
+  border-color: #888;
 }
 
 /* ── Utilities ── */
