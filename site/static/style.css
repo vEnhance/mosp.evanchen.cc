@@ -891,22 +891,11 @@ p.fourthwall {
   margin-bottom: 1rem;
 }
 
-/* ── Post-solve image caption (solution page, above the image) ── */
-p.post-solve-caption {
-  margin-bottom: 0.25rem;
-  color: #aaa;
-  font-style: italic;
-  text-align: center;
-}
-
-/* ── Alt-text caption injected below block images by imgfullres.ts ── */
+/* ── Alt-text caption injected above block images by imgfullres.ts ── */
 p.img-caption {
   text-align: center;
-  margin-top: 0.3rem;
-  margin-bottom: 0;
-  color: #aaa;
+  margin-bottom: 0.25rem;
   font-style: italic;
-  font-size: 0.9em;
 }
 
 /* ── Full-resolution download button injected by imgfullres.ts ── */

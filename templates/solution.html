@@ -36,11 +36,6 @@
     </div>
     {% if files.post_solve_story %}<div class="post-solve-story">{{ files.post_solve_story | md }}</div>{% endif %}
     {% if puzzle.solution.post_solve_image_path %}
-        {% if puzzle.solution.post_solve_image_alt %}
-            <p class="text-center post-solve-caption">
-                <em>{{ puzzle.solution.post_solve_image_alt }}</em>
-            </p>
-        {% endif %}
         <p class="text-center">
             <a class="proceed-link" href="{{ on_solve_url }}">
                 {# djlint:off H006 #}
