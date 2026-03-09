@@ -891,6 +891,14 @@ p.fourthwall {
   margin-bottom: 1rem;
 }
 
+/* ── Full-resolution download link injected by imgfullres.ts ── */
+p.fullres-download {
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 0;
+  font-size: 0.85em;
+}
+
 /* ── Utilities ── */
 .text-center {
   text-align: center;
