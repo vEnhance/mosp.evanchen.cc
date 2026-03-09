@@ -60,7 +60,7 @@ One then walks the graph as in this year's [USAMO2 problem][usamo2],
 as hinted by the title of the puzzle being "Zoom Network Park".
 Starting with the marked arrow, we get the following path:
 
-![Illustrated initial path](/static/2021/solution-diagram-p0.png)
+![Illustrated initial path](/static/2021/zoom/solution-diagram-p0.png)
 
 Tracing the path out and reading the Morse code
 (there are many dots and dashes drawn on the edges),
@@ -109,9 +109,9 @@ F ==> E ==> B ==> A ==> C ==> L ==> J ==> K
 
 Both paths are illustrated below.
 
-![The first path for extraction](/static/2021/solution-diagram-p1.png)
+![The first path for extraction](/static/2021/zoom/solution-diagram-p1.png)
 
-![The second path for extraction](/static/2021/solution-diagram-p2.png)
+![The second path for extraction](/static/2021/zoom/solution-diagram-p2.png)
 
 Finally, reading the numbered arrows
 and reading Morse gives
