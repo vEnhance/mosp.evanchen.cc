@@ -51,10 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const containerParent = blockParent.parentNode;
     if (!containerParent) return;
 
+    // The solution template already renders a caption *above* the image for
+    // proceed-link images, so don't add a second one below.
+    const isProceedLink = anchor?.classList.contains("proceed-link") ?? false;
+
     // Build list of elements to insert after blockParent, in order.
     const toInsert: HTMLElement[] = [];
 
-    if (alt) {
+    if (alt && !isProceedLink) {
       const caption = document.createElement("p");
       caption.className = "img-caption";
       caption.textContent = alt;
