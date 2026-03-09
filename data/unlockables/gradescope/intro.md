@@ -1,7 +1,7 @@
 You head to the northeast part of the campus and find,
 to your mild disbelief, a herd of cows hanging around outside the grader's headquarters.
 Not just one herd, in fact.
-No, more like a dozen herds of maybe a dozen-odd cows each,.
+No, more like a dozen herds of maybe a dozen-odd cows each.
 
 But oddly enough, the cows aren't standing up like you'd expect.
 They're all... _sitting_. With laptops. Typing on the laptops.
