@@ -43,7 +43,7 @@ That's gutsy." Steve grins mischievously.
 
 There's a bit of silence as the meaning of what Steve says slowly sinks in.
 
-![His name's Steve I guess.](/static/2021/meeting-sm.png)
+![His name's Steve I guess.](/static/thumbnails/meeting.png)
 
 Steve, on the other hand, seems totally non-serious.
 "Heya, don't look so shell-shocked. There's a way out, 'course.

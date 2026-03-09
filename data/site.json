@@ -28,8 +28,8 @@
       "chapter_number": "1",
       "show_chapter_number": true,
       "slug": "mosp-world-map",
-      "thumbnail_path": "2021/map-sm.png",
-      "round_text": "![MOSP 2021 Online Map](/static/2021/map-sm.png)"
+      "thumbnail_path": "thumbnails/map.png",
+      "round_text": "![MOSP 2021 Online Map](/static/thumbnails/map.png)"
     },
     {
       "unlockable_slug": "mop-intro",
@@ -37,8 +37,8 @@
       "chapter_number": "0",
       "show_chapter_number": true,
       "slug": "welcome",
-      "thumbnail_path": "2021/ch0map-sm.png",
-      "round_text": "![Online Map 2021](/static/2021/ch0map-sm.png){.w-5/6 .mx-auto}"
+      "thumbnail_path": "thumbnails/ch0map.png",
+      "round_text": "![Online Map 2021](/static/thumbnails/ch0map.png){.w-5/6 .mx-auto}"
     },
     {
       "unlockable_slug": "reversed",
@@ -66,7 +66,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/bridge-sm.png",
+        "post_solve_image_path": "thumbnails/bridge.png",
         "post_solve_image_alt": "Cross the bridge..."
       },
       "unlockable_slug": "bridge",
@@ -106,7 +106,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/gfriend-sm.png",
+        "post_solve_image_path": "thumbnails/gfriend.png",
         "post_solve_image_alt": "Farewell GFRIEND, we will miss you <3"
       },
       "unlockable_slug": "handbook",
@@ -138,7 +138,7 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/calendar-sm.png",
+        "post_solve_image_path": "thumbnails/calendar.png",
         "post_solve_image_alt": "Date tetris, colorized."
       },
       "unlockable_slug": "calendar",
@@ -175,7 +175,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/flowchart-sm.png",
+        "post_solve_image_path": "thumbnails/flowchart.png",
         "post_solve_image_alt": "Finding five friends?"
       },
       "unlockable_slug": "discord",
@@ -217,7 +217,7 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/cow-sm.png",
+        "post_solve_image_path": "thumbnails/cow.png",
         "post_solve_image_alt": "Propaganda at its finest."
       },
       "unlockable_slug": "gradescope",
@@ -249,7 +249,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/towers-sm.png",
+        "post_solve_image_path": "thumbnails/towers.png",
         "post_solve_image_alt": "A scenic sunset from Zoom HQ."
       },
       "unlockable_slug": "zoom",
@@ -291,7 +291,7 @@
         }
       ],
       "solution": {
-        "post_solve_image_path": "2021/lincoln-sm.jpg",
+        "post_solve_image_path": "thumbnails/lincoln.jpg",
         "post_solve_image_alt": "Lincoln, NE."
       },
       "unlockable_slug": "classroom",
@@ -328,7 +328,7 @@
       ],
       "partial_answers": [],
       "solution": {
-        "post_solve_image_path": "2021/ending-sm.png",
+        "post_solve_image_path": "thumbnails/ending.png",
         "post_solve_image_alt": "Don't think too hard about it."
       },
       "unlockable_slug": "map",

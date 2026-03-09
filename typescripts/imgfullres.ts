@@ -4,11 +4,11 @@
  * 1. If the image has a non-empty alt attribute, inject a
  *    <p class="img-caption"> with the alt text *above* the image paragraph.
  *
- * 2. If the image src ends in -sm.png or -sm.jpg, also inject a
+ * 2. If the image src is under /static/thumbnails/, also inject a
  *    <p class="fullres-download"> with a button-style link *below* the image
  *    that opens the full-resolution version in a new tab.  The full-res URL
- *    is derived by stripping the "-sm" infix:
- *      /static/2021/map-sm.png  →  /static/2021/map.png
+ *    is derived by replacing /thumbnails/ with /artwork/:
+ *      /static/thumbnails/map.png  →  /static/artwork/map.png
  *
  * Images with class "signature" are treated as decorative and skipped.
  */
@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Download button goes AFTER the image paragraph.
-    if (/-sm\.(png|jpg)$/.test(src)) {
-      const fullSrc = src.replace(/-sm(\.(png|jpg))$/, "$1");
+    if (src.includes("/static/thumbnails/")) {
+      const fullSrc = src.replace("/static/thumbnails/", "/static/artwork/");
       const wrapper = document.createElement("p");
       wrapper.className = "fullres-download";
       const link = document.createElement("a");
