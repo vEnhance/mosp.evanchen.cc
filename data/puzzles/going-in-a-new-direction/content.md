@@ -1,1 +1,1 @@
-[Download puzzle](https://drive.google.com/file/d/1XR2U4n5vrW8zVezASSyThxihs1UjWrOl/view?usp=sharing)
+[Download puzzle (PDF)](/static/2022/going-in-a-new-direction.pdf)

@@ -1,1 +1,1 @@
-[Download puzzle](https://drive.google.com/file/d/1B6p-BkKr7LariDFruav8OUCezdjj8Ytu/view?usp=sharing)
+[Download puzzle (PDF)](/static/2022/the-starry-knight.pdf)
