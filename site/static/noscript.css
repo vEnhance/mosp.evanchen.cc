@@ -1,0 +1,9 @@
+.col-title-js-pending {
+  visibility: visible;
+}
+#status {
+  display: none;
+}
+#puzzlehead {
+  display: none;
+}
