@@ -116,7 +116,7 @@ div.card:hover span.tooltip {
   min-width: 500px;
 }
 
-#tragedy {
+#set-cards {
   z-index: -1;
   opacity: 1;
   position: fixed;

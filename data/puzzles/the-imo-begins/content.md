@@ -1,4 +1,4 @@
-<div id="tragedy">
+<div id="set-cards">
 <svg>
 <defs>
 <path
@@ -34,9 +34,14 @@ patternUnits="userSpaceOnUse"
 </svg>
 </div>
 
-<div markdown="1" class="left">
 - The board is initially empty (i.e. has no stones).
-- Each minute, if there is an L-shaped tromino region of three cells on the board (rotations _are_ allowed) ...
+- Each minute, if there is an L-shaped tromino region
+  of three cells on the board (rotations _are_ allowed) ...
 - You should stop after eight minutes.
 - There should be exactly one completely filled row and one completely filled column.
-</div>
+
+<noscript>
+<p class="fourthwall">
+This puzzle requires JavaScript to function.
+</p>
+</noscript>
