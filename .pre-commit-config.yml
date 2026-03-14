@@ -35,11 +35,9 @@ repos:
     hooks:
       - id: djlint-reformat-jinja
         name: djlint reformat
-        types: [html]
         files: ^templates/
       - id: djlint-jinja
         name: djlint check
-        types: [html]
         files: ^templates/
 
   - repo: https://github.com/JoC0de/pre-commit-prettier
