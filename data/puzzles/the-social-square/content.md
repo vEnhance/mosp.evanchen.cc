@@ -1,5 +1,7 @@
 <p class="fourthwall" markdown="1">
-  Parts of this puzzle may not be post-solvable.
+  The first third of this puzzle is no longer postsolvable.
+  However, it only contributed one letter to the answer,
+  so the puzzle may still be gettable.
 </p>
 
 <video controls style="max-width:100%;">
