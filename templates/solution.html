@@ -44,17 +44,21 @@
                 {# djlint:on H006 #}
             </a>
         </p>
+    {% else %}
+        <h2 class="text-center">
+            <a href="{{ on_solve_url }}">Continue →</a>
+        </h2>
     {% endif %}
-    <div class="solution-text">
-        <h2>Solution</h2>
-        {% if files.solution_text %}
+    {% if files.solution_text %}
+        <div class="solution-text">
+            <h2>Solution</h2>
             {{ files.solution_text | md }}
-        {% else %}
-            <p>
-                <em>Solution text stub — to be written.</em>
-            </p>
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <p>
+            <em>No solution has been provided here.</em>
+        </p>
+    {% endif %}
     {% if files.author_notes %}
         <div class="author-notes">
             <h2>Author Notes</h2>

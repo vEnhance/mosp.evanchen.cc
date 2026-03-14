@@ -490,6 +490,10 @@ div.strong-emph em {
 .puzzle-table .col-title {
   width: 40%;
 }
+/* Hide puzzle title until JS has decided what to show (prevents name flash) */
+.col-title-js-pending {
+  visibility: hidden;
+}
 .puzzle-table .col-answer {
   width: 35%;
   font-family: Inconsolata, monospace;

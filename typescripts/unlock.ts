@@ -255,11 +255,12 @@ interface Window {
         revealAnswer(answerCell);
       }
 
+      const cell = row.querySelector(".col-title") as HTMLElement | null;
+
       if (!window.MOSP_isVisible!(u)) {
         // Locked: dim the row and show a lock message; clear the title
         row.classList.add("locked");
         anyLocked = true;
-        const cell = row.querySelector(".col-title");
         if (cell) {
           cell.innerHTML = "";
           const msg = document.createElement("span");
@@ -272,9 +273,17 @@ interface Window {
               : "\uD83D\uDD12 Locked";
           cell.appendChild(msg);
         }
+      } else if (!u.intro_story_text) {
+        // Visible but no story text: auto-open and link location directly to puzzle
+        window.MOSP_markOpened!(u.slug);
+        const locLink = row.querySelector(
+          ".col-location a",
+        ) as HTMLAnchorElement | null;
+        if (locLink) {
+          locLink.replaceWith(document.createTextNode(locLink.textContent || ""));
+        }
       } else if (!window.MOSP_isOpened!(u.slug)) {
         // Visible but story not yet visited: show "New puzzle found!" placeholder
-        const cell = row.querySelector(".col-title");
         if (cell) {
           const span = document.createElement("span");
           span.className = "new-puzzle";
@@ -284,6 +293,11 @@ interface Window {
         }
       }
       // else: visible and opened — template-rendered puzzle name + link stands
+
+      // Always reveal the title cell once JS has decided what to show
+      if (cell) {
+        cell.style.visibility = "visible";
+      }
     });
   });
 })();

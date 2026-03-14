@@ -41,7 +41,7 @@
                             <td class="col-location">
                                 <a href="../../unlock/{{ u.slug | urlencode }}/index.html">{{ u.icon }} {{ u.name }}</a>
                             </td>
-                            <td class="col-title">
+                            <td class="col-title col-title-js-pending">
                                 {% if puzzle.is_meta %}<strong>{% endif %}
                                     <a href="../../puzzle/{{ puzzle.slug | urlencode }}/index.html">{{ puzzle.name }}</a>
                                     {% if puzzle.is_meta %}</strong>{% endif %}
