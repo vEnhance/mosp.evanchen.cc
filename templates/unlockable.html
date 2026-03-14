@@ -9,8 +9,6 @@
 {% endif %}
 {% if parent_round %}
     {% set back_url = "../../chapter/" ~ (parent_round.slug | urlencode) ~ "/index.html" %}
-{% elif dest_round and hunt %}
-    {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
 {% elif hunt %}
     {% set back_url = "../../vol/" ~ (hunt.volume_number | urlencode) ~ "/index.html" %}
 {% else %}
@@ -26,7 +24,15 @@
     <script>window.MOSP_UNLOCK_SLUG={{ unlockable.slug | tojson }};</script>
 {% endblock page_meta %}
 {% block back_nav %}
-    <a class="emoji-link" href="{{ back_url }}">🔙</a>
+    <a class="emoji-link" href="{{ back_url }}">
+        {% if parent_round %}
+            🗺️
+        {% elif hunt %}
+            🔝
+        {% else %}
+            🏠
+        {% endif %}
+    </a>
 {% endblock back_nav %}
 {% block content %}
     <h1>{{ unlockable.icon }} {{ unlockable.name }}</h1>
