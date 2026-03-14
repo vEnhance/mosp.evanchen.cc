@@ -280,7 +280,9 @@ interface Window {
           ".col-location a",
         ) as HTMLAnchorElement | null;
         if (locLink) {
-          locLink.replaceWith(document.createTextNode(locLink.textContent || ""));
+          locLink.replaceWith(
+            document.createTextNode(locLink.textContent || ""),
+          );
         }
       } else if (!window.MOSP_isOpened!(u.slug)) {
         // Visible but story not yet visited: show "New puzzle found!" placeholder
