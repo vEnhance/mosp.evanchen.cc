@@ -36,7 +36,6 @@
             No hints available
         {% endif %}
     </div>
-    {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}
     <script>
 const MOSP_HASHES = {{ puzzle.hashes | tojson }};
 const MOSP_PARTIAL = {{ puzzle.partial_answers | tojson }};
@@ -62,6 +61,7 @@ const MOSP_BOUNTY = {{ courage_bounty | tojson }};
             </p>
         </div>
     </div>
+    {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}
     <div id="prize-overlay">
         <a id="prize-big" class="emoji-link" href="{{ solution_url }}">🔑</a>
     </div>
