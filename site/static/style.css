@@ -767,15 +767,17 @@ a.door:hover {
   font-size: 0.875rem;
 }
 
-/* ── Prize key overlay (shown centered on puzzle solve) ── */
+/* ── Prize key (shown below answer checker on puzzle solve) ── */
+.puzzlehead-wrap {
+  position: relative;
+}
 #prize-overlay {
   display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   font-size: 6rem;
-  z-index: 100;
   align-items: center;
   justify-content: center;
   pointer-events: auto;

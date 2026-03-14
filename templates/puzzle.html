@@ -44,26 +44,28 @@ const MOSP_SLUG = {{ puzzle.slug | tojson }};
 const MOSP_BOUNTY = {{ courage_bounty | tojson }};
     </script>
     <script src="{{ root }}js/grader.js" defer></script>
-    <div id="puzzlehead">
-        <div id="answerchecker">
-            <div class="feedback">
-                <span class="icon" id="thinking">🤔</span>
-                <span class="icon" id="wrong">❌</span>
-                <span class="icon" id="correct">✅</span>
-                <span id="feedback-text"></span>
+    <div class="puzzlehead-wrap">
+        <div id="puzzlehead">
+            <div id="answerchecker">
+                <div class="feedback">
+                    <span class="icon" id="thinking">🤔</span>
+                    <span class="icon" id="wrong">❌</span>
+                    <span class="icon" id="correct">✅</span>
+                    <span id="feedback-text"></span>
+                </div>
+                <p>
+                    <input id="answer"
+                           type="text"
+                           placeholder="ENTER ANSWER"
+                           autocomplete="off"
+                           spellcheck="false" />
+                </p>
             </div>
-            <p>
-                <input id="answer"
-                       type="text"
-                       placeholder="ENTER ANSWER"
-                       autocomplete="off"
-                       spellcheck="false" />
-            </p>
+        </div>
+        <div id="prize-overlay">
+            <a id="prize-big" class="emoji-link" href="{{ solution_url }}">🔑</a>
         </div>
     </div>
     {% if files.flavor_text %}<div class="flavor-text">{{ files.flavor_text | md }}</div>{% endif %}
-    <div id="prize-overlay">
-        <a id="prize-big" class="emoji-link" href="{{ solution_url }}">🔑</a>
-    </div>
     <div id="puzzlecontent">{{ files.content | md }}</div>
 {% endblock content %}
