@@ -1,1 +1,1 @@
-[Download puzzle](https://cdn.discordapp.com/attachments/849399389004890162/980307354958589982/the_mini_puzzle_hunt.pdf)
+[Download puzzle (PDF)](/static/2022/the-mini-puzzle-hunt.pdf)

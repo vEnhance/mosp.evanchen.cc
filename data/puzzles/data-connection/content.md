@@ -1,1 +1,1 @@
-[Download puzzle](https://cdn.discordapp.com/attachments/849399389004890162/983542355477016596/data_connection_updated.pdf)
+[Download puzzle (PDF)](/static/2022/data-connection.pdf)
