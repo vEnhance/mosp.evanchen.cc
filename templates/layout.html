@@ -16,7 +16,7 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
         <link rel="stylesheet" href="{{ root }}static/style.css" />
-        <noscript><style>.col-title-js-pending { visibility: visible; }</style></noscript>
+        <noscript><style>.col-title-js-pending { visibility: visible; } #status { display: none; }</style></noscript>
         {% block extra_head %}
         {% endblock extra_head %}
         {% block page_meta %}
@@ -36,8 +36,6 @@
                            href="#"
                            onclick="MOSP_promptName(); return false;"
                            title="Click to set your name"><span id="tokenname"></span></a>
-                        <noscript><a href="{{ root }}noscript.html"
-                               style="color: red;">JavaScript disabled!</a></noscript>
                     </span>
                     <span id="status">
                         <span class="relative navitem" id="openall">
@@ -48,7 +46,7 @@
                                 <span id="openall-text-off">Gated</span>
                                 <span id="openall-text-on">Open</span>
                             </label>
-                            <div id="openall-tooltip">
+                            <div id="openall-tooltip" class="nav-tooltip">
                                 <span id="openall-state-off">
                                     <strong>Gated mode</strong>
                                     <br>
@@ -67,13 +65,21 @@
                         </span>
                         <span class="relative navitem" id="courage">
                             <span id="courage_heart">💜</span><span id="courage_value">0</span>
-                            <div id="courage-tooltip">
+                            <div id="courage-tooltip" class="nav-tooltip">
                                 <strong>Courage</strong>
                                 <br>
                                 Earn hearts by solving puzzles.
                             </div>
                         </span>
                     </span>
+                    <noscript>
+                        <span class="relative navitem" id="noscript-warn">JavaScript disabled!
+                            <div id="noscript-tooltip" class="nav-tooltip">
+                                Answer checking and progression will be disabled.
+                                Some individual puzzles will also break.
+                            </div>
+                        </span>
+                    </noscript>
                 </nav>
                 <div id="content-inner">
                     {% block content %}

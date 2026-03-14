@@ -148,9 +148,6 @@ write(
     ),
 )
 
-# 1b. Noscript info page
-write(OUT / "noscript.html", env.get_template("noscript.html").render())
-
 
 # 2. Volume pages
 print("\nGenerating volume pages...")

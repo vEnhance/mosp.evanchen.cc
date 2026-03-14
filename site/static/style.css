@@ -133,26 +133,44 @@ span.navitem {
   cursor: default;
 }
 
+/* Shared nav tooltip base */
+.nav-tooltip {
+  display: none;
+  position: absolute;
+  top: 2rem;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  color: #111;
+}
+#courage:hover .nav-tooltip,
+#openall:hover .nav-tooltip,
+#noscript-warn:hover .nav-tooltip {
+  display: block;
+}
+
 /* Courage counter with tooltip */
 #courage {
   position: relative;
 }
 #courage-tooltip {
-  display: none;
-  position: absolute;
   right: 0;
-  top: 2rem;
   background: #bbf7d0;
-  border-radius: 0.5rem;
-  padding: 0.4rem 0.6rem;
-  font-size: 0.8rem;
   white-space: nowrap;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  color: #111;
 }
-#courage:hover #courage-tooltip {
-  display: block;
+
+/* Noscript warning with tooltip */
+#noscript-warn {
+  position: relative;
+  color: red;
+  cursor: help;
+}
+#noscript-tooltip {
+  left: 0;
+  background: #fef2f2;
+  max-width: 20rem;
 }
 
 /* ── Footer ── */
@@ -802,23 +820,11 @@ a.door:hover {
   display: inline;
 }
 
-/* Tooltip (same style as #courage-tooltip) */
+/* Open-all tooltip */
 #openall-tooltip {
-  display: none;
-  position: absolute;
   right: 0;
-  top: 2rem;
   background: #bbf7d0;
-  border-radius: 0.5rem;
-  padding: 0.4rem 0.6rem;
-  font-size: 0.8rem;
   white-space: nowrap;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  color: #111;
-}
-#openall:hover #openall-tooltip {
-  display: block;
 }
 
 /* State text swap inside tooltip */
