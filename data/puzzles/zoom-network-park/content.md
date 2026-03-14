@@ -11,7 +11,7 @@ You find the following email from Steve.
 <div id="invitation">
 SUBJECT: Meeting A@953
 FROM: steve@evanchen.cc
-TO: <span class="name fullname"></span>
+TO: <span class="name fullname">Frisk</span>
 
 Steve is inviting you to a scheduled Zoom meeting.
 

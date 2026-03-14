@@ -18,7 +18,7 @@ After all, you got here by taking an underground tunnel.
 You don't have time to sort out your bewilderment
 as the person notices you coming and glances your way.
 
-"Yo, <span class="name fullname"></span>!
+"Yo, <span class="name fullname">Frisk</span>!
 Name's Steve. Ya must be the new guy from the other side."
 
 "You... know who I am?"

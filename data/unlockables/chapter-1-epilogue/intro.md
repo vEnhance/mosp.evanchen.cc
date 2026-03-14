@@ -40,7 +40,7 @@ Assistant director of the Mathematical Olympiad Summer Program
 
 To whom it may concern,
 
-I'm writing to recommend <span class="name fullname"></span>
+I'm writing to recommend <span class="name fullname">Frisk</span>
 for an unspecified position at your organization.
 I worked with <span class="name firstname"></span>
 at MOSP in 2011.

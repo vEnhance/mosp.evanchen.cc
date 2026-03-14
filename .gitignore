@@ -5,6 +5,7 @@ site/js/
 
 # Generated HTML (site/static/ is tracked)
 site/index.html
+site/noscript.html
 site/vol/
 site/chapter/
 site/unlock/
