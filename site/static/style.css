@@ -157,6 +157,9 @@ span.navitem {
 #courage {
   position: relative;
 }
+body.no-volume #courage {
+  display: none;
+}
 #courage-tooltip {
   right: 0;
   background: #bbf7d0;
