@@ -4,7 +4,7 @@ in the video and extract a message hinted by the video.
 
 - At the time, Isabella's Instagram had a 🐝 emoji in its description
   (clued by the emphasized word "buzz").
-- Holden's blog at the time was titled "Listening to Ravel".
+- Holden's AoPS profile status is "Listening to Ravel".
 - Luke's Twitter has the phrase "Understanding the why of mathematics".
   (It's stille there, as of March 2026.)
 
