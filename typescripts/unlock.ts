@@ -63,7 +63,7 @@ interface Window {
   }
 
   function getHeart(): string {
-    return window.MOSP_HEART !== undefined ? window.MOSP_HEART : "\uD83D\uDC9C";
+    return window.MOSP_HEART !== undefined ? window.MOSP_HEART : "🩷";
   }
 
   function getProgress(): Progress {

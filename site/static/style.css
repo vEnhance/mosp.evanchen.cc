@@ -96,7 +96,8 @@ nav.site-nav {
 #setname {
   text-decoration: none !important;
 }
-#tokenname {
+#tokenname,
+#noscript-tokenname {
   font-style: italic;
   color: #92600a;
   font-size: 0.9rem;
@@ -147,6 +148,7 @@ span.navitem {
 }
 #courage:hover .nav-tooltip,
 #openall:hover .nav-tooltip,
+#noscript-name:hover .nav-tooltip,
 #noscript-warn:hover .nav-tooltip {
   display: block;
 }
@@ -158,6 +160,22 @@ span.navitem {
 #courage-tooltip {
   right: 0;
   background: #bbf7d0;
+  white-space: nowrap;
+}
+
+/* Noscript name display with tooltip */
+#noscript-name {
+  position: relative;
+  cursor: help;
+}
+#noscript-name #tokenname {
+  font-style: italic;
+  color: #92600a;
+  font-size: 0.9rem;
+}
+#noscript-name .nav-tooltip {
+  left: 0;
+  background: #fef2f2;
   white-space: nowrap;
 }
 

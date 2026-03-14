@@ -38,8 +38,22 @@
                            href="#"
                            onclick="MOSP_promptName(); return false;"
                            title="Click to set your name"><span id="tokenname"></span></a>
+                        <noscript>
+                            <span class="relative navitem" id="noscript-name">
+                                <span id="noscript-tokenname">Frisk</span>
+                                <div class="nav-tooltip">Enable JavaScript to allow changing this name.</div>
+                            </span>
+                        </noscript>
                     </span>
                     <span id="status">
+                        <span class="relative navitem" id="courage">
+                            <span id="courage_heart">🩷</span><span id="courage_value">0</span>
+                            <div id="courage-tooltip" class="nav-tooltip">
+                                <strong>Courage</strong>
+                                <br>
+                                Earn hearts by solving puzzles.
+                            </div>
+                        </span>
                         <span class="relative navitem" id="openall">
                             <input type="checkbox" id="openall-checkbox" />
                             <label for="openall-checkbox" id="openall-label">
@@ -63,14 +77,6 @@
                                     <br>
                                     <em>Click to restore gating</em>
                                 </span>
-                            </div>
-                        </span>
-                        <span class="relative navitem" id="courage">
-                            <span id="courage_heart">💜</span><span id="courage_value">0</span>
-                            <div id="courage-tooltip" class="nav-tooltip">
-                                <strong>Courage</strong>
-                                <br>
-                                Earn hearts by solving puzzles.
                             </div>
                         </span>
                     </span>
