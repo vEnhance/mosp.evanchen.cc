@@ -973,12 +973,12 @@ p.fullres-download a:hover {
 .artwork-location {
   font-weight: 700;
   font-size: 1rem;
-  margin: 0.2rem 0;
+  margin: 0.4rem 0;
 }
 .artwork-artist {
   font-size: 1rem;
   color: #888;
-  margin: 0.2rem 0;
+  margin: 0.6rem 0;
 }
 .artwork-description {
   font-size: 1rem;
