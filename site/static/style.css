@@ -21,6 +21,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-size: 1.25rem;
 }
 
 strong {
@@ -70,19 +71,11 @@ a.noshadow:hover {
   flex: 1;
 }
 
-/* ── Inner content column: narrower, centered ── */
-/* Mirrors original's "max-w-2xl mx-auto" content div */
-#content-inner {
-  max-width: 42rem;
-  margin: 0 auto;
-}
-
 /* ── Navigation bar ── */
 nav.site-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   padding: 0.25rem 0;
 }
@@ -100,7 +93,6 @@ nav.site-nav {
 #noscript-tokenname {
   font-style: italic;
   color: #92600a;
-  font-size: 0.9rem;
   font-weight: normal;
   display: inline-block;
   transform: translateY(-2px);
@@ -119,7 +111,6 @@ span.name {
 
 /* Story link below round_text on chapter pages */
 .story-link {
-  font-size: 0.9rem;
   margin: 0.5rem 0 0.75rem;
 }
 #status {
@@ -141,7 +132,7 @@ span.navitem {
   top: 2rem;
   border-radius: 0.5rem;
   padding: 0.4rem 0.6rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   z-index: 10;
   color: #111;
@@ -174,7 +165,6 @@ body.no-volume #courage {
 #noscript-name #tokenname {
   font-style: italic;
   color: #92600a;
-  font-size: 0.9rem;
 }
 #noscript-name .nav-tooltip {
   left: 0;
@@ -199,7 +189,6 @@ body.no-volume #courage {
   margin-top: 0.5rem;
   font-style: italic;
   color: #222222;
-  font-size: 0.95rem;
 }
 #footer hr {
   border: none;
@@ -221,15 +210,15 @@ h4 {
   text-align: center;
 }
 h1 {
-  font-size: 2rem;
+  font-size: 2.4rem;
   margin: 0.75rem 0;
 }
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin: 0.75rem 0 0.5rem;
 }
 h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin: 0.6rem 0 0.3rem;
 }
 p {
@@ -348,7 +337,6 @@ table.table {
   width: 100%;
   margin-bottom: 10px;
   border-collapse: collapse;
-  font-size: 18px;
 }
 
 /* ── Strong emphasis (red/yellow highlight from common.css) ── */
@@ -446,8 +434,8 @@ div.strong-emph em {
 }
 .chapter-card-art {
   position: relative;
-  width: 220px;
-  height: 160px;
+  width: 330px;
+  height: 240px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
@@ -507,7 +495,6 @@ div.strong-emph em {
 .puzzle-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 18px;
   margin-top: 1rem;
 }
 .puzzle-table th,
@@ -550,7 +537,7 @@ div.strong-emph em {
   color: #888;
 }
 .lock-msg {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: #888;
   display: block;
 }
@@ -563,7 +550,6 @@ div.strong-emph em {
   border-radius: 4px;
   padding: 0.3rem 0.8rem;
   cursor: pointer;
-  font-size: 0.85rem;
   color: #555;
   font-family: inherit;
 }
@@ -579,7 +565,6 @@ div.strong-emph em {
 /* Unlockable opened but puzzle not yet visited */
 .new-puzzle {
   font-style: italic;
-  font-size: 0.9em;
   color: #cc3333;
 }
 
@@ -734,9 +719,11 @@ span.icon {
 }
 /* ── Unlock / story intro pages ── */
 .story-text {
-  max-width: 40rem;
+  max-width: 48rem;
   line-height: 1.7;
   margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .story-text p {
   margin-bottom: 1rem;
@@ -764,7 +751,7 @@ a.door:hover {
 
 /* puzzle-nav-links (breadcrumb line under puzzle title) */
 .puzzle-nav-links {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #aaa;
   margin-bottom: 1rem;
 }
@@ -781,9 +768,6 @@ a.door:hover {
 }
 .relative {
   position: relative;
-}
-.text-sm {
-  font-size: 0.875rem;
 }
 
 /* ── Prize key (shown below answer checker on puzzle solve) ── */
@@ -817,7 +801,6 @@ a.door:hover {
 #openall {
   position: relative;
   cursor: default;
-  font-size: 1rem;
 }
 #openall-checkbox {
   display: none;
@@ -879,7 +862,7 @@ a.door:hover {
 }
 
 .hint-cost {
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: #888;
   font-style: italic;
 }
@@ -958,6 +941,11 @@ p.fullres-download a:hover {
   gap: 2rem;
   margin-top: 2rem;
 }
+@media (min-width: 960px) {
+  .artwork-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 .artwork-card {
   display: flex;
   flex-direction: column;
@@ -988,11 +976,12 @@ p.fullres-download a:hover {
   margin: 0.2rem 0;
 }
 .artwork-artist {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #888;
   margin: 0.2rem 0;
 }
 .artwork-description {
+  font-size: 1rem;
   color: #444;
 }
 
