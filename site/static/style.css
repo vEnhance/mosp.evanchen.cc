@@ -970,25 +970,22 @@ p.fullres-download a:hover {
   border-radius: 8px;
   overflow: hidden;
   outline: 3px solid #d1d5db;
-  transition: outline-color 0.15s, transform 0.15s;
+  transition:
+    outline-color 0.15s,
+    transform 0.15s;
 }
 .artwork-thumb-link:hover {
   outline-color: #00cca7;
   transform: scale(1.02);
 }
 .artwork-thumb {
-  display: block;
-  width: 100%;
-  height: 200px;
   object-fit: cover;
 }
 .artwork-artist {
   font-weight: 700;
-  font-size: 0.9rem;
 }
 .artwork-description {
-  font-size: 0.85rem;
-  color: #aaa;
+  color: #444;
 }
 
 /* ── Utilities ── */
