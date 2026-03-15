@@ -1,73 +1,112 @@
-## Task overview
+## Project overview
 
-In 2021 and 2022 I ran a puzzle hunt on `mosp.evanchen.cc` that was hosted using
-a little Django server. It only went two years.
-Since then, keeping the Django server alive has become a maintenance burden
-and moreover parts of the hunt that used to work have become defunct.
+This repository builds a **static HTML/CSS/JS archive** of the MOP puzzle hunt
+that ran on `mosp.evanchen.cc` in 2021 (Chapter 0–1) and 2022 (Chapter 2).
+There is no server; the output is a bucket of files deployable to any static host.
 
-Therefore, my goal is to create a new _Typescript-based repository_ that will
-generate a _static HTML/CSS/JS website_ that I can use to host a serverless
-archive of this puzzle hunt.
-This involves migrating some old code, rewriting some Python into TS,
-and also redoing some of the old components.
-The goal is that I can execute the code in this repo and deploy it to a static
-bucket to host an archival version of the hunt.
+## Key commands
 
-This involves two main steps:
+```bash
+./build.sh            # compile TypeScript + regenerate HTML (run this after any change)
+uv run python serve.py        # build then serve at localhost:8000 with live reload
+uv run python serve.py --no-reload   # serve without watching for changes
+uv run python generate.py     # regenerate HTML only (no TypeScript compile)
+```
 
-- First, rewrite all the scaffolding to work as a static Typescript website
-  that can be uploaded to a bucket.
-- Then, rewrite any individual puzzles that need to be redone in an
-  archival-friendly format, see below.
+`serve.py` watches three directories and rebuilds automatically:
 
-## Repository overview
+- `typescripts/` (`.ts` changes) → runs `./build.sh` (tsc + generate.py)
+- `templates/` or `data/` changes → runs `generate.py` only
 
-Right now, there are two git submodules inside the `ancient/` folder.
-If you pull them, you can see old versions of the puzzle.
+## Repository layout
 
-`mosp-web` is the main interesting one.
-It has a simple Python Django webserver that was used to track
-the user's progress, check answers, and so on.
-We want to rewrite those templates and logic into Typescript.
+```
+data/
+  site.json          # master hunt/round/puzzle/unlockable metadata
+  artwork.toml       # gallery entries
+  index.md           # homepage text
+  puzzles/{slug}/    # per-puzzle markdown files (content, flavor, solution, etc.)
+  unlockables/{slug}/intro.md  # story text shown before a round/puzzle unlocks
+templates/           # Jinja2 HTML templates
+typescripts/         # TypeScript source files (compiled to site/static/js/)
+site/
+  static/            # checked-in assets (images, PDFs, CSS, pre-built JS)
+  *.html / **/*.html # generated — gitignored, rebuilt by generate.py
+generate.py          # Python static site generator (Jinja2 + Markdown)
+build.sh             # tsc + generate.py
+serve.py             # dev server with live reload
+pyproject.toml       # Python deps (jinja2, markdown, watchdog for dev)
+tsconfig.json        # TypeScript config
+```
 
-Note in particular the fixtures under `mosp-web` which contain all the puzzle
-data, and the corresponding solutions.
-Reading the solutions will inform you how each puzzle worked.
+## Data model (site.json)
 
-## Hunt details
+Four top-level arrays: `hunts`, `rounds`, `puzzles`, `unlockables`.
 
-Chapter 0 (from 2021) contains a single puzzle called Bridge: K.
-It can be translated easily.
+- **Hunt** (`volume_number`: `"vol1"` or `"vol2"`): top-level container.
+- **Round** (`slug`, `chapter_number`, `unlockable_slug`): a chapter inside a hunt.
+- **Puzzle** (`slug`, `unlockable_slug`, `answer`, `hints[]`, ...): one puzzle.
+- **Unlockable** (`slug`, `hunt_volume`, `parent_slug`, `round_slug`, `puzzle_slug`,
+  `on_solve_link_to`, `sort_order`): the unlock graph node linking puzzles/rounds together.
+  An unlockable with `parent_slug=null` and `round_slug` set is a chapter-intro story page.
 
-Chapter 1 (from 2021) contains the following puzzles we should adapt:
+## Per-puzzle files (`data/puzzles/{slug}/`)
 
-- Calendar: The IMO Begins is a javascript puzzle.
-  You can use the old typescript for that.
-- Classroom: mtbcupg is a blank puzzle that used to be inside Google Classroom.
-  Since GClassroom still works, we can leave this for now.
-- Discord: Kindergarten used to be a puzzle about talking to a Discord bot.
-  Since we don't have the capacity to keep maintaining that,
-  we should make a static JavaScript version of a Discord chat
-  that simulates what the Discord bot used to do.
-  In the submodule `mosp-2021/core/mospbot.py`
-  you'll be able to see the emoji logic
-- Gradescope: P53GZ7 is a puzzle that used to be inside Gradescope.
-  Since GradeScope still works, we can leave this for now.
-- Handbook: Lost In Translation is a straightforward static puzzle.
-- Zoom: Zoom Network Park is a puzzle with some minimal JavaScript components
-  that used to involve dialing into Zoom meetings.
-  We should create a fake Zoom client that opens in a new window
-  to simulate that past interactive component.
-- Map: Sticks and Stones is a straightforward static puzzle.
+| File              | Purpose                                                       |
+| ----------------- | ------------------------------------------------------------- |
+| `content.md`      | Main puzzle body (rendered as Markdown)                       |
+| `flavor.md`       | Flavor/intro text above the puzzle                            |
+| `head.html`       | Raw HTML injected into `<head>` (e.g. custom CSS/JS includes) |
+| `solution.md`     | Solution write-up                                             |
+| `author-notes.md` | Author notes shown after the solution                         |
+| `story.md`        | Post-solve story text                                         |
 
-In many cases, the `mosp-2021` submodule contains construction files
-that would be needed to re-create adaptions of the puzzles.
-If you feel there is still information missing needed, please say so.
+All files are optional; missing files are treated as empty.
 
-Chapter 2 puzzles (from 2022) are all static PDF's and straightforward to adapt.
+## Templates
 
-For puzzles where we are adapting significantly, include a "fourth-wall text"
-explaining what's going on. For example, for Zoom Network Park,
-we could say "During the actual hunt, solvers had to dial in real Zoom meetings.
-For the archival version, you can use this [Zoom client simulator](LINK)
-instead in place of a real Zoom client".
+All templates extend `layout.html`. Key templates:
+
+- `index.html` — homepage listing all hunts
+- `vol.html` — volume page (chapter list)
+- `chapter.html` — chapter page (puzzle list)
+- `puzzle.html` — puzzle page
+- `solution.html` — solution page
+- `unlockable.html` — story/unlock interstitial page
+- `hints.html` — hints page
+- `gallery.html` — artwork gallery
+
+## TypeScript modules (`typescripts/`)
+
+| File            | Purpose                                            |
+| --------------- | -------------------------------------------------- |
+| `grader.ts`     | Client-side answer checker (used on puzzle pages)  |
+| `hints.ts`      | Hints toggle UI                                    |
+| `imgfullres.ts` | Full-res image lightbox for gallery                |
+| `set.ts`        | Set puzzle logic                                   |
+| `unlock.ts`     | Unlock/story page transitions                      |
+| `zoom.ts`       | Fake Zoom client simulator for "Zoom Network Park" |
+
+TypeScript compiles to `site/static/js/` via `tsconfig.json`.
+
+## Puzzles still depending on external services
+
+Two puzzles link out to external services that still work:
+
+- **Classroom: mtbcupg** → Google Classroom
+- **Gradescope: P53GZ7** → Gradescope
+
+These are intentionally left as external links.
+
+## Adding or editing content
+
+- **Edit puzzle text**: modify files in `data/puzzles/{slug}/`, then run `generate.py`.
+- **Edit metadata** (answer, title, hints, etc.): edit `data/site.json`, then run `generate.py`.
+- **Edit page layout**: modify the relevant template in `templates/`, then run `generate.py`.
+- **Edit interactive puzzle logic**: modify the relevant file in `typescripts/`, then run `build.sh`.
+- **Add artwork**: add an entry to `data/artwork.toml` and place the image in `site/static/`.
+
+## Deployment
+
+Run `./build.sh` and upload the `site/` directory to the static hosting bucket.
+The `site/static/` subdirectory is checked into git; the generated HTML files are not.
