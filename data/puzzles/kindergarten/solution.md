@@ -25,6 +25,9 @@ they must format them as haikus using arithmetic operations, e.g.
 
 Steve will confirm each correct line of the haiku,
 presenting a particular emoji as each haiku is completed.
+For reference, here is a [set of valid haikus from 1 to 75][haikus].
+
+[haikus]: /static/2021/kindergarten/haiku.txt
 
 ## Trolls
 
