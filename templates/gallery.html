@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% set root = "" %}
+{% block title %}
+    Gallery
+{% endblock title %}
+{% block content %}
+    <h1>Gallery</h1>
+    <p>Artwork from the MOSP puzzle hunt.</p>
+    <div class="artwork-gallery">
+        {% for item in artwork %}
+            <div class="artwork-card">
+                <a href="{{ root }}static/{{ item.path }}" class="artwork-thumb-link">
+                    <img src="{{ root }}static/{{ item.path }}"
+                         alt="{{ item.description | striptags | truncate(80) }}"
+                         class="artwork-thumb" />
+                </a>
+                <div class="artwork-info">
+                    <div class="artwork-artist">{{ item.artist }}</div>
+                    <div class="artwork-description">{{ item.description | md }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

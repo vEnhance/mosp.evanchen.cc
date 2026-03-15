@@ -1,0 +1,76 @@
+[[artwork]]
+path = "artwork/bridge.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the Bridge: K artwork.
+"""
+
+[[artwork]]
+path = "artwork/calendar.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the Calendar: The IMO Begins artwork.
+"""
+
+[[artwork]]
+path = "artwork/ch0map.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the Chapter 0 map artwork.
+"""
+
+[[artwork]]
+path = "artwork/cow.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the cow artwork.
+"""
+
+[[artwork]]
+path = "artwork/ending.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the ending artwork.
+"""
+
+[[artwork]]
+path = "artwork/flowchart.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the flowchart artwork.
+"""
+
+[[artwork]]
+path = "artwork/gfriend.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the gfriend artwork.
+"""
+
+[[artwork]]
+path = "artwork/lincoln.jpg"
+artist = "Evan Chen"
+description = """
+Placeholder description for the lincoln artwork.
+"""
+
+[[artwork]]
+path = "artwork/map.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the map artwork.
+"""
+
+[[artwork]]
+path = "artwork/meeting.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the meeting artwork.
+"""
+
+[[artwork]]
+path = "artwork/towers.png"
+artist = "Evan Chen"
+description = """
+Placeholder description for the towers artwork.
+"""

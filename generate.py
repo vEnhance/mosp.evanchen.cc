@@ -16,6 +16,7 @@ Note: compile TypeScript first with ./build-ts.sh
 """
 
 import json
+import tomllib
 import urllib.parse
 from pathlib import Path
 
@@ -256,5 +257,16 @@ for puzzle in site["puzzles"]:
                 unlockables_by_slug=unlockables,
             ),
         )
+
+# 8. Gallery page
+print("\nGenerating gallery page...")
+with open(DATA / "artwork.toml", "rb") as f:
+    artwork_data = tomllib.load(f)
+write(
+    OUT / "gallery.html",
+    env.get_template("gallery.html").render(
+        artwork=artwork_data["artwork"],
+    ),
+)
 
 print("\nDone!")
