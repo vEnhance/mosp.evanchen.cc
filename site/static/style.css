@@ -266,8 +266,6 @@ pre {
   width: 100%;
   display: block;
   margin: 0.5rem auto;
-  border: 3px solid #bbbbbb;
-  border-radius: 5px;
 }
 #container img.inline {
   display: inline;
@@ -973,6 +971,9 @@ p.fullres-download a:hover {
   transition:
     outline-color 0.15s,
     transform 0.15s;
+}
+#container .artwork-thumb-link img {
+  margin: 0 auto;
 }
 .artwork-thumb-link:hover {
   outline-color: #00cca7;
