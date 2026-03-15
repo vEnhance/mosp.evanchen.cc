@@ -1,87 +1,100 @@
 [[artwork]]
-path = "artwork/bridge.png"
-location = "Placeholder location for bridge.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the Bridge: K artwork.
-"""
-
-[[artwork]]
-path = "artwork/calendar.png"
-location = "Placeholder location for calendar.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the Calendar: The IMO Begins artwork.
-"""
-
-[[artwork]]
 path = "artwork/ch0map.png"
-location = "Placeholder location for ch0map.png"
-artist = "Evan Chen"
+location = "Chapter 0 round art"
+artist = "Evan Chen (Ibis Paint)"
 description = """
-Placeholder description for the Chapter 0 map artwork.
-"""
-
-[[artwork]]
-path = "artwork/cow.png"
-location = "Placeholder location for cow.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the cow artwork.
-"""
-
-[[artwork]]
-path = "artwork/ending.png"
-location = "Placeholder location for ending.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the ending artwork.
-"""
-
-[[artwork]]
-path = "artwork/flowchart.png"
-location = "Placeholder location for flowchart.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the flowchart artwork.
-"""
-
-[[artwork]]
-path = "artwork/gfriend.png"
-location = "Placeholder location for gfriend.png"
-artist = "Evan Chen"
-description = """
-Placeholder description for the gfriend artwork.
-"""
-
-[[artwork]]
-path = "artwork/lincoln.jpg"
-location = "Placeholder location for lincoln.jpg"
-artist = "Evan Chen"
-description = """
-Placeholder description for the lincoln artwork.
+This was the actual link-map we used for the virtual MOP's in 2020 and 2021.
+When MOP was being held virtually, there were so many different platforms
+we were using in different ways that I drew a little cartoon map in 2020
+and put it in a Google Draw so it would be easier for people to find things.
+Later on that map ended up becoming the basis of the MOSP Hunt.
 """
 
 [[artwork]]
 path = "artwork/map.png"
-location = "Placeholder location for map.png"
-artist = "Evan Chen"
+location = "Chapter 1 round art"
+artist = "Evan Chen (Ibis Paint)"
 description = """
-Placeholder description for the map artwork.
+The distorted version of the actual link map,
+presented in the story as a map of the alternate-world MOSP.
+"""
+
+[[artwork]]
+path = "artwork/bridge.png"
+location = "K (Bridge)"
+artist = "Isabella Quan"
+description = """
+During virtual MOP 2020 and 2021, "Bridge" was a real Discord server
+joining MOP to other online communities like SPARC or USABO.
+We chose it to represent the connection from Chapter 0 to Chapter 1 in the hunt.
 """
 
 [[artwork]]
 path = "artwork/meeting.png"
-location = "Placeholder location for meeting.png"
-artist = "Evan Chen"
+location = "Meeting Steve"
+artist = "Evan Chen and Isabella Quan"
 description = """
-Placeholder description for the meeting artwork.
+The first meeting with Academic Director Steve.
+We chose the name Steve for meta-thematic reasons,
+after which it was suggested we should draw him as the Minecraft character.
+"""
+
+[[artwork]]
+path = "artwork/calendar.png"
+location = "The IMO Begins (Calendar)"
+artist = "Evan Chen (Ibis Paint)"
+description = "We don't have a real calendar this cool."
+
+[[artwork]]
+path = "artwork/lincoln.jpg"
+location = "mtbcupg (Classroom)"
+artist = "Evan Chen (camera)"
+description = """
+This is a real picture! It was one of the lounges in Lincoln, NE,
+where MOP used to be held up to 2014.
+"""
+
+[[artwork]]
+path = "artwork/flowchart.png"
+location = "Kindergarten (Discord)"
+artist = "Evan Chen (Ibis Paint)"
+description = """
+Yes, our team selection process is really that convoluted.
+I thought it would funny to see that flowchart in its full glory.
+"""
+
+[[artwork]]
+path = "artwork/cow.png"
+location = "P53GZ7 (Gradescope)"
+artist = "Evan Chen (Ibis Paint)"
+description = """
+Our homage to Farmer John and his cows.
+"""
+
+[[artwork]]
+path = "artwork/gfriend.png"
+location = "Lost in Translation (Handbook)"
+artist = "Evan Chen (Ibis Paint)"
+description = """
+This was one of the first dances I learned way back when.
 """
 
 [[artwork]]
 path = "artwork/towers.png"
-location = "Placeholder location for towers.png"
-artist = "Evan Chen"
+location = "Zoom Network Park (Zoom)"
+artist = "Evan Chen (Ibis Paint)"
 description = """
-Placeholder description for the towers artwork.
+I think the image through the windows came from a real landscape,
+and I added some satellite images to fit the theme of the puzzle.
+Then drew the control tower itsnelf in a layer over it.
+"""
+
+[[artwork]]
+path = "artwork/ending.png"
+location = "Epilogue"
+artist = "Evan Chen (Ibis Paint)"
+description = """
+Final artwork shown at the end of the hunt.
+During the actual 2021 hunt, the intro puzzle and the final metapuzzle
+where both hidden links behind the bookcase in the center of the map.
 """
