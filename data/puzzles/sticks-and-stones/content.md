@@ -12,10 +12,10 @@
 4.
 </td>
 <td markdown="1">
-[![Click to enlarge.](/static/2021/meta/shell1.png){ .inline style="height:300px;width:auto;" }](/static/2021/shell1.png){ .img-link }
+[![Click to enlarge.](/static/2021/meta/shell1.png){ .inline style="height:300px;width:auto;" }](/static/2021/meta/shell1.png){ .img-link }
 </td>
 <td markdown="1">
-[![Click to enlarge.](/static/2021/meta/shell2.png){ .inline style="height:300px;width:auto;" }](/static/2021/shell2.png){ .img-link }
+[![Click to enlarge.](/static/2021/meta/shell2.png){ .inline style="height:300px;width:auto;" }](/static/2021/meta/shell2.png){ .img-link }
 </td>
 </tr>
 </table>
