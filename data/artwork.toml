@@ -1,5 +1,5 @@
 [[artwork]]
-path = "artwork/ch0map.png"
+filename = "ch0map.png"
 location = "Chapter 0 round art"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -11,7 +11,7 @@ Later on that map ended up becoming the basis of the MOSP Hunt.
 """
 
 [[artwork]]
-path = "artwork/map.png"
+filename = "map.png"
 location = "Chapter 1 round art"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -20,7 +20,7 @@ presented in the story as a map of the alternate-world MOSP.
 """
 
 [[artwork]]
-path = "artwork/bridge.png"
+filename = "bridge.png"
 location = "K (Bridge)"
 artist = "Isabella Quan"
 description = """
@@ -30,7 +30,7 @@ We chose it to represent the connection from Chapter 0 to Chapter 1 in the hunt.
 """
 
 [[artwork]]
-path = "artwork/meeting.png"
+filename = "meeting.png"
 location = "Meeting Steve"
 artist = "Evan Chen and Isabella Quan"
 description = """
@@ -40,13 +40,13 @@ after which it was suggested we should draw him as the Minecraft character.
 """
 
 [[artwork]]
-path = "artwork/calendar.png"
+filename = "calendar.png"
 location = "The IMO Begins (Calendar)"
 artist = "Evan Chen (Ibis Paint)"
 description = "We don't have a real calendar this cool."
 
 [[artwork]]
-path = "artwork/lincoln.jpg"
+filename = "lincoln.jpg"
 location = "mtbcupg (Classroom)"
 artist = "Evan Chen (camera)"
 description = """
@@ -55,7 +55,7 @@ where MOP used to be held up to 2014.
 """
 
 [[artwork]]
-path = "artwork/flowchart.png"
+filename = "flowchart.png"
 location = "Kindergarten (Discord)"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -64,7 +64,7 @@ I thought it would funny to see that flowchart in its full glory.
 """
 
 [[artwork]]
-path = "artwork/cow.png"
+filename = "cow.png"
 location = "P53GZ7 (Gradescope)"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -72,7 +72,7 @@ Our homage to Farmer John and his cows.
 """
 
 [[artwork]]
-path = "artwork/gfriend.png"
+filename = "gfriend.png"
 location = "Lost in Translation (Handbook)"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -80,7 +80,7 @@ This was one of the first dances I learned way back when.
 """
 
 [[artwork]]
-path = "artwork/towers.png"
+filename = "towers.png"
 location = "Zoom Network Park (Zoom)"
 artist = "Evan Chen (Ibis Paint)"
 description = """
@@ -90,7 +90,7 @@ Then drew the control tower itsnelf in a layer over it.
 """
 
 [[artwork]]
-path = "artwork/ending.png"
+filename = "ending.png"
 location = "Epilogue"
 artist = "Evan Chen (Ibis Paint)"
 description = """

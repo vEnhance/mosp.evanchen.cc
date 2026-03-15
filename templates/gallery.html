@@ -11,9 +11,10 @@
     <div class="artwork-gallery">
         {% for item in artwork %}
             <div class="artwork-card">
-                <a href="{{ root }}static/{{ item.path }}" class="artwork-thumb-link">
+                <a href="{{ root }}static/artwork/{{ item.filename }}"
+                   class="artwork-thumb-link">
                     {# djlint:off H006 #}
-                    <img src="{{ root }}static/{{ item.path }}"
+                    <img src="{{ root }}static/thumbnails/{{ item.filename }}"
                          alt="{{ item.description | striptags | truncate(80) }}"
                          class="artwork-thumb" />
                     {# djlint:on H006 #}
