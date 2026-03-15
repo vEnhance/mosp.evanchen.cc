@@ -981,8 +981,13 @@ p.fullres-download a:hover {
 .artwork-thumb {
   object-fit: cover;
 }
-.artwork-artist {
+.artwork-location {
   font-weight: 700;
+  font-size: 1rem;
+}
+.artwork-artist {
+  font-size: 0.85rem;
+  color: #888;
 }
 .artwork-description {
   color: #444;

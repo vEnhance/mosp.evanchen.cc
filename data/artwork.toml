@@ -1,5 +1,6 @@
 [[artwork]]
 path = "artwork/bridge.png"
+location = "Placeholder location for bridge.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the Bridge: K artwork.
@@ -7,6 +8,7 @@ Placeholder description for the Bridge: K artwork.
 
 [[artwork]]
 path = "artwork/calendar.png"
+location = "Placeholder location for calendar.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the Calendar: The IMO Begins artwork.
@@ -14,6 +16,7 @@ Placeholder description for the Calendar: The IMO Begins artwork.
 
 [[artwork]]
 path = "artwork/ch0map.png"
+location = "Placeholder location for ch0map.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the Chapter 0 map artwork.
@@ -21,6 +24,7 @@ Placeholder description for the Chapter 0 map artwork.
 
 [[artwork]]
 path = "artwork/cow.png"
+location = "Placeholder location for cow.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the cow artwork.
@@ -28,6 +32,7 @@ Placeholder description for the cow artwork.
 
 [[artwork]]
 path = "artwork/ending.png"
+location = "Placeholder location for ending.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the ending artwork.
@@ -35,6 +40,7 @@ Placeholder description for the ending artwork.
 
 [[artwork]]
 path = "artwork/flowchart.png"
+location = "Placeholder location for flowchart.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the flowchart artwork.
@@ -42,6 +48,7 @@ Placeholder description for the flowchart artwork.
 
 [[artwork]]
 path = "artwork/gfriend.png"
+location = "Placeholder location for gfriend.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the gfriend artwork.
@@ -49,6 +56,7 @@ Placeholder description for the gfriend artwork.
 
 [[artwork]]
 path = "artwork/lincoln.jpg"
+location = "Placeholder location for lincoln.jpg"
 artist = "Evan Chen"
 description = """
 Placeholder description for the lincoln artwork.
@@ -56,6 +64,7 @@ Placeholder description for the lincoln artwork.
 
 [[artwork]]
 path = "artwork/map.png"
+location = "Placeholder location for map.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the map artwork.
@@ -63,6 +72,7 @@ Placeholder description for the map artwork.
 
 [[artwork]]
 path = "artwork/meeting.png"
+location = "Placeholder location for meeting.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the meeting artwork.
@@ -70,6 +80,7 @@ Placeholder description for the meeting artwork.
 
 [[artwork]]
 path = "artwork/towers.png"
+location = "Placeholder location for towers.png"
 artist = "Evan Chen"
 description = """
 Placeholder description for the towers artwork.
