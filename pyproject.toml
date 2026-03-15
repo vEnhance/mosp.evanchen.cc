@@ -22,4 +22,5 @@ ignore-words-list="GUD,Ans"
 [dependency-groups]
 dev = [
     "prek>=0.3.4",
+    "watchdog>=6.0.0",
 ]
