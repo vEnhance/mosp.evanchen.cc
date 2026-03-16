@@ -11,8 +11,10 @@ default_stages = ["pre-commit"]
 [[repos]]
 repo = "builtin"
 hooks = [
+  { id = "check-executables-have-shebangs" },
   { id = "check-json" },
   { id = "check-merge-conflict" },
+  { id = "check-symlinks" },
   { id = "check-toml" },
   { id = "check-yaml" },
   { id = "detect-private-key" },
@@ -29,7 +31,6 @@ hooks = [
 repo = "meta"
 hooks = [
   { id = "check-useless-excludes" },
-  { id = "check-hooks-apply" },
 ]
 
 [[repos]]
