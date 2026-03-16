@@ -13,7 +13,7 @@
     <div class="volume-gallery">
         {% for hunt in hunts | sort(attribute="pk") %}
             <a class="volume-card"
-               href="vol/{{ hunt.volume_number | urlencode }}/index.html">
+               href="{{ root }}/vol/{{ hunt.volume_number | urlencode }}/index.html">
                 {% if hunt.thumbnail_path %}
                     <div class="volume-thumb"
                          style="background-image: url('static/{{ hunt.thumbnail_path }}')"></div>
