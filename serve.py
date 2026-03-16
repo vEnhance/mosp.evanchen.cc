@@ -44,11 +44,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(DIRECTORY), **kwargs)
 
-    def log_message(self, fmt, *args):
+    def log_message(self, format: str, *args):
         # Suppress 200s for assets, only log errors and HTML
         code = args[1] if len(args) > 1 else ""
         if code not in ("200", "304") or args[0].endswith(".html"):
-            super().log_message(fmt, *args)
+            super().log_message(format, *args)
 
 
 # ---------------------------------------------------------------------------
