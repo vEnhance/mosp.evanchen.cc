@@ -16,11 +16,11 @@ Note: compile TypeScript first with ./build-ts.sh
 """
 
 import json
+import tomllib
 import urllib.parse
 from pathlib import Path
 
 import markdown as markdown_lib
-import tomllib
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
 
