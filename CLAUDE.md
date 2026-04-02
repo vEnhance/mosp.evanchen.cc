@@ -20,7 +20,7 @@ uv run python generate.py     # regenerate HTML only (no TypeScript compile)
 
 ## Repository layout
 
-```
+```text
 data/
   site.json          # master hunt/round/puzzle/unlockable metadata
   artwork.toml       # gallery entries

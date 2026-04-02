@@ -4,15 +4,15 @@
 You can download the data in images in [CSV format](/static/2021/meta/shell.csv),
 or click for higher-resolution versions.
 
-**Across**
+#### Across
 
-1. &nbsp;
-2. &nbsp;
-3. &nbsp;
+1.  &nbsp;
+2.  &nbsp;
+3.  &nbsp;
 
-**Down**
+#### Down
 
-1. &nbsp;
-2. &nbsp;
-3. &nbsp;
-4. &nbsp;
+1.  &nbsp;
+2.  &nbsp;
+3.  &nbsp;
+4.  &nbsp;

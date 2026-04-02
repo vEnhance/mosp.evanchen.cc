@@ -20,7 +20,7 @@ Time: This is a recurring meeting Meet anytime
 
 Join Zoom Meeting
 
-https://zoom.us/j/95315680293
+<https://zoom.us/j/95315680293>
 
 One tap mobile
 
@@ -34,5 +34,5 @@ Meeting ID: 953 1568 0293
 
 ### Attachments
 
-- [diagram.asy](diagram.asy) (opens in any text editor)
-- [diagram.pdf](diagram.pdf)
+- [diagram.asy](/static/2021/zoom/diagram.asy) (opens in any text editor)
+- [diagram.pdf](/static/2021/zoom/diagram.pdf)

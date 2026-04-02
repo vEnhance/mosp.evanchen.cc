@@ -127,20 +127,20 @@ Each of the colors has a
 these are also the top results
 obtained when searching the specific hex code.
 
-| \#  | Color                  | Red | Green | Blue |
-| --- | ---------------------- | :-: | :---: | :--: |
-| 1   | Urobilin               | E1  |  AD   |  21  |
-| 2   | Smoky black            | 10  |  0C   |  08  |
-| 3   | Amethyst               | 99  |  66   |  CC  |
-| 4   | Cocoa brown            | D2  |  69   |  1E  |
-| 5   | Harvard crimson        | C9  |  00   |  16  |
-| 6   | Ruddy pink             | E1  |  8E   |  96  |
-| 7   | Old rose               | C0  |  80   |  81  |
-| 8   | Medium candy apple red | E2  |  06   |  2C  |
-| 9   | Amethyst               | 99  |  66   |  CC  |
-| 10  | KU Crimson             | E8  |  00   |  0D  |
-| 11  | Eton blue              | 96  |  C8   |  A2  |
-| 12  | Yellow green           | 9A  |  CD   |  32  |
+| \#  | Color                  |  Red  | Green | Blue  |
+| --- | ---------------------- | :---: | :---: | :---: |
+| 1   | Urobilin               |  E1   |  AD   |  21   |
+| 2   | Smoky black            |  10   |  0C   |  08   |
+| 3   | Amethyst               |  99   |  66   |  CC   |
+| 4   | Cocoa brown            |  D2   |  69   |  1E   |
+| 5   | Harvard crimson        |  C9   |  00   |  16   |
+| 6   | Ruddy pink             |  E1   |  8E   |  96   |
+| 7   | Old rose               |  C0   |  80   |  81   |
+| 8   | Medium candy apple red |  E2   |  06   |  2C   |
+| 9   | Amethyst               |  99   |  66   |  CC   |
+| 10  | KU Crimson             |  E8   |  00   |  0D   |
+| 11  | Eton blue              |  96   |  C8   |  A2   |
+| 12  | Yellow green           |  9A   |  CD   |  32   |
 
 (The fourth color is also called Cinnamon or Chocolate in some places.)
 Reading the first letters of the colors spells

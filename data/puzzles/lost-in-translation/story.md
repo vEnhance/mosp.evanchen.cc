@@ -16,9 +16,9 @@ Finally the machine spits out an output,
 and you grab it to see the translation.
 The first few lines read:
 
-> 스물 스물은 나를 막을 수 없어  
-> 케이팝 연말 메가 믹스  
-> 150 곡 매시업  
+> 스물 스물은 나를 막을 수 없어
+> 케이팝 연말 메가 믹스
+> 150 곡 매시업
 > 법선 스 매셔 유튜브
 
 Huh, still Korean? Well, better than before.

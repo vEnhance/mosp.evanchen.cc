@@ -21,28 +21,28 @@ We had to adapt the puzzle for the public to not incorporate
 MOP test materials, and thus we used the MOP 2019 tests,
 which have been mostly posted in some shape or form by now.
 (We themed this in terms of a MOPper at the last in-person MOP,
-and [adjusted the map accordingly](../../mop/).)
+and adjusted the map accordingly.)
 
 In the public version, in lieu of the tiny URL's,
-the solvers are simply given a [problems file](puzzle.pdf)
+the solvers are simply given a [problems file](/static/2021/onlinemop/problems.pdf)
 using problems from the MOP 2019 test (which are posted).
 Enumerations are given for the colors to confirm them
 (the main ambiguity is OLIVE vs HEART GOLD),
 giving the following table:
 
-| \#  | Color                | Red | Green | Blue |
-| --- | -------------------- | :-: | :---: | :--: |
-| 1   | Utah crimson         | D3  |  00   |  3F  |
-| 2   | School bus yellow    | FF  |  D8   |  00  |
-| 3   | Alice blue           | F0  |  F8   |  FF  |
-| 4   | Candy apple red      | FF  |  08   |  00  |
-| 5   | Honeydew             | F0  |  FF   |  F0  |
-| 6   | Red                  | FF  |  00   |  00  |
-| 7   | Olive                | 80  |  80   |  00  |
-| 8   | Maroon               | 80  |  00   |  00  |
-| 9   | Alice blue           | F0  |  F8   |  FF  |
-| 10  | KU Crimson           | E8  |  00   |  0D  |
-| 11  | Electric ultramarine | 3F  |  00   |  FF  |
-| 12  | Yellow               | FF  |  FF   |  00  |
+| \#  | Color                |  Red  | Green | Blue  |
+| --- | -------------------- | :---: | :---: | :---: |
+| 1   | Utah crimson         |  D3   |  00   |  3F   |
+| 2   | School bus yellow    |  FF   |  D8   |  00   |
+| 3   | Alice blue           |  F0   |  F8   |  FF   |
+| 4   | Candy apple red      |  FF   |  08   |  00   |
+| 5   | Honeydew             |  F0   |  FF   |  F0   |
+| 6   | Red                  |  FF   |  00   |  00   |
+| 7   | Olive                |  80   |  80   |  00   |
+| 8   | Maroon               |  80   |  00   |  00   |
+| 9   | Alice blue           |  F0   |  F8   |  FF   |
+| 10  | KU Crimson           |  E8   |  00   |  0D   |
+| 11  | Electric ultramarine |  3F   |  00   |  FF   |
+| 12  | Yellow               |  FF   |  FF   |  00   |
 
 This gives the answer `USA CHROMA KEY`.

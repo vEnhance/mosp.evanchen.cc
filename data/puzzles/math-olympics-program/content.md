@@ -29,7 +29,7 @@ This was a game where teams were shown
 and needed to unweave them.
 Upon completion, they received three more strings:
 
-```
+```text
 LKUYXRGYEMZSBTOMAUNRG
 EVANSDWATUINATUI
 LMAIUTHRITUHANIIAUS

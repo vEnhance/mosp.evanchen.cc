@@ -8,10 +8,10 @@ The banner of the puzzle is depicted below.
 
 The title refers to four steps:
 
-1. Solve the math problems.
-2. Identify the six answers that are out of place as past IMO problems.
-3. Sort by problem number.
-4. Index by problem number into answer.
+1.  Solve the math problems.
+2.  Identify the six answers that are out of place as past IMO problems.
+3.  Sort by problem number.
+4.  Index by problem number into answer.
 
 ## Solve
 
@@ -23,29 +23,31 @@ and is only to help check the team's work.
 Here are all the answers:
 
 <div class="strong-emph" markdown="1">
-| Code | Ans |
-|:----:|----:|
-| A1 | *0*|
-| A2 | 20 |
-| A3 | 19 |
-| A4 | *2*|
-| A5 | 16 |
-| A6 | 15 |
-| A7 | 14 |
-| C1 | 13 |
-| C2 |*18*|
-| C3 | 12 |
-| C4 | 11 |
-| C5 | 10 |
-| C6 |  8 |
-| C7 | *4*|
-| N1 | *9*|
-| N2 |  7 |
-| N3 |  6 |
-| N4 |  5 |
-| N5 |  3 |
-| N6 |  1 |
-| N7 |*17*|
+
+| Code  |  Ans |
+| :---: | ---: |
+|  A1   |  _0_ |
+|  A2   |   20 |
+|  A3   |   19 |
+|  A4   |  _2_ |
+|  A5   |   16 |
+|  A6   |   15 |
+|  A7   |   14 |
+|  C1   |   13 |
+|  C2   | _18_ |
+|  C3   |   12 |
+|  C4   |   11 |
+|  C5   |   10 |
+|  C6   |    8 |
+|  C7   |  _4_ |
+|  N1   |  _9_ |
+|  N2   |    7 |
+|  N3   |    6 |
+|  N4   |    5 |
+|  N5   |    3 |
+|  N6   |    1 |
+|  N7   | _17_ |
+
 </div>
 
 ## Identify
@@ -57,28 +59,28 @@ it makes sense to look up the IMO problems in those slot.
 Indeed, they were problems that corresponded to IMO problems
 (and none of the other problems do so).
 
-| Code | Ans | IMO Problem |
-| :--: | --: | :---------: |
-|  A1  |   0 | IMO 2000/2  |
-|  A4  |   2 | IMO 2002/5  |
-|  C2  |  18 | IMO 2018/4  |
-|  C7  |   4 | IMO 2004/3  |
-|  N1  |   9 | IMO 2009/1  |
-|  N7  |  17 | IMO 2017/6  |
+| Code  |  Ans | IMO Problem |
+| :---: | ---: | :---------: |
+|  A1   |    0 | IMO 2000/2  |
+|  A4   |    2 | IMO 2002/5  |
+|  C2   |   18 | IMO 2018/4  |
+|  C7   |    4 | IMO 2004/3  |
+|  N1   |    9 | IMO 2009/1  |
+|  N7   |   17 | IMO 2017/6  |
 
 ## Sort
 
 The six obtained problem numbers are distinct,
 so sort the above table by the problem number.
 
-| Code | IMO Problem |
-| :--: | :---------: |
-|  N1  | IMO 2009/1  |
-|  A1  | IMO 2000/2  |
-|  C7  | IMO 2007/3  |
-|  C2  | IMO 2018/4  |
-|  A4  | IMO 2002/5  |
-|  N7  | IMO 2017/6  |
+| Code  | IMO Problem |
+| :---: | :---------: |
+|  N1   | IMO 2009/1  |
+|  A1   | IMO 2000/2  |
+|  C7   | IMO 2007/3  |
+|  C2   | IMO 2018/4  |
+|  A4   | IMO 2002/5  |
+|  N7   | IMO 2017/6  |
 
 ## Index
 
@@ -88,26 +90,28 @@ a full list is given on [evanchen.cc](https://web.evanchen.cc/problems.html)
 for convenience, but AoPS should work well too.
 The authors are:
 
-| Code | IMO Problem | Author |
-| :--: | :---------: | :----: |
-|  N1  | IMO 2009/1  |  AUS   |
-|  A1  | IMO 2000/2  |  USA   |
-|  C7  | IMO 2007/3  |  EST   |
-|  C2  | IMO 2018/4  |  ARM   |
-|  A4  | IMO 2002/5  |  IND   |
-|  N7  | IMO 2017/6  |  USA   |
+| Code  | IMO Problem | Author |
+| :---: | :---------: | :----: |
+|  N1   | IMO 2009/1  |  AUS   |
+|  A1   | IMO 2000/2  |  USA   |
+|  C7   | IMO 2007/3  |  EST   |
+|  C2   | IMO 2018/4  |  ARM   |
+|  A4   | IMO 2002/5  |  IND   |
+|  N7   | IMO 2017/6  |  USA   |
 
 Then index as shown in the diagram.
 
 <div class="strong-emph" markdown="1">
-| Code | IMO Problem |   |   |   |
-|:----:|:-----------:|:-:|:-:|:-:|
-| N1   | IMO 2009/1  |*A*| U | S |
-| A1   | IMO 2000/2  | U |*S*| A |
-| C7   | IMO 2007/3  | E | S |*T*|
-| C2   | IMO 2018/4  |*A*| R | M |
-| A4   | IMO 2002/5  | I |*N*| D |
-| N7   | IMO 2017/6  | U | S |*A*|
+
+| Code  | IMO Problem |       |       |       |
+| :---: | :---------: | :---: | :---: | :---: |
+|  N1   | IMO 2009/1  |  _A_  |   U   |   S   |
+|  A1   | IMO 2000/2  |   U   |  _S_  |   A   |
+|  C7   | IMO 2007/3  |   E   |   S   |  _T_  |
+|  C2   | IMO 2018/4  |  _A_  |   R   |   M   |
+|  A4   | IMO 2002/5  |   I   |  _N_  |   D   |
+|  N7   | IMO 2017/6  |   U   |   S   |  _A_  |
+
 </div>
 
 This gives the phrase `ASTANA`.

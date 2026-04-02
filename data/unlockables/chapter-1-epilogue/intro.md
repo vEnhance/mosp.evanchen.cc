@@ -21,7 +21,9 @@ The puzzles and art in this hunt were brought to you by
 
 We'd also like to thank our cohort of test-solvers:
 
-> Andrew Gu, Andrew Wu, Angela Guo, Ankan Bhattacharya, Catherine Zheng, Clayton Snider, Danielle Wang, Fernando Salinas-Arreola, Holden Mui, Janabel Xia, Kara Amar, Maggie Lin, William Yue.
+> Andrew Gu, Andrew Wu, Angela Guo, Ankan Bhattacharya, Catherine Zheng,
+> Clayton Snider, Danielle Wang, Fernando Salinas-Arreola, Holden Mui,
+> Janabel Xia, Kara Amar, Maggie Lin, William Yue.
 
 We hope you had fun working on it!
 Congratulations especially to Andrew Gu,
@@ -35,7 +37,7 @@ Apparently Steve was serious about the reference letter.
 <div id="letter" markdown="1">
 <div id="letter-date"></div>
 
-Work reference letter on behalf of the  
+Work reference letter on behalf of the<br />
 Assistant director of the Mathematical Olympiad Summer Program
 
 To whom it may concern,
@@ -94,9 +96,9 @@ That's why it is my great pleasure to recommend
 <span class="name firstname"></span> for an unspecified position,
 with no hesitation or reservations.
 
-Sincerely,  
+Sincerely,<br />
 ![Steve](/static/2021/steve-sig.png){.signature}
-Academic Director, Math Olympiad Summer Program  
+Academic Director, Math Olympiad Summer Program<br />
 Untied States of America
 
 </div>

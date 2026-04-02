@@ -7,7 +7,7 @@ What can we do with this?
 ## Plotting out the graph
 
 The first insight is to look at the
-coordinates given in the [asy file](diagram.asy).
+coordinates given in the [asy file](/static/2021/zoom/diagram.asy).
 
 ```c++
 pair A = (1568,  293);
@@ -55,7 +55,7 @@ This gives the following table of meetings:
 ## Traveling the graph
 
 The previous table now gives a 3-regular planar graph
-on the [given diagram](diagram.pdf).
+on the [given diagram](/static/2021/zoom/diagram.pdf).
 One then walks the graph as in this year's [USAMO2 problem][usamo2],
 as hinted by the title of the puzzle being "Zoom Network Park".
 Starting with the marked arrow, we get the following path:
@@ -116,20 +116,20 @@ Both paths are illustrated below.
 Finally, reading the numbered arrows
 and reading Morse gives
 
-|   # |  Edge   | Letter |
-| --: | :-----: | :----: |
-|   1 | K ==> H |   B    |
-|   2 | J ==> K |   E    |
-|   3 | C ==> D |   A    |
-|   4 | A ==> C |   C    |
-|   5 | C ==> L |   O    |
-|   6 | D ==> C |   N    |
-|   7 | F ==> E |   R    |
-|   8 | C ==> D |   A    |
-|   9 | A ==> H |   D    |
-|  10 | D ==> B |   I    |
-|  11 | H ==> A |   U    |
-|  12 | H ==> G |   S    |
+|    # |  Edge   | Letter |
+| ---: | :-----: | :----: |
+|    1 | K ==> H |   B    |
+|    2 | J ==> K |   E    |
+|    3 | C ==> D |   A    |
+|    4 | A ==> C |   C    |
+|    5 | C ==> L |   O    |
+|    6 | D ==> C |   N    |
+|    7 | F ==> E |   R    |
+|    8 | C ==> D |   A    |
+|    9 | A ==> H |   D    |
+|   10 | D ==> B |   I    |
+|   11 | H ==> A |   U    |
+|   12 | H ==> G |   S    |
 
 This gives the answer `BEACON RADIUS`{.answer}.
 

@@ -1,6 +1,6 @@
 The only information given initially is the title of the puzzle,
 which is a Gradescope join code.
-Joining the class reveals the [super relay](SuperRelay.pdf),
+Joining the class reveals the [super relay](/static/2021/farml/SuperRelay.pdf),
 and a Gradescope programming assignment to submit.
 
 ## Solving the relay
@@ -239,23 +239,23 @@ Working out the rest of the continued fractions,
 we get a sequence of numbers in ASCII range.
 Doing the conversion then gives the following table:
 
-| Problem | Numerator | Denominator | $a_1$ | $a_2$ | $a_3$ |  1  |  2  |  3  |
-| :-----: | --------: | ----------: | ----: | ----: | ----: | :-: | :-: | :-: |
-|  R-01   |     10477 |      702067 |    67 |    97 |   108 | `C` | `a` | `l` |
-|  R-02   |      3361 |      363093 |   108 |    32 |   105 | `l` |     | `i` |
-|  R-03   |      2657 |      292353 |   110 |    32 |    83 | `n` |     | `S` |
-|  R-04   |      2849 |      185217 |    65 |    89 |    32 | `A` | `Y` |     |
-|  R-05   |      2529 |      197294 |    78 |    79 |    32 | `N` | `O` |     |
-|  R-06   |      2529 |      212468 |    84 |    79 |    32 | `T` | `O` |     |
-|  R-07   |      6084 |      407705 |    67 |    79 |    77 | `C` | `O` | `M` |
-|  R-08   |      5215 |      344256 |    66 |    79 |    66 | `B` | `O` | `B` |
-|  R-09   |      5294 |      407705 |    77 |    79 |    67 | `M` | `O` | `C` |
-|  R-10   |      6637 |      212468 |    32 |    79 |    84 |     | `O` | `T` |
-|  R-11   |      6163 |      197294 |    32 |    79 |    78 |     | `O` | `N` |
-|  R-12   |      5786 |      185217 |    32 |    89 |    65 |     | `Y` | `A` |
-|  R-13   |      3521 |      292353 |    83 |    32 |   110 | `S` |     | `n` |
-|  R-14   |      3457 |      363093 |   105 |    32 |   108 | `i` |     | `l` |
-|  R-15   |      6500 |      702067 |   108 |    97 |    67 | `l` | `a` | `C` |
+| Problem | Numerator | Denominator | $a_1$ | $a_2$ | $a_3$ |   1   |   2   |   3   |
+| :-----: | --------: | ----------: | ----: | ----: | ----: | :---: | :---: | :---: |
+|  R-01   |     10477 |      702067 |    67 |    97 |   108 |  `C`  |  `a`  |  `l`  |
+|  R-02   |      3361 |      363093 |   108 |    32 |   105 |  `l`  |       |  `i`  |
+|  R-03   |      2657 |      292353 |   110 |    32 |    83 |  `n`  |       |  `S`  |
+|  R-04   |      2849 |      185217 |    65 |    89 |    32 |  `A`  |  `Y`  |       |
+|  R-05   |      2529 |      197294 |    78 |    79 |    32 |  `N`  |  `O`  |       |
+|  R-06   |      2529 |      212468 |    84 |    79 |    32 |  `T`  |  `O`  |       |
+|  R-07   |      6084 |      407705 |    67 |    79 |    77 |  `C`  |  `O`  |  `M`  |
+|  R-08   |      5215 |      344256 |    66 |    79 |    66 |  `B`  |  `O`  |  `B`  |
+|  R-09   |      5294 |      407705 |    77 |    79 |    67 |  `M`  |  `O`  |  `C`  |
+|  R-10   |      6637 |      212468 |    32 |    79 |    84 |       |  `O`  |  `T`  |
+|  R-11   |      6163 |      197294 |    32 |    79 |    78 |       |  `O`  |  `N`  |
+|  R-12   |      5786 |      185217 |    32 |    89 |    65 |       |  `Y`  |  `A`  |
+|  R-13   |      3521 |      292353 |    83 |    32 |   110 |  `S`  |       |  `n`  |
+|  R-14   |      3457 |      363093 |   105 |    32 |   108 |  `i`  |       |  `l`  |
+|  R-15   |      6500 |      702067 |   108 |    97 |    67 |  `l`  |  `a`  |  `C`  |
 
 Reading this gives a phrase which has been repeated both forwards and backwards
 (much like the super relay).

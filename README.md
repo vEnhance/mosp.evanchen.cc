@@ -2,7 +2,7 @@
 
 To play, head to [mosp.evanchen.cc](https://mosp.evanchen.cc).
 
-![](site/static/thumbnails/map.png)
+![Map of MOSP in Chapter 1 of the 2021 hunt](site/static/thumbnails/map.png)
 
 ## Repository information
 

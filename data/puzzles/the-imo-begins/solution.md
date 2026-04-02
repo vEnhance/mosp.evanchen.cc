@@ -24,13 +24,13 @@ This gives the set of following set of possible dates.
 | Calendar | Possible dates |               |
 | :------: | :------------- | :------------ |
 | Board 1  | July 12 (Thu)  | July 19 (Thu) |
-| Board 2  | July 8 (Fri)   |
+| Board 2  | July 8 (Fri)   |               |
 | Board 3  | Sept 19 (Sat)  | Sept 26 (Thu) |
 | Board 4  | July 11 (Thu)  | July 18 (Sat) |
-| Board 5  | July 14 (Wed)  |
-| Board 6  | July 18 (Thu)  |
-| Board 7  | July 3 (Thu)   |
-| Board 8  | July 14 (Wed)  |
+| Board 5  | July 14 (Wed)  |               |
+| Board 6  | July 18 (Thu)  |               |
+| Board 7  | July 3 (Thu)   |               |
+| Board 8  | July 14 (Wed)  |               |
 | Board 9  | July 4 (Wed)   | July 4 (Fri)  |
 | Board 10 | July 4 (Wed)   | July 4 (Fri)  |
 
@@ -44,17 +44,17 @@ For each board, exactly one of the dates corresponds to an IMO,
 and that date corresponds to exactly one IMO.
 One may then extract by taking A=1 ... Z=26.
 
-| Calendar | IMO date      | Year | Letter |
-| :------: | :------------ | :--: | :----: |
-| Board 1  | July 19 (Thu) | 2007 |   G    |
-| Board 2  | July 8 (Fri)  | 2005 |   E    |
-| Board 3  | Sept 19 (Sat) | 2020 |   T    |
-| Board 4  | July 11 (Thu) | 2019 |   S    |
-| Board 5  | July 14 (Wed) | 2021 |   U    |
-| Board 6  | July 18 (Thu) | 2013 |   M    |
-| Board 7  | July 3 (Thu)  | 2014 |   N    |
-| Board 8  | July 14 (Wed) | 2021 |   U    |
-| Board 9  | July 4 (Wed)  | 2012 |   L    |
-| Board 10 | July 4 (Wed)  | 2012 |   L    |
+| Calendar | IMO date      | Year  | Letter |
+| :------: | :------------ | :---: | :----: |
+| Board 1  | July 19 (Thu) | 2007  |   G    |
+| Board 2  | July 8 (Fri)  | 2005  |   E    |
+| Board 3  | Sept 19 (Sat) | 2020  |   T    |
+| Board 4  | July 11 (Thu) | 2019  |   S    |
+| Board 5  | July 14 (Wed) | 2021  |   U    |
+| Board 6  | July 18 (Thu) | 2013  |   M    |
+| Board 7  | July 3 (Thu)  | 2014  |   N    |
+| Board 8  | July 14 (Wed) | 2021  |   U    |
+| Board 9  | July 4 (Wed)  | 2012  |   L    |
+| Board 10 | July 4 (Wed)  | 2012  |   L    |
 
 This gives the answer `GET SUM NULL`{.answer}.
