@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set root = "../../" %}
 {% set body_class = "puzzle-page" %}
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
@@ -43,7 +42,7 @@ const MOSP_SOLUTION_URL = {{ solution_url | tojson }};
 const MOSP_SLUG = {{ puzzle.slug | tojson }};
 const MOSP_BOUNTY = {{ courage_bounty | tojson }};
     </script>
-    <script src="{{ root }}js/grader.js" defer></script>
+    <script src="/js/grader.js" defer></script>
     <div class="puzzlehead-wrap">
         <div id="puzzlehead">
             <div id="answerchecker">

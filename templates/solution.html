@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set root = "../../" %}
 {% set puzzle_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% if on_solve_unlockable %}
     {% set on_solve_url = "../../unlock/" ~ (on_solve_unlockable.slug | urlencode) ~ "/index.html" %}
@@ -36,7 +35,7 @@
         <p class="text-center">
             <a class="proceed-link" href="{{ on_solve_url }}">
                 {# djlint:off H006 #}
-                <img src="{{ root }}static/{{ puzzle.solution.post_solve_image_path }}"
+                <img src="/static/{{ puzzle.solution.post_solve_image_path }}"
                      alt="{{ puzzle.solution.post_solve_image_alt }}" />
                 {# djlint:on H006 #}
             </a>

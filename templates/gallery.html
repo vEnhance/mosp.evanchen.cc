@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set root = "" %}
 {% set body_class = "no-volume" %}
 {% block title %}
     Gallery
@@ -11,10 +10,9 @@
     <div class="artwork-gallery">
         {% for item in artwork %}
             <div class="artwork-card">
-                <a href="{{ root }}static/artwork/{{ item.filename }}"
-                   class="artwork-thumb-link">
+                <a href="/static/artwork/{{ item.filename }}" class="artwork-thumb-link">
                     {# djlint:off H006 #}
-                    <img src="{{ root }}static/thumbnails/{{ item.filename }}"
+                    <img src="/static/thumbnails/{{ item.filename }}"
                          alt="{{ item.description | striptags | truncate(80) }}"
                          class="artwork-thumb" />
                     {# djlint:on H006 #}

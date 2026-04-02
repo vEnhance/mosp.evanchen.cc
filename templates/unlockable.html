@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set root = "../../" %}
 {% if unlockable.puzzle_slug %}
     {% set dest_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% elif unlockable.round_slug %}

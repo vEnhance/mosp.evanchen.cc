@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
-{% set root = "" %}
 {% set body_class = "no-volume" %}
 {% block title %}
     Home
 {% endblock title %}
 {% block back_nav %}
-    <a class="emoji-link" href="{{ root }}">🏠</a>
+    <a class="emoji-link" href="/">🏠</a>
 {% endblock back_nav %}
 {% block content %}
     <h1>MOSP: A Light Novel</h1>
@@ -13,7 +12,7 @@
     <div class="volume-gallery">
         {% for hunt in hunts | sort(attribute="pk") %}
             <a class="volume-card"
-               href="{{ root }}/vol/{{ hunt.volume_number | urlencode }}/index.html">
+               href="//vol/{{ hunt.volume_number | urlencode }}/index.html">
                 {% if hunt.thumbnail_path %}
                     <div class="volume-thumb"
                          style="background-image: url('static/{{ hunt.thumbnail_path }}')"></div>

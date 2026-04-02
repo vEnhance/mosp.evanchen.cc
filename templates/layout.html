@@ -15,24 +15,24 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" />
-        <link rel="stylesheet" href="{{ root }}static/style.css" />
+        <link rel="stylesheet" href="/static/style.css" />
         <noscript>
-            <link rel="stylesheet" href="{{ root }}static/noscript.css" />
+            <link rel="stylesheet" href="/static/noscript.css" />
         </noscript>
         {% block extra_head %}
         {% endblock extra_head %}
         {% block page_meta %}
         {% endblock page_meta %}
-        <script src="{{ root }}js/unlock.js" defer></script>
-        <script src="{{ root }}js/imgfullres.js" defer></script>
+        <script src="/js/unlock.js" defer></script>
+        <script src="/js/imgfullres.js" defer></script>
     </head>
-    <body class="{{ body_class | default("") }}">
+    <body class="{{ body_class | default('') }}">
         <div id="container">
             <div id="content">
                 <nav class="site-nav">
                     <span id="back">
                         {% block back_nav %}
-                            <a class="emoji-link" href="{{ root }}index.html">🏠</a>
+                            <a class="emoji-link" href="/index.html">🏠</a>
                         {% endblock back_nav %}
                         <a id="setname"
                            href="#"
@@ -99,11 +99,11 @@
                 <div id="footer-inner">
                     <span>MOSP Puzzle Hunt •
                         <a href="https://github.com/vEnhance/mosp.evanchen.cc">GitHub</a> •
-                        <a href="{{ root }}/gallery.html">Gallery</a>
+                        <a href="//gallery.html">Gallery</a>
                     </span>
                     <span>
                         {% block southeast %}
-                            <a href="{{ root }}index.html">Archive home</a>
+                            <a href="/index.html">Archive home</a>
                         {% endblock southeast %}
                     </span>
                 </div>

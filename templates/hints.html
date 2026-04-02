@@ -1,5 +1,4 @@
 {% extends "layout.html" %}
-{% set root = "../../" %}
 {% set puzzle_url = "../../puzzle/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set solution_url = "../../solution/" ~ (puzzle.slug | urlencode) ~ "/index.html" %}
 {% set unlockable = unlockables_by_slug.get(puzzle.unlockable_slug) %}
@@ -49,5 +48,5 @@
     <p>
         You can also <a href="{{ solution_url }}">view the full solution</a>.
     </p>
-    <script src="{{ root }}js/hints.js" defer></script>
+    <script src="/js/hints.js" defer></script>
 {% endblock content %}
