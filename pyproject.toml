@@ -13,7 +13,8 @@ dependencies = [
 ]
 
 [tool.djlint]
-profile = "jinja2"
+profile = "jinja"
+ignore = "J004,J018"
 
 [tool.codespell]
 ignore-words-list="GUD,Ans"
