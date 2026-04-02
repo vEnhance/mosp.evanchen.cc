@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% set body_class = "no-volume" %}
+{% block title %}
+    404 Not Found
+{% endblock title %}
+{% block content %}
+    <h1>HTTP 404 Not Found</h1>
+    <p>This page is not a puzzle.</p>
+    <p>
+        <a href="{{ root }}index.html">Return to the archive home.</a>
+    </p>
+{% endblock content %}

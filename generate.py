@@ -269,4 +269,11 @@ write(
     ),
 )
 
+# 9. 404 page
+print("\nGenerating 404 page...")
+write(
+    OUT / "404.html",
+    env.get_template("404.html").render(root="/"),
+)
+
 print("\nDone!")
