@@ -8,5 +8,5 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 npm install -g typescript
 tsc --project "$ROOT/tsconfig.json"
 
-pip install -r requirements.txt
-python generate.py
+pip install uv
+uv run --no-dev python generate.py
