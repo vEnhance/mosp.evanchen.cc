@@ -5,7 +5,7 @@ description = "Static archive of MOSP puzzle hunt"
 readme = "README.md"
 requires-python = ">=3.11,<4.0"
 authors = [{ name = "Evan Chen", email = "evan@evanchen.cc" }]
-license = { text = "MIT" }
+license = "MIT"
 urls = { repository = "https://github.com/vEnhance/mosp.evanchen.cc" }
 dependencies = [
     "jinja2>=3.1.6",
