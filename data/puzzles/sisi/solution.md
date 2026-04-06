@@ -8,10 +8,10 @@ The banner of the puzzle is depicted below.
 
 The title refers to four steps:
 
-1.  Solve the math problems.
-2.  Identify the six answers that are out of place as past IMO problems.
-3.  Sort by problem number.
-4.  Index by problem number into answer.
+1. Solve the math problems.
+2. Identify the six answers that are out of place as past IMO problems.
+3. Sort by problem number.
+4. Index by problem number into answer.
 
 ## Solve
 

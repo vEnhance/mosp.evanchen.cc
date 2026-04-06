@@ -6,13 +6,13 @@ or click for higher-resolution versions.
 
 #### Across
 
-1.  &nbsp;
-2.  &nbsp;
-3.  &nbsp;
+1. &nbsp;
+2. &nbsp;
+3. &nbsp;
 
 #### Down
 
-1.  &nbsp;
-2.  &nbsp;
-3.  &nbsp;
-4.  &nbsp;
+1. &nbsp;
+2. &nbsp;
+3. &nbsp;
+4. &nbsp;

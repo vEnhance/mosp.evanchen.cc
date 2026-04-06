@@ -86,13 +86,13 @@ with an extra line of six characters.
 
 The next steps are as follows:
 
-1.  These lines arrange to form equations:
-    we substitute the four math symbols that appear with their operations,
-    interpreting ↔️ as equals and ❓ as an unknown.
-2.  As suggested by the earlier message about 🍎🐝🌘 being ABC,
-    the emojis canonically represent letters.
-3.  Using A=1, ..., Z=26, we can find the value of ❓ in each equation.
-4.  We convert that back into a letter.
+1. These lines arrange to form equations:
+   we substitute the four math symbols that appear with their operations,
+   interpreting ↔️ as equals and ❓ as an unknown.
+2. As suggested by the earlier message about 🍎🐝🌘 being ABC,
+   the emojis canonically represent letters.
+3. Using A=1, ..., Z=26, we can find the value of ❓ in each equation.
+4. We convert that back into a letter.
 
 The process is shown below
 
