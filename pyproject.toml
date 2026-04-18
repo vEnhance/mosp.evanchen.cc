@@ -23,8 +23,8 @@ ignore-words-list="GUD,Ans"
 dev = [
     "codespell>=2.4.2",
     "djlint>=1.36.4",
-    "prek>=0.3.4",
-    "ruff>=0.15.6",
-    "ty>=0.0.23",
+    "prek>=0.3.9",
+    "ruff>=0.15.11",
+    "ty>=0.0.31",
     "watchdog>=6.0.0",
 ]
